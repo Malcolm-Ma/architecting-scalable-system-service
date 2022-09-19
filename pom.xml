@@ -9,14 +9,11 @@
         <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.acs</groupId>
+    <groupId>com.acs.elearn</groupId>
     <artifactId>elearn</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>elearn</name>
     <description>elearn</description>
-    <properties>
-        <java.version>17</java.version>
-    </properties>
 
     <modules>
         <module>elearn-common</module>
@@ -25,33 +22,58 @@
         <module>elearn-web</module>
     </modules>
 
+    <properties>
+        <java.version>17</java.version>
+        <skipTests>true</skipTests>
+        <elearn-common.version>0.0.1-SNAPSHOT</elearn-common.version>
+        <elearn-dao.version>0.0.1-SNAPSHOT</elearn-dao.version>
+        <elearn-service.version>0.0.1-SNAPSHOT</elearn-service.version>
+        <elearn-web.version>0.0.1-SNAPSHOT</elearn-web.version>
+
+        <springfox-swagger.version>3.0.0</springfox-swagger.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
+            <!--ELearn common module-->
             <dependency>
-                <groupId>com.acs</groupId>
+                <groupId>com.acs.elearn</groupId>
                 <artifactId>elearn-common</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${elearn-common.version}</version>
             </dependency>
+            <!--ELearn dao module-->
             <dependency>
-                <groupId>com.acs</groupId>
+                <groupId>com.acs.elearn</groupId>
                 <artifactId>elearn-dao</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${elearn-dao.version}</version>
             </dependency>
+            <!--ELearn core service module-->
             <dependency>
-                <groupId>com.acs</groupId>
+                <groupId>com.acs.elearn</groupId>
                 <artifactId>elearn-service</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${elearn-service.version}</version>
             </dependency>
+            <!--ELearn web module-->
             <dependency>
-                <groupId>com.acs</groupId>
+                <groupId>com.acs.elearn</groupId>
                 <artifactId>elearn-web</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>${elearn-web.version}</version>
+            </dependency>
+
+            <!--Swagger-UI API doc production tool-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox-swagger.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
@@ -71,6 +93,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 

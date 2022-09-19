@@ -3,22 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.acs</groupId>
+        <groupId>com.acs.elearn</groupId>
         <artifactId>elearn</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>com.acs.elearn</groupId>
     <artifactId>elearn-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>elearn-common</name>
     <description>elearn-common</description>
-    <properties>
-        <java.version>17</java.version>
-    </properties>
+
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
