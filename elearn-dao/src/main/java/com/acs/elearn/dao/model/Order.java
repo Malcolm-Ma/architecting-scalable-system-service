@@ -2,6 +2,8 @@ package com.acs.elearn.dao.model;
 
 import com.acs.elearn.dao.dto.OrderDto;
 import com.sun.istack.NotNull;
+import lombok.Data;
+import org.apache.catalina.User;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@Data
 public class Order implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -33,6 +36,8 @@ public class Order implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "commodity_id")
     )
     private List<Commodity> commodityList;
+
+
 
     public float getTotalPrice() {
         return totalPrice;
