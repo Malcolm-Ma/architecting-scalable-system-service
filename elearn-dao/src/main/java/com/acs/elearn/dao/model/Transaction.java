@@ -15,7 +15,7 @@ public class Transaction {
     @Column(name = "transaction_id", nullable = false)
     private String transactionId;
 
-    //    TODO
+
     @ManyToOne
     @JoinColumn(name = "buyer_id", referencedColumnName = "user_id")
     private User buyer;
