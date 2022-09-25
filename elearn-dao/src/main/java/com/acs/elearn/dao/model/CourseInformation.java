@@ -38,11 +38,11 @@ public class CourseInformation implements Serializable {
     private LocalDateTime courseUpdateTime;
 
 
-    @OneToOne
-    @JoinTable(
-            name = "commodity",
-            joinColumns = @JoinColumn(name = "commodity_id")
-    )
-    private Commodity commodity_id;
+//    @OneToOne
+//    @JoinTable(
+//            name = "commodity",
+//            joinColumns = @JoinColumn(name = "commodity_id")
+//    )
+//    private Commodity commodity_id;
 
 }
