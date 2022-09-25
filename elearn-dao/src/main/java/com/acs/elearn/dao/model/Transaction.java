@@ -16,6 +16,25 @@ public class Transaction {
     private String transactionId;
 
     //    TODO
+    @ManyToOne
+    @JoinColumn(name = "buyer_id", referencedColumnName = "user_id")
+    private User buyer;
+
+    @ManyToOne
+    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
+    private User merchant;
+
+    @ManyToOne
+    @JoinColumn(name = "commodity_id")
+    private Commodity commodity;
+
+    @Column(name = "commodity_real_price", nullable = false, updatable = false)
+    private Integer commodityRealPrice;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
+//    private User user;
+
     @CreatedDate
     @Column(name = "transaction_time", nullable = false, updatable = false)
     private LocalDateTime transactionTime;

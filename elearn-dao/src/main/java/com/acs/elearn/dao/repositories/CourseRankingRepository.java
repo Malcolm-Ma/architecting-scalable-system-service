@@ -1,9 +1,8 @@
 package com.acs.elearn.dao.repositories;
 
-import com.acs.elearn.dao.model.Commodity;
-import com.acs.elearn.dao.model.CourseRanking;
+import com.acs.elearn.dao.model.CommodityRanking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CourseRankingRepository extends JpaRepository<CourseRanking, String> {
+public interface CourseRankingRepository extends JpaRepository<CommodityRanking, String> {
 }
 

@@ -17,7 +17,13 @@ public class UserActionTracing {
     @Column(name = "event_id", nullable = false)
     private String eventId;
 
-    // TODO
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "commodity_id")
+    private Commodity commodity;
 
     @CreatedDate
     @Column(name = "tracing_time", nullable = false, updatable = false)
