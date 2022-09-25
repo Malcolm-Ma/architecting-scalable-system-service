@@ -18,22 +18,22 @@ public class CommodityReviewRecord implements Serializable {
     @Column(name = "review_id", nullable = false)
     private String reviewId;
 
-    @Column(name = "commodity_id", nullable = false)
-    private String commodityId;
+    @ManyToOne
+    @JoinColumn(name = "commodity_id")
+    private Commodity commodity;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @CreatedDate
-    @Column(name = "review_create_time", nullable = false, updatable = false)
-    private LocalDateTime reviewCreateTime;
+    @Column(name = "commodity_review_create_time", nullable = false, updatable = false)
+    private LocalDateTime commodityReviewCreateTime;
 
-    @Column(name = "review_comment",columnDefinition="TEXT")
-    private String reviewComment;
+    @Column(name = "commodity_review_comment",columnDefinition="TEXT")
+    private String commodityReviewComment;
 
-    @Column(name = "review_decision", nullable = false)
-    private boolean reviewDecision;
-
-    public CommodityReviewRecord() {}
+    @Column(name = "commodity_review_decision", nullable = false)
+    private boolean commodityReviewDecision;
 
 }

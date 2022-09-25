@@ -16,7 +16,7 @@ public class CourseUserProgress {
     private String courseId;
 
     @ManyToOne
-    @JoinColumn(name = "course_user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "record_is_finished", nullable = false)

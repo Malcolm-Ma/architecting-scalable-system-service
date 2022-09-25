@@ -16,11 +16,11 @@ public class Quiz {
     private String QuizId;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_course", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private CourseInformation course;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_type", nullable = false)
+    @JoinColumn(name = "quiz_type_code", nullable = false)
     private QuizType quiz_type;
 
     @Column(name = "quiz_question_resource", nullable = false)

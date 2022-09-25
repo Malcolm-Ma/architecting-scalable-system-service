@@ -1,0 +1,35 @@
+package com.acs.elearn.dao.model;
+
+import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "reply_record")
+@Data
+public class ReplyRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "reply_id", nullable = false)
+    private String replyId;
+
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private TopicRecord topic;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column(name = "reply_content", nullable = false, columnDefinition="TEXT")
+    private String replyContent;
+
+    @Column(name = "reply_sequence", nullable = false)
+    private int replySequence;
+
+    @CreatedDate
+    @Column(name = "reply_time", nullable = false, updatable = false)
+    private LocalDateTime replyTime;
+}

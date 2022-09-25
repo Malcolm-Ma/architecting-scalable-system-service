@@ -17,7 +17,7 @@ public class User {
     private String userId;
 
     @ManyToOne
-    @JoinColumn(name = "user_role_id")
+    @JoinColumn(name = "role_id")
     private Role userRole;
 
     @ManyToMany
@@ -29,7 +29,7 @@ public class User {
     private List<Tag> tagList;
 
     @OneToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "cart_id")
     private ShoppingCart userShoppingCart;
 
     @Column(name = "user_username", nullable = false)
