@@ -30,10 +30,6 @@ public class Transaction {
 
     @Column(name = "commodity_real_price", nullable = false, updatable = false)
     private Integer commodityRealPrice;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
-//    private User user;
 
     @CreatedDate
     @Column(name = "transaction_time", nullable = false, updatable = false)

@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +26,7 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_name", nullable = false,length = 128)
     private String commodityName;
 
-    @Column(name = "commodity_introduction", nullable = false)
+    @Column(name = "commodity_introduction", nullable = false, columnDefinition="TEXT", length = 1000)
     private String commodityIntroduction;
 
     @Column(name = "commodity_star", nullable = false)
