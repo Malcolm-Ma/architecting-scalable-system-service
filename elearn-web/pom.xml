@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>com.acs.elearn</groupId>
+            <artifactId>elearn-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acs.elearn</groupId>
             <artifactId>elearn-service</artifactId>
         </dependency>
 
