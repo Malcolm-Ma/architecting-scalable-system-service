@@ -9,9 +9,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration
-@EnableSwagger2
-// TODO Using up-to-date config methods
+// Current deactivate old version config
+//@Configuration
+//@EnableSwagger2
 public class Swagger2UiConfiguration extends WebMvcConfigurerAdapter
 {
     @Bean
