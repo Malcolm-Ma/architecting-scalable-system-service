@@ -45,14 +45,14 @@ public class User {
     private String userLastname;
 
     @CreatedDate
-    @Column(name = "user_created_timestamp", nullable = false, updatable = false)
-    private LocalDateTime userCreatedTimestamp;
+    @Column(name = "user_created_time", nullable = false, updatable = false)
+    private LocalDateTime userCreatedTime;
 
-    @Column(name = "user_email_verified", nullable = false)
-    private int userEmailVerified;
+    @Column(name = "user_email_verified", nullable = false, columnDefinition = "TINYINT(1)")
+    private Boolean userEmailVerified;
 
-    @Column(name = "user_enabled", nullable = false)
-    private int userEnabled;
+    @Column(name = "user_enabled", nullable = false, columnDefinition = "TINYINT(1)")
+    private Boolean userEnabled;
 
     @Column(name = "user_email")
     private String userEmail;
@@ -63,7 +63,9 @@ public class User {
     @Column(name = "user_contact")
     private String userContact;
 
-    @Column(name = "user_introduction")
+
+    @Lob
+    @Column(name = "user_introduction",columnDefinition="TEXT")
     private String userIntroduction;
 
     @Column(name = "user_merchant_level")
