@@ -26,7 +26,8 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_name", nullable = false,length = 128)
     private String commodityName;
 
-    @Column(name = "commodity_introduction", nullable = false, columnDefinition="TEXT", length = 1000)
+    @Lob
+    @Column(name = "commodity_introduction", nullable = false, columnDefinition="TEXT")
     private String commodityIntroduction;
 
     @Column(name = "commodity_star", nullable = false)
@@ -39,10 +40,14 @@ public class Commodity implements Serializable {
     private Double commodityDiscount;
 
     @Column(name = "commodity_sold_cnt", nullable = false)
-    private BigInteger commoditySoldCnt;
+    private Integer commoditySoldCnt;
 
     @Column(name = "commodity_status", nullable = false)
     private Integer commodityStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
+    private User merchant;
 
     @CreatedDate
     @Column(name= "commodity_create_time", nullable = false, updatable = false)
