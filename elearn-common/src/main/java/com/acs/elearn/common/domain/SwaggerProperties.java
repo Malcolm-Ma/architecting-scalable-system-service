@@ -3,6 +3,9 @@ package com.acs.elearn.common.domain;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import springfox.documentation.RequestHandler;
+
+import java.util.function.Predicate;
 
 /**
  * Swagger custom properties
@@ -14,9 +17,9 @@ import lombok.EqualsAndHashCode;
 public class SwaggerProperties {
 
     /**
-     * API doc base generating url
+     * API doc base generating packages
      */
-    private String apiBasePackage;
+    private Predicate<RequestHandler> selectors;
 
     /**
      * doc title
