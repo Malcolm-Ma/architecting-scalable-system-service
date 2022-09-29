@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ReplyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "reply_id", nullable = false)
+    @Column(name = "reply_id", nullable = false, length = 32)
     private String replyId;
 
     @ManyToOne

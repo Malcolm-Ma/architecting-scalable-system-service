@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class ReviewInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "review_id", nullable = false)
+    @Column(name = "review_id", nullable = false, length = 32)
     private String reviewId;
 
     @Column(name = "commodity_id", nullable = false)

@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 @Data
 public class CourseInformation implements Serializable {
 
-    // 之后需要查一下形式strategy = GenerationType.AUTO
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "course_id", nullable = false)
+    @Column(name = "course_id", nullable = false, length = 32)
     private String courseId;
 
     @Column(name = "course_name", length = 64)

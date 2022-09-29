@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "tag_id", nullable = false)
     private String tagId;
 

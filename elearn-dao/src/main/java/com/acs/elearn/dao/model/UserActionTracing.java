@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 public class UserActionTracing {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "event_id", nullable = false)
-    private String eventId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "event_id", nullable = false )
+    private Integer eventId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

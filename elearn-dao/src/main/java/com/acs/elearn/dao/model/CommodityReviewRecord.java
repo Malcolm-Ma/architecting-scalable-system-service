@@ -15,7 +15,7 @@ import java.util.Date;
 public class CommodityReviewRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "review_id", nullable = false)
+    @Column(name = "review_id", nullable = false, length = 32)
     private String reviewId;
 
     @ManyToOne

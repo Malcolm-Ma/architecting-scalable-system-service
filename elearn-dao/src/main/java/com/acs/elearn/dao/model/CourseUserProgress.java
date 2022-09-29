@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class CourseUserProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "course_id", nullable = false)
+    @Column(name = "course_id", nullable = false, length = 32)
     private String courseId;
 
     @ManyToOne

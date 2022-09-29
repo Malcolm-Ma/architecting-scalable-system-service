@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "quiz_id", nullable = false)
+    @Column(name = "quiz_id", nullable = false, length = 32)
     private String QuizId;
 
     @ManyToOne

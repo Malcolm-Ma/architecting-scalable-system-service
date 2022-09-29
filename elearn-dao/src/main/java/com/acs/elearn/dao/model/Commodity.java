@@ -20,7 +20,7 @@ public class Commodity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "commodity_id", nullable = false)
+    @Column(name = "commodity_id", nullable = false, length = 32)
     private String commodityId;
 
     @Column(name = "commodity_name", nullable = false,length = 128)
@@ -56,41 +56,5 @@ public class Commodity implements Serializable {
     @LastModifiedDate
     @Column(name = "commodity_update_time")
     private LocalDateTime commodityUpdateTime;
-
-
-//    @ManyToMany(mappedBy = "commodityList")
-//    private List<Order> allOrders;
-//
-//    private String name;
-//
-//    private float price;
-//
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public float getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(float price) {
-//        this.price = price;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
-//    public Commodity() {}
-//
-//    public Commodity(CommodityDto dto) {
-//        this.price = dto.getPrice();
-//        this.name = dto.getName();
-//    }
 
 }
