@@ -34,9 +34,9 @@ public class OrderService {
 
         // 正常来说totalPrice是直接从购物车里获取的，这里我是简单暴力地把所有商品的price相加
         float totalPrice = 0.0f;
-        for(Commodity product: selectedProducts) {
-            totalPrice += product.getPrice();
-        }
+//        for(Commodity product: selectedProducts) {
+//            totalPrice += product.getPrice();
+//        }
 
         // 创建新的Order
         OrderDto orderDto = new OrderDto(totalPrice);
