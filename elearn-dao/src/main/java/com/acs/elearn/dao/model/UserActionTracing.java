@@ -15,7 +15,7 @@ public class UserActionTracing {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "event_id", nullable = false )
-    private Integer eventId;
+    private Long eventId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
