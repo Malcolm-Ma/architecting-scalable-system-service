@@ -1,11 +1,8 @@
 package com.acs.elearn.dao.model;
 
-import com.acs.elearn.dao.dto.CommodityDto;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -62,12 +59,5 @@ public class Commodity implements Serializable {
     @LastModifiedDate
     @Column(name = "commodity_update_time")
     private LocalDateTime commodityUpdateTime;
-
-//    public Commodity() {}
-//
-//    public Commodity(CommodityDto dto) {
-//        this.price = dto.getPrice();
-//        this.name = dto.getName();
-//    }
 
 }

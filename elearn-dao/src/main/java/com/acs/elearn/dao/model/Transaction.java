@@ -13,7 +13,7 @@ import java.util.List;
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "transaction_id", nullable = false)
+    @Column(name = "transaction_id", nullable = false, length = 32)
     private String transactionId;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class Transaction {
     private List<Commodity> commodityList;
 
     @Column(name = "commodity_real_price", nullable = false, updatable = false)
-    private Integer commodityRealPrice;
+    private Double commodityRealPrice;
 
     @CreatedDate
     @Column(name = "transaction_time", nullable = false, updatable = false)

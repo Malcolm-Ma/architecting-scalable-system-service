@@ -11,19 +11,19 @@ import java.util.List;
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "cart_id", nullable = false)
+    @Column(name = "cart_id", nullable = false, length = 32)
     private String cartId;
 
     @OneToOne(mappedBy = "userShoppingCart")
     private User user;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "cart_id_commodity",
-//            joinColumns = @JoinColumn(name = "cart_id"),
-//            inverseJoinColumns = @JoinColumn(name = "cart_commodity")
-//    )
-//    private List<Commodity> cartCommodity;
+    @ManyToMany
+    @JoinTable(
+            name = "cart_id_commodity",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "cart_commodity")
+    )
+    private List<Commodity> cartCommodity;
 
     @Column(name = "cart_item_quantity", nullable = false)
     private int cartItemQuantity;

@@ -1,13 +1,11 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "commodity_review_record")
@@ -15,7 +13,7 @@ import java.util.Date;
 public class CommodityReviewRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "review_id", nullable = false)
+    @Column(name = "review_id", nullable = false, length = 32)
     private String reviewId;
 
     @ManyToOne

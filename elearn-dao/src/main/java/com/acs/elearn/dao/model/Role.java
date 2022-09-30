@@ -12,9 +12,9 @@ import java.util.List;
 @Data
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "role_id", nullable = false)
-    private int roleId;
+    private Long roleId;
 
     @Column(name = "role_name", nullable = false)
     private String roleName;

@@ -13,7 +13,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false, length = 32)
     private String userId;
 
     @ManyToOne
