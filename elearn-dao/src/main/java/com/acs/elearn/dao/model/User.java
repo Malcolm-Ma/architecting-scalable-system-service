@@ -20,6 +20,9 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role userRole;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserActionTracing> userActionTracingList;
+
     @ManyToMany
     @JoinTable(
             name = "user_id_hobby",

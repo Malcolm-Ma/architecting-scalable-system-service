@@ -1,11 +1,8 @@
 package com.acs.elearn.dao.model;
 
-import com.acs.elearn.dao.dto.CommodityDto;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,8 +17,18 @@ public class Commodity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "commodity_id", nullable = false, length = 32)
+    @Column(name = "commodity_id", nullable = false)
     private String commodityId;
+
+    @ManyToOne
+    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
+    private User merchant;
+
+    @OneToMany(mappedBy = "commodity")
+    private List<UserActionTracing> userActionTracingList;
+
+    @ManyToMany(mappedBy = "commodityList")
+    private List<Transaction> transactionList;
 
     @Column(name = "commodity_name", nullable = false,length = 128)
     private String commodityName;
@@ -44,10 +51,6 @@ public class Commodity implements Serializable {
 
     @Column(name = "commodity_status", nullable = false)
     private Integer commodityStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
-    private User merchant;
 
     @CreatedDate
     @Column(name= "commodity_create_time", nullable = false, updatable = false)
