@@ -23,6 +23,16 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_id", nullable = false)
     private String commodityId;
 
+    @ManyToOne
+    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
+    private User merchant;
+
+    @OneToMany(mappedBy = "commodity")
+    private List<UserActionTracing> userActionTracingList;
+
+    @ManyToMany(mappedBy = "commodityList")
+    private List<Transaction> transactionList;
+
     @Column(name = "commodity_name", nullable = false,length = 128)
     private String commodityName;
 
@@ -45,10 +55,6 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_status", nullable = false)
     private Integer commodityStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
-    private User merchant;
-
     @CreatedDate
     @Column(name= "commodity_create_time", nullable = false, updatable = false)
     private LocalDateTime commodityCreateTime;
@@ -57,35 +63,6 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_update_time")
     private LocalDateTime commodityUpdateTime;
 
-
-//    @ManyToMany(mappedBy = "commodityList")
-//    private List<Order> allOrders;
-//
-//    private String name;
-//
-//    private float price;
-//
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public float getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(float price) {
-//        this.price = price;
-//    }
-//
-//    public String getId() {
-//        return id;
-//    }
-//
 //    public Commodity() {}
 //
 //    public Commodity(CommodityDto dto) {

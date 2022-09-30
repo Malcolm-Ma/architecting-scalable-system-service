@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "transaction")
@@ -15,7 +16,6 @@ public class Transaction {
     @Column(name = "transaction_id", nullable = false)
     private String transactionId;
 
-
     @ManyToOne
     @JoinColumn(name = "buyer_id", referencedColumnName = "user_id")
     private User buyer;
@@ -24,9 +24,13 @@ public class Transaction {
     @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
     private User merchant;
 
-    @ManyToOne
-    @JoinColumn(name = "commodity_id")
-    private Commodity commodity;
+    @ManyToMany
+    @JoinTable(
+            name = "transaction_commodity",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "commodity_id")
+    )
+    private List<Commodity> commodityList;
 
     @Column(name = "commodity_real_price", nullable = false, updatable = false)
     private Integer commodityRealPrice;
