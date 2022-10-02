@@ -21,14 +21,23 @@ public class Commodity implements Serializable {
     private String commodityId;
 
     @ManyToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
-    private User merchant;
+    @JoinColumn(name = "published_by", referencedColumnName = "user_id")
+    private User publishedBy;
 
     @OneToMany(mappedBy = "commodity")
     private List<UserActionTracing> userActionTracingList;
 
+    @OneToMany(mappedBy = "commodity")
+    private List<CourseInformation> courseList;
+
+    @OneToMany(mappedBy = "commodity")
+    private List<CommodityReviewRecord> commodityReviewRecordList;
+
     @ManyToMany(mappedBy = "commodityList")
     private List<Transaction> transactionList;
+
+    @ManyToMany(mappedBy = "cartCommodity")
+    private List<ShoppingCart> shoppingCartList;
 
     @Column(name = "commodity_name", nullable = false,length = 128)
     private String commodityName;

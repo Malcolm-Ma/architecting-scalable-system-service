@@ -17,12 +17,8 @@ public class Transaction {
     private String transactionId;
 
     @ManyToOne
-    @JoinColumn(name = "buyer_id", referencedColumnName = "user_id")
-    private User buyer;
-
-    @ManyToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "user_id")
-    private User merchant;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
 
     @ManyToMany
     @JoinTable(

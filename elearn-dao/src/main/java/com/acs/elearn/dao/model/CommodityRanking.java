@@ -30,4 +30,4 @@ public class CommodityRanking {
     @JoinColumn( name = "commodity_id")
     private Commodity commodity;
 
-    }
+}
