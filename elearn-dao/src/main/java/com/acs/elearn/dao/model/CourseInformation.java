@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "course_information")
@@ -17,6 +18,16 @@ public class CourseInformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "course_id", nullable = false, length = 32)
     private String courseId;
+
+    @ManyToOne
+    @JoinColumn(name = "commodity_id")
+    private Commodity commodity;
+
+    @OneToMany(mappedBy = "course")
+    private List<Quiz> quizList;
+
+    @OneToMany(mappedBy = "course")
+    private List<CourseUserProgress> courseProgresses;
 
     @Column(name = "course_name", length = 64)
     private String courseName;
@@ -35,9 +46,5 @@ public class CourseInformation implements Serializable {
     @LastModifiedDate
     @Column(name = "course_update_time")
     private LocalDateTime courseUpdateTime;
-
-    @ManyToOne
-    @JoinColumn(name = "commodity_id")
-    private Commodity commodity;
 
 }

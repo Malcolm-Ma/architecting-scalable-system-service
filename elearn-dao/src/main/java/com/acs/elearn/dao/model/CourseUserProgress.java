@@ -1,5 +1,6 @@
 package com.acs.elearn.dao.model;
 
+import com.acs.elearn.dao.compositekeys.CourseProgressKey;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -10,14 +11,18 @@ import java.time.LocalDateTime;
 @Table(name = "course_user_progress")
 @Data
 public class CourseUserProgress {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "course_id", nullable = false, length = 32)
-    private String courseId;
+    @EmbeddedId
+    private CourseProgressKey id;
 
     @ManyToOne
+    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @MapsId("courseId")
+    @JoinColumn(name = "course_id")
+    private CourseInformation course;
 
     @Column(name = "record_is_finished", nullable = false)
     private int recordIsFinished;

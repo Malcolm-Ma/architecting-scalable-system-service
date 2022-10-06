@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "topic_record")
@@ -15,6 +16,9 @@ public class TopicRecord {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "topic_id", nullable = false)
     private String topicId;
+
+    @OneToMany(mappedBy = "topic")
+    private List<ReplyRecord> replyRecordList;
 
     @Column(name = "topic_content", length = 64)
     private String topicContent;
