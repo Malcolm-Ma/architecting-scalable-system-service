@@ -12,9 +12,10 @@ def mock_commodity_data(lines_num):
             'commodity_status', 'commodity_update_time']
     data = []
     for i in range(lines_num):
+        dt=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # mock process
         commodity_id = fake.uuid4()
-        create_time = datetime.datetime.now()
+        create_time = dt
         commodity_discount = round(0.1 * (random.randrange(0, 10, 1)), 2)
         commodity_introduction = fake.paragraph(nb_sentences=500,
                                                 variable_nb_sentences=True,
@@ -24,7 +25,7 @@ def mock_commodity_data(lines_num):
         commodity_sold_cnt = int(random.randrange(1, 2000, 1))
         commodity_star = random.randrange(1, 4, 1) + 0.1 * random.randrange(0, 10, 1)
         commodity_status = 1
-        commodity_update_time = datetime.datetime.now()
+        commodity_update_time = dt
         # put in data
         data_element = [commodity_id, create_time, commodity_discount, commodity_introduction, commodity_name,
                         commodity_price, commodity_sold_cnt, commodity_star, commodity_status, commodity_update_time]
@@ -90,7 +91,7 @@ def write_db(df, db_name):
 
 
 if __name__ == '__main__':
-    commodity = mock_commodity_data(2000)
+    commodity = mock_commodity_data(200)
     write_db(commodity, 'commodity')
-    haha = mock_user_data(2000)
-    write_db(haha, 'user')
+    # haha = mock_user_data(2000)
+    # write_db(haha, 'user')
