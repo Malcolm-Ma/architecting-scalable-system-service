@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
  * @author Mingze Ma
  */
+@EnableElasticsearchRepositories(basePackages = "com.acs.elearn.search.domain.repository")
 @Configuration
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     @Value("${elasticsearch.host}")
@@ -34,6 +36,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
                 .connectedTo(host + ":" + port)
+                .usingSsl()
                 .withConnectTimeout(connTimeout)
                 .withSocketTimeout(socketTimeout)
                 .build();

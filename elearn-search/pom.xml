@@ -17,14 +17,13 @@
     </properties>
 
     <dependencies>
-        <!--Elasticsearch-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.acs.elearn</groupId>
             <artifactId>elearn-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acs.elearn</groupId>
+            <artifactId>elearn-dao</artifactId>
         </dependency>
     </dependencies>
 
