@@ -50,7 +50,7 @@ public class Commodity implements Serializable {
     private String commodityIntroduction;
 
     @Column(name = "commodity_star", nullable = false)
-    private BigInteger commodityStar;
+    private Double commodityStar;
 
     @Column(name = "commodity_price", nullable = false)
     private Double commodityPrice;
