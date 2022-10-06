@@ -9,6 +9,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type",
+    discriminatorType = DiscriminatorType.INTEGER)
 @Data
 public class User {
     @Id
@@ -19,6 +22,21 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role userRole;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserActionTracing> userActionTracingList;
+
+    @OneToMany(mappedBy = "user")
+    private List<ReplyRecord> replyRecordList;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactionList;
+
+    @OneToMany(mappedBy = "user")
+    private List<CourseUserProgress> courseProgresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<CommodityReviewRecord> commodityReviewRecordList;
 
     @ManyToMany
     @JoinTable(
@@ -63,14 +81,8 @@ public class User {
     @Column(name = "user_contact")
     private String userContact;
 
-
     @Lob
     @Column(name = "user_introduction",columnDefinition="TEXT")
     private String userIntroduction;
 
-    @Column(name = "user_merchant_level")
-    private int userMerchantLevel;
-
-    @Column(name = "user_consumer_level")
-    private int userConsumerLevel;
 }

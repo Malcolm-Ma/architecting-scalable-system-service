@@ -1,13 +1,11 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "commodity_review_record")
