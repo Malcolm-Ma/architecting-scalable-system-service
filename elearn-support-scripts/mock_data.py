@@ -17,12 +17,12 @@ def mock_commodity_data(lines_num):
         commodity_id = fake.uuid4()
         create_time = dt
         commodity_discount = round(0.1 * (random.randrange(0, 10, 1)), 2)
-        commodity_introduction = fake.paragraph(nb_sentences=500,
+        commodity_introduction = fake.paragraph(nb_sentences=50,
                                                 variable_nb_sentences=True,
                                                 ext_word_list=None)
         commodity_name = fake.sentence()
-        commodity_price = (random.randrange(100, 1000, 50))
-        commodity_sold_cnt = int(random.randrange(1, 2000, 1))
+        commodity_price = (random.randrange(50, 1000, 50))
+        commodity_sold_cnt = int(random.randrange(0, 2000, 1))
         commodity_star = random.randrange(1, 4, 1) + 0.1 * random.randrange(0, 10, 1)
         commodity_status = 1
         commodity_update_time = dt

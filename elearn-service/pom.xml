@@ -17,6 +17,10 @@
             <groupId>com.acs.elearn</groupId>
             <artifactId>elearn-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.acs.elearn</groupId>
+            <artifactId>elearn-search</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
