@@ -5,7 +5,6 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "review_information")
 @Data
