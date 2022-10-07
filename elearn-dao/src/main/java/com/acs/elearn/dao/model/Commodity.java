@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -66,10 +67,10 @@ public class Commodity implements Serializable {
 
     @CreatedDate
     @Column(name= "commodity_create_time", nullable = false, updatable = false)
-    private LocalDateTime commodityCreateTime;
+    private Date commodityCreateTime;
 
     @LastModifiedDate
     @Column(name = "commodity_update_time")
-    private LocalDateTime commodityUpdateTime;
+    private Date commodityUpdateTime;
 
 }
