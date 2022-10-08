@@ -34,4 +34,7 @@ public class CommodityReviewRecord implements Serializable {
     @Column(name = "commodity_review_decision", nullable = false)
     private boolean commodityReviewDecision;
 
+    @Column(name = "review_star", nullable = false)
+    private Double reviewStar;
+
 }
