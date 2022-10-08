@@ -2,15 +2,21 @@ package com.acs.elearn.service;
 
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.User;
+import com.acs.elearn.dao.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 public interface UserService {
-    public User getUserInfo(String userId);
 
-    public List<Commodity> getUserPurchasedCommodity(String userId);
 
-    public List<Commodity> getMerchantCommodity(String userId);
+    User getUserInfo(String userId);
 
-    public User editUserInfo(User user);
+    List<Commodity> getUserPurchasedCommodity(String userId);
+
+    List<Commodity> getMerchantCommodity(String userId);
+    User editUserInfo(User user);
 }
