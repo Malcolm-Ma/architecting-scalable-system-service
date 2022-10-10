@@ -18,5 +18,7 @@ public interface UserService {
     List<Commodity> getUserPurchasedCommodity(String userId);
 
     List<Commodity> getMerchantCommodity(String userId);
-    User editUserInfo(User user);
+    String updateUserInfo(User user);
+
+    String addUserInfo(User user);
 }

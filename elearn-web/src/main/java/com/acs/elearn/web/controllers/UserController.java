@@ -20,9 +20,20 @@ public class UserController {
 //        return bookService.addBook(name);
 //    }
 
-    @GetMapping(path="/get_user_info")
+    @GetMapping(path="/get")
     @ResponseBody User getUserInfo(@RequestParam String userId) {
         // This returns a JSON or XML with the users
         return userService.getUserInfo(userId);
+    }
+
+    @PostMapping(path="/update")
+    @ResponseBody String updateUserInfo(@RequestBody User user) {
+        return userService.updateUserInfo(user);
+    }
+
+    @PostMapping(path="/add")
+    @ResponseBody
+    String addUserInfo(@RequestBody User user) {
+        return userService.addUserInfo(user);
     }
 }
