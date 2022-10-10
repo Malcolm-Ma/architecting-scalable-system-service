@@ -1,4 +1,4 @@
-package com.acs.elearn.dao.response;
+package com.acs.elearn.common.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
