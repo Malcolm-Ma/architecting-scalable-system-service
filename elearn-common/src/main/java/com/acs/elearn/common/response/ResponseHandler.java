@@ -1,5 +1,6 @@
 package com.acs.elearn.common.response;
 
+import com.acs.elearn.common.response.model.ResponseModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -7,12 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResponseHandler {
-    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, Object responseObj) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("message", message);
-        map.put("status", status.value());
-        map.put("data", responseObj);
+    public static <T> ResponseEntity<ResponseModel<T>>
+    generateResponse(String message, HttpStatus status, T responseObj) {
 
-        return new ResponseEntity<Object>(map,status);
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("message", message);
+//        map.put("status", status.value());
+//        map.put("data", responseObj);
+
+        ResponseModel<T> responseData = new ResponseModel<T>(message, status.value(), responseObj);
+
+        return new ResponseEntity<ResponseModel<T>>(responseData,status);
     }
 }
