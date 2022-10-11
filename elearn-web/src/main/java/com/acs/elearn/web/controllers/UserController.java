@@ -1,6 +1,7 @@
 package com.acs.elearn.web.controllers;
 
 import com.acs.elearn.common.response.ResponseHandler;
+import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.service.impl.UserServiceImpl;
@@ -35,7 +36,7 @@ public class UserController {
 
     @PostMapping(path = "/update")
     @ResponseBody
-    ResponseEntity<Object> updateUserInfo(@RequestBody User user) {
+    ResponseEntity<ResponseModel<String>> updateUserInfo(@RequestBody User user) {
         String res = userService.updateUserInfo(user);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
 
@@ -43,21 +44,21 @@ public class UserController {
 
     @PostMapping(path = "/add")
     @ResponseBody
-    ResponseEntity<Object> addUserInfo(@RequestBody User user) {
+    ResponseEntity<ResponseModel<String>> addUserInfo(@RequestBody User user) {
         String res = userService.addUserInfo(user);
         return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
     }
 
     @PostMapping(path = "/delete")
     @ResponseBody
-    ResponseEntity<Object> deleteUser(@RequestParam String userId) {
+    ResponseEntity<ResponseModel<String>> deleteUser(@RequestParam String userId) {
         String res = userService.deleteUser(userId);
         return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
     }
 
     @GetMapping(path = "/get_buyer_commodity")
     @ResponseBody
-    ResponseEntity<Object> getUserPurchasedCommodity(@RequestParam String userId) {
+    ResponseEntity<ResponseModel<List<Commodity>>> getUserPurchasedCommodity(@RequestParam String userId) {
         // This returns a JSON or XML with the users
         List<Commodity> res = userService.getUserPurchasedCommodity(userId);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
@@ -65,7 +66,7 @@ public class UserController {
 
     @GetMapping(path = "/get_merchant_commodity")
     @ResponseBody
-    ResponseEntity<Object> getMerchantCommodity(@RequestParam String userId) {
+    ResponseEntity<ResponseModel<List<Commodity>>> getMerchantCommodity(@RequestParam String userId) {
         List<Commodity> res = userService.getMerchantCommodity(userId);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
