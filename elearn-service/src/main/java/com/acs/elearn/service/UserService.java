@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface UserService {
 
-
     User getUserInfo(String userId);
 
     List<Commodity> getUserPurchasedCommodity(String userId);
@@ -21,4 +20,6 @@ public interface UserService {
     String updateUserInfo(User user);
 
     String addUserInfo(User user);
+
+    String deleteUser(String userId);
 }

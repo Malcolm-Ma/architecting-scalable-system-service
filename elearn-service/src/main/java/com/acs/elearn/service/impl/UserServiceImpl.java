@@ -2,8 +2,13 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.dao.model.Buyer;
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.Merchant;
 import com.acs.elearn.dao.model.User;
+import com.acs.elearn.dao.repositories.BuyerRepository;
+import com.acs.elearn.dao.repositories.MerchantRepository;
+import com.acs.elearn.dao.repositories.TransactionRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
 import org.apache.http.util.Asserts;
@@ -22,7 +27,12 @@ public class UserServiceImpl implements UserService {
     final
     UserRepository userRepository;
 
+    BuyerRepository buyerRepository;
+
+    MerchantRepository merchantRepository;
+
     public UserServiceImpl(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
@@ -39,7 +49,6 @@ public class UserServiceImpl implements UserService {
         if (curUser == null) {
             BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
             userRepository.save(curUser);
-//        userRepository.save(user);
             return "Add successfully";
 //        } catch(Exception e){
 //            Asserts.fail(e.getMessage());
@@ -67,15 +76,22 @@ public class UserServiceImpl implements UserService {
 //            return null;
 //        }
     }
+    @Override
+    public String deleteUser(String userId) {
+        userRepository.deleteById(userId);
+        return "Delete successfully";
+    }
 
     @Override
     public List<Commodity> getUserPurchasedCommodity(String userId) {
-        return null;
+        Buyer curBuyer = buyerRepository.findBuyerByUserId(userId);
+        return curBuyer.getPurchasedCommodities();
     }
 
     @Override
     public List<Commodity> getMerchantCommodity(String userId) {
-        return null;
+        Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
+        return curMerchant.getPublishedCommodities();
     }
 
 

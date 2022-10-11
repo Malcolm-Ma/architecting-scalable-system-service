@@ -11,5 +11,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
     User findUserByUserId(String userId);
 
+    User deleteById(String userId);
+
+
 
 }
