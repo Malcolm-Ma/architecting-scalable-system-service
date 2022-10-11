@@ -24,21 +24,13 @@ import static org.apache.http.util.Asserts.*;
 @Service
 public class UserServiceImpl implements UserService {
 
-    final
     UserRepository userRepository;
-
     BuyerRepository buyerRepository;
-
     MerchantRepository merchantRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-
-        this.userRepository = userRepository;
-    }
 
     @Override
     public User getUserInfo(String userId) {
-
         return userRepository.findUserByUserId(userId);
     }
 
@@ -54,9 +46,8 @@ public class UserServiceImpl implements UserService {
 //            Asserts.fail(e.getMessage());
 //            return null;
 //        }
-        }
-        else {
-        return "failed";
+        } else {
+            return "failed";
         }
     }
 
@@ -65,21 +56,28 @@ public class UserServiceImpl implements UserService {
 //        try {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
-            return null;
+            return "User Not existed before, please check the information";
         }
         BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
         userRepository.save(curUser);
-//        userRepository.save(user);
         return "Add successfully";
 //        } catch(Exception e){
 //            Asserts.fail(e.getMessage());
 //            return null;
 //        }
     }
+
     @Override
     public String deleteUser(String userId) {
-        userRepository.deleteById(userId);
-        return "Delete successfully";
+        User curUser = userRepository.findUserByUserId(userId);
+        // try catch 去写
+        if (curUser == null) {
+            return "User Not existed before, please check the information";
+        }
+        else {
+            userRepository.deleteById(userId);
+            return "Delete successfully";
+        }
     }
 
     @Override
@@ -93,8 +91,6 @@ public class UserServiceImpl implements UserService {
         Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
         return curMerchant.getPublishedCommodities();
     }
-
-
 
 
 }

@@ -17,7 +17,6 @@ public class UserController {
     @Autowired // This means to get the bean called userService
     UserServiceImpl userService;
 
-
     @GetMapping(path = "/get")
     @ResponseBody
 //         @ResponseBody means the returned String is the response, not a view name
@@ -61,4 +60,5 @@ public class UserController {
         List<Commodity> res = userService.getMerchantCommodity(userId);
         return (List<Commodity>) ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
+    // e.message,
 }
