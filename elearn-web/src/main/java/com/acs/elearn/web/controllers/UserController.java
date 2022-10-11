@@ -29,6 +29,7 @@ public class UserController {
 //         @RequestParam means it is a parameter from the GET or POST request
     User getUserInfo(@RequestParam String userId) {
         // This returns a JSON or XML with the users
+
         return userService.getUserInfo(userId);
     }
 

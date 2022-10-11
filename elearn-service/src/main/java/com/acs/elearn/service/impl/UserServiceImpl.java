@@ -14,6 +14,7 @@ import com.acs.elearn.service.UserService;
 import org.apache.http.util.Asserts;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
             BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
             userRepository.save(curUser);
             return "Add successfully";
-//        } catch(Exception e){
+//        } catch(ChangeSetPersister.NotFoundException){
 //            Asserts.fail(e.getMessage());
 //            return null;
 //        }
