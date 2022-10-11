@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CommodityRepository extends JpaRepository<Commodity, String> {
-    public List<Commodity> findByCommodityName(String keyWord);
+    List<Commodity> findByCommodityName(String keyWord);
+    Commodity findCommodityByCommodityId(String commodityId);
 }

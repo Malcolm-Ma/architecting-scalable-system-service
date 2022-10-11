@@ -1,13 +1,16 @@
 package com.acs.elearn.service;
 
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.ShoppingCart;
 
 import java.util.List;
 
 public interface CartService {
-    List<Commodity> displayCart(String cartId);
+    ShoppingCart displayCart(String userId);
 
-    List<Commodity> addCommodityToCart(String commodityId, String cartId);
+    String addCommodityToCart(String commodityId, String userId);
+
+    String deleteCommodityFromCart(String commodityId, String cartId);
 
 
 }

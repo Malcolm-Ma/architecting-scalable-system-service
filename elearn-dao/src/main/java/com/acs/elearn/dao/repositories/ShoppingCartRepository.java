@@ -10,4 +10,5 @@ import java.util.List;
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, String> {
     @Override
     List<ShoppingCart> findAllById(Iterable<String> strings);
+    ShoppingCart findShoppingCartByCartId(String CartId);
 }

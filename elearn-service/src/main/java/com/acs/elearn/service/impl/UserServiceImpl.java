@@ -24,8 +24,11 @@ import static org.apache.http.util.Asserts.*;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     UserRepository userRepository;
+    @Autowired
     BuyerRepository buyerRepository;
+    @Autowired
     MerchantRepository merchantRepository;
 
 

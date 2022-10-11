@@ -14,8 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/user")
 public class UserController {
-    @Autowired // This means to get the bean called userService
+
+    final
     UserServiceImpl userService;
+
+    public UserController(UserServiceImpl userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping(path = "/get")
     @ResponseBody
@@ -28,8 +34,10 @@ public class UserController {
 
     @PostMapping(path = "/update")
     @ResponseBody
-    String updateUserInfo(@RequestBody User user) {
-        return userService.updateUserInfo(user);
+    ResponseEntity<Object> updateUserInfo(@RequestBody User user) {
+        String res = userService.updateUserInfo(user);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+
     }
 
     @PostMapping(path = "/add")
@@ -48,17 +56,17 @@ public class UserController {
 
     @GetMapping(path = "/get_buyer_commodity")
     @ResponseBody
-    List<Commodity> getUserPurchasedCommodity(@RequestParam String userId) {
+    ResponseEntity<Object> getUserPurchasedCommodity(@RequestParam String userId) {
         // This returns a JSON or XML with the users
         List<Commodity> res = userService.getUserPurchasedCommodity(userId);
-        return (List<Commodity>) ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @GetMapping(path = "/get_merchant_commodity")
     @ResponseBody
-    List<Commodity> getMerchantCommodity(@RequestParam String userId) {
+    ResponseEntity<Object> getMerchantCommodity(@RequestParam String userId) {
         List<Commodity> res = userService.getMerchantCommodity(userId);
-        return (List<Commodity>) ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
     // e.message,
 }
