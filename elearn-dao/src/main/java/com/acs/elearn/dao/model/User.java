@@ -53,13 +53,13 @@ public class User {
     @Column(name = "user_username", nullable = false)
     private String userUsername;
 
-    @Column(name = "user_age", nullable = false)
+    @Column(name = "user_age")
     private int userAge;
 
-    @Column(name = "user_firstname", nullable = false)
+    @Column(name = "user_firstname")
     private String userFirstname;
 
-    @Column(name = "user_lastname", nullable = false)
+    @Column(name = "user_lastname")
     private String userLastname;
 
     @CreatedDate
