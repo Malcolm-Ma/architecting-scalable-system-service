@@ -14,8 +14,7 @@ import java.util.List;
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class) // date
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.INTEGER
-)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.INTEGER )
 //@DiscriminatorValue("Buyer")
 @Data
 public class User {
