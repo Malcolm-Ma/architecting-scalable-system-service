@@ -68,26 +68,27 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/get_buyer_commodity")
-    @ResponseBody
-    ResponseEntity<ResponseModel<List<Commodity>>> getUserPurchasedCommodity(@RequestParam String userId) {
-        // This returns a JSON or XML with the users
-        try {
-            List<Commodity> res = userService.getUserPurchasedCommodity(userId);
-            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-        }
-    }
-
-    @GetMapping(path = "/get_merchant_commodity")
-    @ResponseBody
-    ResponseEntity<ResponseModel<List<Commodity>>> getMerchantCommodity(@RequestParam String userId) {
-        try {
-            List<Commodity> res = userService.getMerchantCommodity(userId);
-            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-        }
-    }
+    // TODO Change Buyer and Merchant to User
+//    @GetMapping(path = "/get_buyer_commodity")
+//    @ResponseBody
+//    ResponseEntity<ResponseModel<List<Commodity>>> getUserPurchasedCommodity(@RequestParam String userId) {
+//        // This returns a JSON or XML with the users
+//        try {
+//            List<Commodity> res = userService.getUserPurchasedCommodity(userId);
+//            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+//        }
+//    }
+//
+//    @GetMapping(path = "/get_merchant_commodity")
+//    @ResponseBody
+//    ResponseEntity<ResponseModel<List<Commodity>>> getMerchantCommodity(@RequestParam String userId) {
+//        try {
+//            List<Commodity> res = userService.getMerchantCommodity(userId);
+//            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+//        }
+//    }
 }

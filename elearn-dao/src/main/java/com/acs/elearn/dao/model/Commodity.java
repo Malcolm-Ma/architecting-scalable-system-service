@@ -28,7 +28,7 @@ public class Commodity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "published_by", referencedColumnName = "user_id")
-    private Merchant publishedBy;
+    private User publishedBy;
 
     @OneToMany(mappedBy = "commodity")
     private List<UserActionTracing> userActionTracingList;
@@ -43,7 +43,7 @@ public class Commodity implements Serializable {
     private List<Transaction> transactionList;
 
     @ManyToMany(mappedBy = "purchasedCommodities")
-    private List<Buyer> userList;
+    private List<User> userList;
 
     @ManyToMany(mappedBy = "cartCommodity")
     @JsonIgnore

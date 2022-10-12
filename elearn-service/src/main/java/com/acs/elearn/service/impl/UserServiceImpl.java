@@ -2,16 +2,11 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import com.acs.elearn.dao.model.Buyer;
 import com.acs.elearn.dao.model.Commodity;
-import com.acs.elearn.dao.model.Merchant;
 import com.acs.elearn.dao.model.User;
-import com.acs.elearn.dao.repositories.BuyerRepository;
-import com.acs.elearn.dao.repositories.MerchantRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
 import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +15,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
-    final BuyerRepository buyerRepository;
-    final MerchantRepository merchantRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BuyerRepository buyerRepository, MerchantRepository merchantRepository) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.buyerRepository = buyerRepository;
-        this.merchantRepository = merchantRepository;
     }
 
     @Override
@@ -69,17 +60,17 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public List<Commodity> getUserPurchasedCommodity(@NotNull String userId) {
-        Buyer curBuyer = buyerRepository.findBuyerByUserId(userId);
-        return curBuyer.getPurchasedCommodities();
-    }
-
-    @Override
-    public List<Commodity> getMerchantCommodity(@NotNull String userId) {
-        Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
-        return curMerchant.getPublishedCommodities();
-    }
-
+    // TODO Change Buyer and Merchant to User
+//    @Override
+//    public List<Commodity> getUserPurchasedCommodity(@NotNull String userId) {
+//        Buyer curBuyer = buyerRepository.findBuyerByUserId(userId);
+//        return curBuyer.getPurchasedCommodities();
+//    }
+//
+//    @Override
+//    public List<Commodity> getMerchantCommodity(@NotNull String userId) {
+//        Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
+//        return curMerchant.getPublishedCommodities();
+//    }
 
 }
