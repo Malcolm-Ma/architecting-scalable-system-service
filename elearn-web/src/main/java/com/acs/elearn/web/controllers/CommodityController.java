@@ -1,14 +1,12 @@
 package com.acs.elearn.web.controllers;
 
 import com.acs.elearn.common.response.ResponseHandler;
+import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
-import com.acs.elearn.search.controller.vo.SearchCommodityRequest;
-import com.acs.elearn.search.domain.model.EsCommodity;
 import com.acs.elearn.service.CommodityService;
 import com.acs.elearn.common.vo.CommoditySearchRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ public class CommodityController {
 
     @ApiOperation("Search commodity by keywords")
     @PostMapping("/search_commodity")
-    public ResponseEntity<Object> searchCommodity(@RequestBody CommoditySearchRequest request) {
+    public ResponseEntity<ResponseModel<List<Commodity>>> searchCommodity(@RequestBody CommoditySearchRequest request) {
         List<Commodity> res = commodityService.searchCommodity(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
