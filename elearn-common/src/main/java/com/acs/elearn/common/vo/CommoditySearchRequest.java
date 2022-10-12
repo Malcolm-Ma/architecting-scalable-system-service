@@ -12,12 +12,16 @@ public class CommoditySearchRequest {
     @NotNull
     private String keyword;
 
+    @NotNull
     private Integer pageSize;
 
+    @NotNull
     private Integer PageNum;
 
     private Double star;
 
-    private Integer price;
+    private Double price;
+
+    public CommoditySearchRequest() {}
 
 }

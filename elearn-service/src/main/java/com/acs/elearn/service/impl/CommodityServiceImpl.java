@@ -21,18 +21,18 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> searchCommodity(CommoditySearchRequest request){
         if (request.getPrice() == null && request.getStar() == null) {
-            return commodityRepository.findByCommodityNameOrCommodityIntroduction(
+            return commodityRepository.findByCommodityNameOrCommodityIntroductionContains(
                     request.getKeyword(),
                     request.getKeyword(),
                     Pageable.ofSize(request.getPageSize()));
         } else if (request.getStar() == null){
-            return commodityRepository.findByCommodityNameOrCommodityIntroductionAndCommodityPrice(
+            return commodityRepository.findByCommodityNameOrCommodityIntroductionAndCommodityPriceContains(
                     request.getKeyword(),
                     request.getKeyword(),
                     request.getPrice(),
                     Pageable.ofSize(request.getPageSize()));
         } else {
-            return commodityRepository.findByCommodityNameOrCommodityIntroductionAndCommodityPriceAndCommodityStar(
+            return commodityRepository.findByCommodityNameOrCommodityIntroductionAndCommodityPriceAndCommodityStarContains(
                     request.getKeyword(),
                     request.getKeyword(),
                     request.getPrice(),
@@ -43,7 +43,7 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public List<Commodity> showCommodityInHomePage(Integer limit){ // show top 10 sales
         return commodityRepository.findAll(
-                Sort.by(Sort.Direction.DESC, "commodity_sold_cnt")
+                Sort.by(Sort.Direction.DESC, "commoditySoldCnt")
         ).subList(0,limit);
     }
 
@@ -54,11 +54,10 @@ public class CommodityServiceImpl implements CommodityService {
     @Override
     public String updateCommodity(Commodity commodity) {
 //        try {
-        Commodity curCommodity = commodityRepository.findCommodityByCommodityId(commodity.getCommodityId());
-        if (curCommodity == null) {
+        Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
+        if (curCommodity != null) {
             BeanUtil.copyProperties(commodity, curCommodity, CopyOptions.create().setIgnoreNullValue(true));
             commodityRepository.save(curCommodity);
-//        userRepository.save(commodity);
             return "Add successfully";
 //        } catch(Exception e){
 //            Asserts.fail(e.getMessage());
@@ -66,15 +65,21 @@ public class CommodityServiceImpl implements CommodityService {
 //        }
         }
         else {
-            return "failed";
+            return "Fail to add";
         }
     }
     @Override
     public String deleteCommodity(Commodity commodity){
-        return null;
+        Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
+        if(curCommodity != null){
+            commodityRepository.delete(curCommodity);
+            return "Delete successfully";
+        } else{
+            return "Fail to delete";
+        }
     }
     @Override
     public Commodity getCommodityInfo(String commodityID){ // show top 10 sales
-        return commodityRepository.getReferenceById(commodityID);
+        return commodityRepository.findByCommodityId(commodityID);
     }
 }

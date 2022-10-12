@@ -10,8 +10,8 @@ import java.util.List;
 @Repository
 public interface CommodityRepository extends JpaRepository<Commodity, String> {
 
-    Commodity findCommodityByCommodityId(String commodityId);
-    List<Commodity> findByCommodityNameOrCommodityIntroduction(String name, String introduction, Pageable page);
-    List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPrice(String name, String introduction, Integer price, Pageable page);
-    List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPriceAndCommodityStar(String name, String introduction, Integer price, Double star, Pageable page);
+    Commodity findByCommodityId(String commodityId);
+    List<Commodity> findByCommodityNameOrCommodityIntroductionContains(String name, String introduction, Pageable page);
+    List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPriceContains(String name, String introduction, Double price, Pageable page);
+    List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPriceAndCommodityStarContains(String name, String introduction, Double price, Double star, Pageable page);
 }
