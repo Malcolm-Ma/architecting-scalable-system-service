@@ -21,7 +21,7 @@ import java.util.List;
 public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
-    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
+    @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
     @GeneratedValue(generator="idGenerator")
     @Column(name = "user_id", nullable = false, length = 32)
     private String userId;

@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
 @Data
 public class CommodityReviewRecord implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
+    @GeneratedValue(generator="idGenerator")
     @Column(name = "review_id", nullable = false, length = 32)
     private String reviewId;
 

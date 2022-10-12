@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,7 +14,8 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // date
 public class Quiz {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
+    @GeneratedValue(generator="idGenerator")
     @Column(name = "quiz_id", nullable = false, length = 32)
     private String QuizId;
 

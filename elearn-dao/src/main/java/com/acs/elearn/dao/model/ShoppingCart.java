@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 @Data
 public class ShoppingCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
+    @GeneratedValue(generator="idGenerator")
     @Column(name = "cart_id", nullable = false, length = 32)
     private String cartId;
 
