@@ -1,5 +1,6 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -41,6 +42,7 @@ public class Commodity implements Serializable {
     private List<Buyer> userList;
 
     @ManyToMany(mappedBy = "cartCommodity")
+    @JsonIgnore
     private List<ShoppingCart> shoppingCartList;
 
     @Column(name = "commodity_name", nullable = false,length = 128)

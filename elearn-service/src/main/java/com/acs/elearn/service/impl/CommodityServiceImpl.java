@@ -2,8 +2,11 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.common.vo.CommodityCreateRequest;
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.Merchant;
 import com.acs.elearn.dao.repositories.CommodityRepository;
+import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.CommodityService;
 import com.acs.elearn.common.vo.CommoditySearchRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,21 +51,18 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public String addCommodity(){
+    public String createCommodity(CommodityCreateRequest request){
+        Merchant publishBy = new Merchant();
+        Commodity commodity = new Commodity();
         return null;
     }
     @Override
     public String updateCommodity(Commodity commodity) {
-//        try {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if (curCommodity != null) {
             BeanUtil.copyProperties(commodity, curCommodity, CopyOptions.create().setIgnoreNullValue(true));
             commodityRepository.save(curCommodity);
             return "Add successfully";
-//        } catch(Exception e){
-//            Asserts.fail(e.getMessage());
-//            return null;
-//        }
         }
         else {
             return "Fail to add";
