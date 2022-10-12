@@ -26,12 +26,10 @@ public class UserController {
 
     @GetMapping(path = "/get")
     @ResponseBody
-//         @ResponseBody means the returned String is the response, not a view name
-//         @RequestParam means it is a parameter from the GET or POST request
     ResponseEntity<ResponseModel<User>> getUserInfo(@RequestParam String userId) {
         try {
-        User res = userService.getUserInfo(userId);
-        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+            User res = userService.getUserInfo(userId);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
@@ -53,8 +51,8 @@ public class UserController {
     @ResponseBody
     ResponseEntity<ResponseModel<String>> addUserInfo(@RequestBody User user) {
         try {
-        String res = userService.addUserInfo(user);
-        return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
+            String res = userService.addUserInfo(user);
+            return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
@@ -64,8 +62,8 @@ public class UserController {
     @ResponseBody
     ResponseEntity<ResponseModel<String>> deleteUser(@RequestParam String userId) {
         try {
-        String res = userService.deleteUser(userId);
-        return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
+            String res = userService.deleteUser(userId);
+            return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
@@ -76,8 +74,8 @@ public class UserController {
     ResponseEntity<ResponseModel<List<Commodity>>> getUserPurchasedCommodity(@RequestParam String userId) {
         // This returns a JSON or XML with the users
         try {
-        List<Commodity> res = userService.getUserPurchasedCommodity(userId);
-        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+            List<Commodity> res = userService.getUserPurchasedCommodity(userId);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
@@ -87,8 +85,8 @@ public class UserController {
     @ResponseBody
     ResponseEntity<ResponseModel<List<Commodity>>> getMerchantCommodity(@RequestParam String userId) {
         try {
-        List<Commodity> res = userService.getMerchantCommodity(userId);
-        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+            List<Commodity> res = userService.getMerchantCommodity(userId);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }

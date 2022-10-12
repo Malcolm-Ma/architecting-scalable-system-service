@@ -13,6 +13,7 @@ import com.acs.elearn.service.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -33,56 +34,50 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByUserId(userId);
     }
 
+    // add user into database
     @Override
     public String addUserInfo(@NotNull User user) throws Exception {
-//        try {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
             BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
             userRepository.save(curUser);
             return "Add successfully";
         } else {
-            throw new Exception();
+            throw new Exception("Add failed, user already existed.");
         }
     }
 
+    // update user's information
     @Override
-    public String updateUserInfo(User user) {
-//        try {
+    public String updateUserInfo(@NotNull User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
-            return "User Not existed before, please check the information";
+            throw new Exception("User is not exist.");
         }
         BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
         userRepository.save(curUser);
         return "Add successfully";
-//        } catch(Exception e){
-//            Asserts.fail(e.getMessage());
-//            return null;
-//        }
     }
 
     @Override
-    public String deleteUser(String userId) {
+    public String deleteUser(@NotNull String userId) throws Exception {
         User curUser = userRepository.findUserByUserId(userId);
-        // try catch 去写
         if (curUser == null) {
-            return "User Not existed before, please check the information";
-        }
-        else {
+            throw new Exception("User is not existed");
+        } else {
             userRepository.deleteById(userId);
             return "Delete successfully";
         }
     }
 
     @Override
-    public List<Commodity> getUserPurchasedCommodity(String userId) {
+    public List<Commodity> getUserPurchasedCommodity(@NotNull String userId) {
         Buyer curBuyer = buyerRepository.findBuyerByUserId(userId);
         return curBuyer.getPurchasedCommodities();
     }
 
     @Override
-    public List<Commodity> getMerchantCommodity(String userId) {
+    public List<Commodity> getMerchantCommodity(@NotNull String userId) {
         Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
         return curMerchant.getPublishedCommodities();
     }
