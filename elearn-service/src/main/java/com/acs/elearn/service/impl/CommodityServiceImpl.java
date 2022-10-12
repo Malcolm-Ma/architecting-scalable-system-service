@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.common.vo.CommodityCreateRequest;
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.CourseInformation;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.CommodityRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
@@ -14,13 +15,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CommodityServiceImpl implements CommodityService {
     @Autowired
     CommodityRepository commodityRepository;
-    UserRepository userRepository;
+    UserServiceImpl userServiceImpl;
+    CourseServiceImpl courseServiceImpl;
 
     @Override
     public List<Commodity> searchCommodity(CommoditySearchRequest request){
@@ -53,10 +56,23 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public String createCommodity(CommodityCreateRequest request){
-        User publishBy = userRepository.findByUserId(request.getUserId());
+        User publishBy = userServiceImpl.getUserInfo(request.getUserId());
+        List<CourseInformation> courseList = new ArrayList<>();
+        int courseNum = request.getCourseId().toArray().length;
+        for(int i=0; i<courseNum; i++){
+            courseList.add( courseServiceImpl.getCourseInfo( request.getCourseId().get(i) ) );
+        }
         Commodity commodity = new Commodity();
-        //commodity.setPublishedBy(publishBy);
-        return null;
+        commodity.setPublishedBy(publishBy);
+        commodity.setCourseList(courseList);
+        commodity.setCommodityName(request.getCommodityName());
+        commodity.setCommodityIntroduction(request.getCommodityIntroduction());
+        commodity.setCommodityPrice(request.getCommodityPrice());
+        commodity.setCommodityDiscount(request.getCommodityDiscount());
+        commodity.setCommoditySoldCnt(0);
+        commodity.setCommodityStatus(request.getCommodityStatus());
+        commodityRepository.save(commodity);
+        return "save successfully";
     }
     @Override
     public String updateCommodity(Commodity commodity) {
