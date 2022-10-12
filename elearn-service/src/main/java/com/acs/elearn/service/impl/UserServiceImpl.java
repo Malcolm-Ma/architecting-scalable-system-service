@@ -8,50 +8,41 @@ import com.acs.elearn.dao.model.Merchant;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.BuyerRepository;
 import com.acs.elearn.dao.repositories.MerchantRepository;
-import com.acs.elearn.dao.repositories.TransactionRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
-import org.apache.http.util.Asserts;
-import org.springframework.beans.BeanUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
-
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
-
-import static org.apache.http.util.Asserts.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    BuyerRepository buyerRepository;
-    @Autowired
-    MerchantRepository merchantRepository;
+    final UserRepository userRepository;
+    final BuyerRepository buyerRepository;
+    final MerchantRepository merchantRepository;
 
+    public UserServiceImpl(UserRepository userRepository, BuyerRepository buyerRepository, MerchantRepository merchantRepository) {
+        this.userRepository = userRepository;
+        this.buyerRepository = buyerRepository;
+        this.merchantRepository = merchantRepository;
+    }
 
     @Override
-    public User getUserInfo(String userId) {
+    public User getUserInfo(@NotNull String userId) {
         return userRepository.findUserByUserId(userId);
     }
 
     @Override
-    public String addUserInfo(User user) {
+    public String addUserInfo(@NotNull User user) throws Exception {
 //        try {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
             BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
             userRepository.save(curUser);
             return "Add successfully";
-//        } catch(ChangeSetPersister.NotFoundException){
-//            Asserts.fail(e.getMessage());
-//            return null;
-//        }
         } else {
-            return "failed";
+            throw new Exception();
         }
     }
 

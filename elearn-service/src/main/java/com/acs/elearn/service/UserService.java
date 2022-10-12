@@ -19,7 +19,7 @@ public interface UserService {
     List<Commodity> getMerchantCommodity(String userId);
     String updateUserInfo(User user);
 
-    String addUserInfo(User user);
+    String addUserInfo(User user) throws Exception;
 
     String deleteUser(String userId);
 }
