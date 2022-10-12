@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.common.vo.CommodityCreateRequest;
 import com.acs.elearn.dao.model.Commodity;
-import com.acs.elearn.dao.model.Merchant;
+import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.CommodityRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.CommodityService;
@@ -20,6 +20,7 @@ import java.util.List;
 public class CommodityServiceImpl implements CommodityService {
     @Autowired
     CommodityRepository commodityRepository;
+    UserRepository userRepository;
 
     @Override
     public List<Commodity> searchCommodity(CommoditySearchRequest request){
@@ -52,8 +53,9 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public String createCommodity(CommodityCreateRequest request){
-        Merchant publishBy = new Merchant();
+        User publishBy = userRepository.findByUserId(request.getUserId());
         Commodity commodity = new Commodity();
+        //commodity.setPublishedBy(publishBy);
         return null;
     }
     @Override
