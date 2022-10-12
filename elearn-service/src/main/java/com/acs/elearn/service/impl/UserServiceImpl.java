@@ -10,7 +10,7 @@ import com.acs.elearn.dao.repositories.BuyerRepository;
 import com.acs.elearn.dao.repositories.MerchantRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
