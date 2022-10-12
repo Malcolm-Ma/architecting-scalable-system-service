@@ -14,11 +14,9 @@ import java.util.List;
 public interface UserService {
 
     User getUserInfo(String userId);
+    List<Commodity> getUserPurchasedCommodity(String userId);
 
-    // TODO Change Buyer and Merchant to User
-//    List<Commodity> getUserPurchasedCommodity(String userId);
-//
-//    List<Commodity> getMerchantCommodity(String userId);
+    List<Commodity> getMerchantCommodity(String userId);
 
     String updateUserInfo(User user) throws Exception;
 
