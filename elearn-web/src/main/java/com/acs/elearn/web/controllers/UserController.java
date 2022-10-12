@@ -5,7 +5,6 @@ import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
