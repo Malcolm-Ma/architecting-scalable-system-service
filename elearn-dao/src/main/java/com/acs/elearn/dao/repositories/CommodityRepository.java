@@ -14,4 +14,5 @@ public interface CommodityRepository extends JpaRepository<Commodity, String> {
     List<Commodity> findByCommodityNameOrCommodityIntroductionContains(String name, String introduction, Pageable page);
     List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPriceContains(String name, String introduction, Double price, Pageable page);
     List<Commodity> findByCommodityNameOrCommodityIntroductionAndCommodityPriceAndCommodityStarContains(String name, String introduction, Double price, Double star, Pageable page);
+
 }

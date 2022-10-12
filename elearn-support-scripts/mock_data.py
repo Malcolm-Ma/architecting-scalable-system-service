@@ -43,7 +43,7 @@ def mock_user_data(lines_num):
     data = []
     for i in range(lines_num):
         # mock process
-        user_id = fake.uuid4()
+        user_id = fake.uuid4()[0:31]
         # cart_id = fake.uuid4()
         # role_id = random.randrange(0, 1, 1)
         user_age = random.randrange(18, 60, 1)
@@ -93,5 +93,5 @@ def write_db(df, db_name):
 if __name__ == '__main__':
     commodity = mock_commodity_data(200)
     write_db(commodity, 'commodity')
-    # haha = mock_user_data(2000)
-    # write_db(haha, 'user')
+    haha = mock_user_data(2000)
+    write_db(haha, 'user')

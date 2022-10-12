@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user_action_tracing")
 @Data
+@EntityListeners(AuditingEntityListener.class) // date
 public class UserActionTracing {
 
     @Id
