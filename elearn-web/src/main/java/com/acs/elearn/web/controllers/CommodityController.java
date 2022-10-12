@@ -1,6 +1,7 @@
 package com.acs.elearn.web.controllers;
 
 import com.acs.elearn.common.response.ResponseHandler;
+import com.acs.elearn.common.vo.CommodityCreateRequest;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.service.CommodityService;
@@ -32,9 +33,9 @@ public class CommodityController {
         return commodityService.showCommodityInHomePage(limit);
     }
 
-    @GetMapping(path = "/add_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String addCommodity(String commodityID) {
-        return commodityService.addCommodity();
+    @GetMapping(path = "/create_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String createCommodity(CommodityCreateRequest request) {
+        return commodityService.createCommodity(request);
     }
 
     @GetMapping(path = "/update_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
