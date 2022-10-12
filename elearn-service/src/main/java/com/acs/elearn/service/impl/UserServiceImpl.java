@@ -8,6 +8,7 @@ import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,9 +33,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String addUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
-        Role curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+        Role curRole;
+        if(user.getUserRole() != null) {
+            curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+        } else {
+            curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
+        }
         if (curUser == null) {
-
             user.setUserRole(curRole);
             userRepository.save(user);
             return "Add successfully";
