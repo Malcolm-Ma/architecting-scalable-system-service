@@ -39,8 +39,7 @@ public class UserServiceImpl implements UserService {
     public String addUserInfo(@NotNull User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
-            BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
-            userRepository.save(curUser);
+            userRepository.save(user);
             return "Add successfully";
         } else {
             throw new Exception("Add failed, user already existed.");

@@ -1,21 +1,28 @@
 package com.acs.elearn.dao.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Entity
 @Table(name = "user")
+@EntityListeners(AuditingEntityListener.class) // date
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type",
-    discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.INTEGER
+)
+//@DiscriminatorValue("Buyer")
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="idGenerator", strategy="uuid") //这个是hibernate的注解/生成32位UUID
+    @GeneratedValue(generator="idGenerator")
     @Column(name = "user_id", nullable = false, length = 32)
     private String userId;
 
@@ -63,7 +70,8 @@ public class User {
     private String userLastname;
 
     @CreatedDate
-    @Column(name = "user_created_time", nullable = false, updatable = false)
+//    @Column(name = "user_created_time", nullable = false, updatable = false)
+    @Column(name = "user_created_time",  updatable = false)
     private LocalDateTime userCreatedTime;
 
     @Column(name = "user_email_verified", nullable = false, columnDefinition = "TINYINT(1)")
@@ -84,5 +92,4 @@ public class User {
     @Lob
     @Column(name = "user_introduction",columnDefinition="TEXT")
     private String userIntroduction;
-
 }

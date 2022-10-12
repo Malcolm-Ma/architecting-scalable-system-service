@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "reply_record")
 @Data
+@EntityListeners(AuditingEntityListener.class) // date
+
 public class ReplyRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

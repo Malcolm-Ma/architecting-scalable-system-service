@@ -3,6 +3,7 @@ package com.acs.elearn.dao.model;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "course_information")
 @Data
+@EntityListeners(AuditingEntityListener.class) // date
 public class CourseInformation implements Serializable {
 
     @Id

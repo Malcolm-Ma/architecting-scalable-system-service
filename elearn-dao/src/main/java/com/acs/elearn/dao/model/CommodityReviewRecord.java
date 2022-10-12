@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "commodity_review_record")
+@EntityListeners(AuditingEntityListener.class) // date
 @Data
 public class CommodityReviewRecord implements Serializable {
     @Id
@@ -28,7 +30,7 @@ public class CommodityReviewRecord implements Serializable {
     @Column(name = "commodity_review_create_time", nullable = false, updatable = false)
     private LocalDateTime commodityReviewCreateTime;
 
-    @Column(name = "commodity_review_comment",columnDefinition="TEXT")
+    @Column(name = "commodity_review_comment", columnDefinition = "TEXT")
     private String commodityReviewComment;
 
     @Column(name = "commodity_review_decision", nullable = false)
