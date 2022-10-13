@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.acs.elearn</groupId>
-            <artifactId>elearn-service</artifactId>
+            <artifactId>elearn-main</artifactId>
         </dependency>
         <dependency>
             <groupId>com.acs.elearn</groupId>

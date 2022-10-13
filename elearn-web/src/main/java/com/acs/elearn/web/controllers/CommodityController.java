@@ -1,11 +1,11 @@
 package com.acs.elearn.web.controllers;
 
 import com.acs.elearn.common.response.ResponseHandler;
-import com.acs.elearn.common.vo.CommodityCreateRequest;
+import com.acs.elearn.vo.CommodityCreateRequest;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.service.CommodityService;
-import com.acs.elearn.common.vo.CommoditySearchRequest;
+import com.acs.elearn.vo.CommoditySearchRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

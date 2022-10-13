@@ -1,15 +1,13 @@
 package com.acs.elearn.search.controller;
 
-import com.acs.elearn.search.controller.vo.SearchCommodityRequest;
-import com.acs.elearn.search.domain.model.EsCommodity;
-import com.acs.elearn.search.service.EsCommodityService;
+import com.acs.elearn.search.vo.SearchCommodityRequest;
+import com.acs.elearn.dao.es.model.EsCommodity;
+import com.acs.elearn.service.EsCommodityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author Mingze Ma
