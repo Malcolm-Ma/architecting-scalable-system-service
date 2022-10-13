@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.acs.elearn</groupId>
-            <artifactId>elearn-dao</artifactId>
+            <artifactId>elearn-common</artifactId>
         </dependency>
     </dependencies>
 

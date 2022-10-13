@@ -7,10 +7,10 @@
         <artifactId>elearn</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>elearn-dao</artifactId>
+    <artifactId>elearn-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>elearn-dao</name>
-    <description>elearn-dao</description>
+    <name>elearn-common</name>
+    <description>elearn-common</description>
 
     <dependencies>
         <dependency>

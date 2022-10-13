@@ -17,7 +17,7 @@
 
     <modules>
         <module>elearn-config</module>
-        <module>elearn-dao</module>
+        <module>elearn-common</module>
         <module>elearn-service</module>
         <module>elearn-web</module>
         <module>elearn-search</module>
@@ -27,7 +27,7 @@
         <java.version>17</java.version>
         <skipTests>true</skipTests>
         <elearn-config.version>0.0.1-SNAPSHOT</elearn-config.version>
-        <elearn-dao.version>0.0.1-SNAPSHOT</elearn-dao.version>
+        <elearn-common.version>0.0.1-SNAPSHOT</elearn-common.version>
         <elearn-service.version>0.0.1-SNAPSHOT</elearn-service.version>
         <elearn-web.version>0.0.1-SNAPSHOT</elearn-web.version>
         <elearn-search.version>0.0.1-SNAPSHOT</elearn-search.version>
@@ -48,8 +48,8 @@
             <!--ELearn dao module-->
             <dependency>
                 <groupId>com.acs.elearn</groupId>
-                <artifactId>elearn-dao</artifactId>
-                <version>${elearn-dao.version}</version>
+                <artifactId>elearn-common</artifactId>
+                <version>${elearn-common.version}</version>
             </dependency>
             <!--ELearn core service module-->
             <dependency>
