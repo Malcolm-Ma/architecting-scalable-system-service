@@ -3,10 +3,12 @@ package com.acs.elearn.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.Role;
 import com.acs.elearn.dao.model.User;
+import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
-import com.sun.istack.NotNull;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,21 +17,30 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
+    final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
-    public User getUserInfo(@NotNull String userId) {
+    public User getUserInfo(String userId) {
         return userRepository.findUserByUserId(userId);
     }
 
     // add user into database
     @Override
-    public String addUserInfo(@NotNull User user) throws Exception {
+    public String addUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
+        Role curRole;
+        if(user.getUserRole() != null) {
+            curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+        } else {
+            curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
+        }
         if (curUser == null) {
+            user.setUserRole(curRole);
             userRepository.save(user);
             return "Add successfully";
         } else {
@@ -39,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     // update user's information
     @Override
-    public String updateUserInfo(@NotNull User user) throws Exception {
+    public String updateUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
             throw new Exception("User is not exist.");
@@ -50,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser(@NotNull String userId) throws Exception {
+    public String deleteUser( String userId) throws Exception {
         User curUser = userRepository.findUserByUserId(userId);
         if (curUser == null) {
             throw new Exception("User is not existed");
@@ -60,17 +71,16 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    // TODO Change Buyer and Merchant to User
-//    @Override
-//    public List<Commodity> getUserPurchasedCommodity(@NotNull String userId) {
-//        Buyer curBuyer = buyerRepository.findBuyerByUserId(userId);
-//        return curBuyer.getPurchasedCommodities();
-//    }
-//
-//    @Override
-//    public List<Commodity> getMerchantCommodity(@NotNull String userId) {
-//        Merchant curMerchant = merchantRepository.getMerchantByUserId(userId);
-//        return curMerchant.getPublishedCommodities();
-//    }
+    @Override
+    public List<Commodity> getUserPurchasedCommodity(String userId) {
+        User curBuyer = userRepository.findUserByUserId(userId);
+        return curBuyer.getPurchasedCommodities();
+    }
+
+    @Override
+    public List<Commodity> getMerchantCommodity(String userId) {
+        User curMerchant =userRepository.findUserByUserId(userId);
+        return curMerchant.getPublishedCommodities();
+    }
 
 }

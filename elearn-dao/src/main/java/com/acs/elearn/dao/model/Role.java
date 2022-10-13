@@ -14,7 +14,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "role_id", nullable = false)
-    private Long roleId;
+    private Long roleId = Long.valueOf(1);
 
     @Column(name = "role_name", nullable = false)
     private String roleName;
@@ -26,5 +26,5 @@ public class Role {
     private int roleClient;
 
     @Column(name = "display_name", nullable = false)
-    private int displayName;
+    private String displayName;
 }

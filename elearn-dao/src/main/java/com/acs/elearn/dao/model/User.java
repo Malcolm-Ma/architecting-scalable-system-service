@@ -16,7 +16,6 @@ import java.util.List;
 @Data
 public class User {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
     @GeneratedValue(generator="idGenerator")
     @Column(name = "user_id", nullable = false, length = 32)
@@ -67,7 +66,7 @@ public class User {
     private String userUsername;
 
     @Column(name = "user_age")
-    private int userAge;
+    private int userAge = 12;
 
     @Column(name = "user_firstname")
     private String userFirstname;

@@ -4,7 +4,7 @@ import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.service.impl.CartServiceImpl;
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
     final CartServiceImpl cartService;
 
-    public CartController(@NotNull CartServiceImpl cartService) {
+    public CartController(CartServiceImpl cartService) {
         this.cartService = cartService;
     }
 
     @GetMapping(path = "/display")
     @ResponseBody
-    ResponseEntity<ResponseModel<ShoppingCart>> displayCart(@RequestParam String userId) {
+    ResponseEntity<ResponseModel<ShoppingCart>> displayCart(@NotNull @RequestParam String userId) {
         try {
             ShoppingCart res = cartService.displayCart(userId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
