@@ -7,10 +7,10 @@
         <artifactId>elearn</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>elearn-common</artifactId>
+    <artifactId>elearn-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>elearn-common</name>
-    <description>elearn-common</description>
+    <name>elearn-config</name>
+    <description>elearn-config</description>
 
     <dependencies>
         <dependency>
