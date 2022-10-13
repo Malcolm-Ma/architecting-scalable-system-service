@@ -1,4 +1,4 @@
-package com.acs.elearn.search.config;
+package com.acs.elearn.config;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 /**
  * @author Mingze Ma
  */
-@EnableElasticsearchRepositories(basePackages = "com.acs.elearn.search.domain.repository")
+@EnableElasticsearchRepositories(basePackages = "com.acs.elearn.dao.es.repository")
 @Configuration
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     @Value("${elasticsearch.host}")

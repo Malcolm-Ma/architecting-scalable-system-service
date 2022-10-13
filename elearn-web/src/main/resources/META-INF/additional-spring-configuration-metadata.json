@@ -1,0 +1,28 @@
+{
+  "properties": [
+    {
+      "name": "elasticsearch.host",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.host."
+    },
+    {
+      "name": "elasticsearch.port",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.port."
+    },
+    {
+      "name": "elasticsearch.connTimeout",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.connTimeout."
+    },
+    {
+      "name": "elasticsearch.socketTimeout",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.socketTimeout."
+    },
+    {
+      "name": "elasticsearch.connectionRequestTimeout",
+      "type": "java.lang.String",
+      "description": "Description for elasticsearch.connectionRequestTimeout."
+    }
+  ] }
