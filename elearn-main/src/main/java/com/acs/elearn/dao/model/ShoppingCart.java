@@ -16,7 +16,8 @@ public class ShoppingCart {
     @Column(name = "cart_id", nullable = false, length = 32)
     private String cartId;
 
-    @OneToOne(mappedBy = "userShoppingCart")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany

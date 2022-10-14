@@ -29,9 +29,20 @@ public class CartController {
         }
     }
 
+    @GetMapping(path = "/add")
+    @ResponseBody
+    ResponseEntity<ResponseModel<ShoppingCart>> addCart(@NotNull @RequestParam String userId) {
+        try {
+            ShoppingCart res = cartService.addCart(userId);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
     @PostMapping(path = "/add_commodity")
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> addCommodityToCart(@NotNull String commodityId, String userId) {
+    ResponseEntity<ResponseModel<String>> addCommodityToCart(@NotNull @RequestBody String commodityId, String userId) {
         try {
             String res = cartService.addCommodityToCart(commodityId, userId);
             return ResponseHandler.generateResponse(res, HttpStatus.OK, null);

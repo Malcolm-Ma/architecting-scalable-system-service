@@ -49,10 +49,10 @@ public class UserController {
 
     @PostMapping(path = "/add")
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> addUserInfo(@NotNull @RequestBody User user) {
+    ResponseEntity<ResponseModel<User>> addUserInfo(@NotNull @RequestBody User user) {
         try {
-            String res = userService.addUserInfo(user);
-            return ResponseHandler.generateResponse(res, HttpStatus.OK, null);
+            User res = userService.addUserInfo(user);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }

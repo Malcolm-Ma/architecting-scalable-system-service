@@ -58,8 +58,7 @@ public class User {
     )
     private List<Tag> tagList;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
+    @OneToOne(mappedBy = "user")
     private ShoppingCart userShoppingCart;
 
     @Column(name = "user_username", nullable = false)
