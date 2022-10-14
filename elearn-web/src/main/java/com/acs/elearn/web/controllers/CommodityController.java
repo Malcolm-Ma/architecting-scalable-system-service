@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class CommodityController {
 
     @ApiOperation("Search commodity by keywords")
     @PostMapping("/search_commodity")
-    public ResponseEntity<ResponseModel<List<Commodity>>> searchCommodity(@RequestBody CommoditySearchRequest request) {
+    public ResponseEntity<ResponseModel<List<Commodity>>> searchCommodity(@Validated @RequestBody CommoditySearchRequest request) {
         List<Commodity> res = commodityService.searchCommodity(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
