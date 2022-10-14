@@ -28,6 +28,6 @@ public class ShoppingCart {
     )
     private List<Commodity> cartCommodity;
 
-    @Column(name = "cart_item_quantity", nullable = false)
-    private int cartItemQuantity;
+//    @Column(name = "cart_item_quantity", nullable = false)
+//    private int cartItemQuantity;
 }

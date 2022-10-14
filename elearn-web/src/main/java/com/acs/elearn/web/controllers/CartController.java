@@ -4,10 +4,10 @@ import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.service.impl.CartServiceImpl;
-import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping(path = "/cart")
