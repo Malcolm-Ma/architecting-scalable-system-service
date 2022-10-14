@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     final CartServiceImpl cartService;
 
+
     public UserServiceImpl(CartServiceImpl cartService,UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -44,7 +45,8 @@ public class UserServiceImpl implements UserService {
                 curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
             }
             user.setUserRole(curRole);
-            userRepository.save(user);
+            User res = userRepository.save(user);
+            ShoppingCart test = cartService.addCart(res.getUserId());
             return user;
         } else {
             throw new Exception("Add failed, user already existed.");

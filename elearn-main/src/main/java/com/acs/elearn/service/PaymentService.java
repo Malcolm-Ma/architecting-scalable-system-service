@@ -5,5 +5,5 @@ import com.acs.elearn.dao.model.Transaction;
 
 
 public interface PaymentService {
-    public Transaction createTransaction(String cartId);
+    Transaction createTransaction(String cartId);
 }

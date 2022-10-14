@@ -40,7 +40,6 @@ public class CartServiceImpl implements CartService {
             }
             ShoppingCart newCart = new ShoppingCart();
             newCart.setUser(user);
-//            newCart.setUserId(user.getUserId());
             shoppingCartRepository.save(newCart);
             return newCart;
         } catch(Exception e) {throw e;}
@@ -55,9 +54,8 @@ public class CartServiceImpl implements CartService {
         List<Commodity> newCommodity = (newCart.getCartCommodity());
         if (newCommodity.contains(chosenCommodity)) {
             throw new Exception("Commodity is already in Cart");
-        } else {
-            newCommodity.add(chosenCommodity);
         }
+        newCommodity.add(chosenCommodity);
         shoppingCartRepository.save(newCart);
         return "successfully added Commodity";
     }
