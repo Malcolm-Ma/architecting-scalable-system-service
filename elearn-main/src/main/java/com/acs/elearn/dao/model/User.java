@@ -65,7 +65,7 @@ public class User {
     private String userUsername;
 
     @Column(name = "user_age")
-    private int userAge = 12;
+    private Integer userAge = 12;
 
     @Column(name = "user_firstname")
     private String userFirstname;

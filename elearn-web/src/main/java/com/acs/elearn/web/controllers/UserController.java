@@ -1,10 +1,15 @@
 package com.acs.elearn.web.controllers;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.User;
+import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.impl.UserServiceImpl;
+import com.acs.elearn.vo.AddUserInfoRequest;
+import com.acs.elearn.vo.UpdateUserInfoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +23,11 @@ public class UserController {
 
     final
     UserServiceImpl userService;
+    final UserRepository userRepository;
 
-    public UserController(UserServiceImpl userService) {
+    public UserController(UserServiceImpl userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
 
@@ -37,8 +44,10 @@ public class UserController {
 
     @PostMapping(path = "/update")
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> updateUserInfo(@NotNull @RequestBody User user) {
+    ResponseEntity<ResponseModel<String>> updateUserInfo(@NotNull @RequestBody UpdateUserInfoRequest requestBody) {
         try {
+            User user = new User();
+            BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
             String res = userService.updateUserInfo(user);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
@@ -49,8 +58,10 @@ public class UserController {
 
     @PostMapping(path = "/add")
     @ResponseBody
-    ResponseEntity<ResponseModel<User>> addUserInfo(@NotNull @RequestBody User user) {
+    ResponseEntity<ResponseModel<User>> addUserInfo(@NotNull @RequestBody AddUserInfoRequest requestBody) {
         try {
+            User user = new User();
+            BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
             User res = userService.addUserInfo(user);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
@@ -72,7 +83,6 @@ public class UserController {
     @GetMapping(path = "/get_buyer_commodity")
     @ResponseBody
     ResponseEntity<ResponseModel<List<Commodity>>> getUserPurchasedCommodity(@NotNull @RequestParam String userId) {
-        // This returns a JSON or XML with the users
         try {
             List<Commodity> res = userService.getUserPurchasedCommodity(userId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
