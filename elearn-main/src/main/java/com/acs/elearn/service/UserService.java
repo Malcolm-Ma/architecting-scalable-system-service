@@ -13,7 +13,7 @@ public interface UserService {
 
     List<Commodity> getMerchantCommodity(String userId);
 
-    String updateUserInfo(User user) throws Exception;
+    User updateUserInfo(User user) throws Exception;
 
     User addUserInfo(User user) throws Exception;
 
