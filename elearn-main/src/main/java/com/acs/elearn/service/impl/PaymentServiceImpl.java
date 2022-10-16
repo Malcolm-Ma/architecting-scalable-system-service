@@ -37,6 +37,8 @@ public class PaymentServiceImpl implements PaymentService {
             double curPrice = curCommodity.getCommodityPrice();
             double curDiscount = curCommodity.getCommodityDiscount();
             commodityRealPrice += curPrice*curDiscount;
+            curCommodity.setCommoditySoldCnt(curCommodity.getCommoditySoldCnt()+1);
+            commodityRepository.save(curCommodity);
         }
         curCart.setCartCommodity(null);
         shoppingCartRepository.save(curCart);
