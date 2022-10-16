@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "commodity_review_record")
+@Table(name = "review")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
 public class Review implements Serializable {
@@ -35,8 +35,8 @@ public class Review implements Serializable {
     @Column(name = "commodity_review_comment", columnDefinition = "TEXT")
     private String commodityReviewComment;
 
-    @Column(name = "commodity_review_decision", nullable = false)
-    private boolean commodityReviewDecision;
+//    @Column(name = "commodity_review_decision", nullable = false)
+//    private boolean commodityReviewDecision;
 
     @Column(name = "review_star", nullable = false)
     private Double reviewStar;
