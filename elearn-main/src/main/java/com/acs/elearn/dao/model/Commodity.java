@@ -35,7 +35,7 @@ public class Commodity implements Serializable {
     private List<CourseInformation> courseList;
 
     @OneToMany(mappedBy = "commodity")
-    private List<CommodityReviewRecord> commodityReviewRecordList;
+    private List<Review> reviewList;
 
     @ManyToMany(mappedBy = "commodityList")
     private List<Transaction> transactionList;

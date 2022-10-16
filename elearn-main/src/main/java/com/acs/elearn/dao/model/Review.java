@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Table(name = "commodity_review_record")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
-public class CommodityReviewRecord implements Serializable {
+public class Review implements Serializable {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
     @GeneratedValue(generator="idGenerator")

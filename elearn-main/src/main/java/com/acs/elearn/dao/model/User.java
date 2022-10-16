@@ -45,7 +45,7 @@ public class User {
     private List<CourseUserProgress> courseProgresses;
 
     @OneToMany(mappedBy = "user")
-    private List<CommodityReviewRecord> commodityReviewRecordList;
+    private List<Review> reviewList;
 
     @OneToMany(mappedBy = "publishedBy")
     private List<Commodity> publishedCommodities;
