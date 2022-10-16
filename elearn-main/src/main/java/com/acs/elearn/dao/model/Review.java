@@ -29,11 +29,11 @@ public class Review implements Serializable {
     private User user;
 
     @CreatedDate
-    @Column(name = "commodity_review_create_time", nullable = false, updatable = false)
-    private LocalDateTime commodityReviewCreateTime;
+    @Column(name = "review_create_time", nullable = false, updatable = false)
+    private LocalDateTime reviewCreateTime;
 
-    @Column(name = "commodity_review_comment", columnDefinition = "TEXT")
-    private String commodityReviewComment;
+    @Column(name = "review_comment", columnDefinition = "TEXT")
+    private String reviewComment;
 
 //    @Column(name = "commodity_review_decision", nullable = false)
 //    private boolean commodityReviewDecision;
