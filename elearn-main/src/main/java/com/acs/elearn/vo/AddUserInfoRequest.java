@@ -25,7 +25,6 @@ public class AddUserInfoRequest {
     private Boolean userEnabled;
     @NotNull
     private String userEmail;
-    private String userAvatar;
     private String userContact;
     private String userIntroduction;
 
