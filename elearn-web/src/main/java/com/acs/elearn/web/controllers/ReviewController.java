@@ -1,10 +1,15 @@
 package com.acs.elearn.web.controllers;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Review;
+import com.acs.elearn.dao.model.User;
 import com.acs.elearn.service.impl.ReviewServiceImpl;
 import com.acs.elearn.vo.AddReviewRequest;
+import com.acs.elearn.vo.UpdateReviewRequest;
+import com.acs.elearn.vo.UpdateUserInfoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,17 +60,15 @@ public class ReviewController {
         }
     }
 
-//                List<Review> res = reviewService.displayReviewList(commodityId);
-//                return ResponseHandler.generateResponse("success",HttpStatus.OK,res);
-//            } catch(Exception e) {
-//                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-//            }
-//    ResponseEntity<ResponseModel<User>> getUserInfo(@NotNull @RequestParam String userId) {
-//        try {
-//            User res = userService.getUserInfo(userId);
-//            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-//        } catch (Exception e) {
-//            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
-//        }
-//    }
+    @PostMapping(path = "/update")
+    @ResponseBody
+    ResponseEntity<ResponseModel<Review>> updateReview(@NotNull @RequestBody UpdateReviewRequest requestBody) {
+        try {
+            Review res = reviewService.updateReview(requestBody);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        }
+    }
+
 }

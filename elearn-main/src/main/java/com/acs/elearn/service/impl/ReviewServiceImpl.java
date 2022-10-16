@@ -1,5 +1,7 @@
 package com.acs.elearn.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.Review;
 import com.acs.elearn.dao.model.User;
@@ -8,6 +10,7 @@ import com.acs.elearn.dao.repositories.ReviewRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.ReviewService;
 import com.acs.elearn.vo.AddReviewRequest;
+import com.acs.elearn.vo.UpdateReviewRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,8 +57,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public String updateReview(Review review) throws Exception {
-        return null;
+    public Review updateReview(UpdateReviewRequest requestBody) throws Exception {
+        Review curReview = reviewRepository.findReviewByReviewId(requestBody.getReviewId());
+        if ( curReview == null) {throw new Exception("Review doesn't exist");}
+        BeanUtil.copyProperties(requestBody, curReview, CopyOptions.create().setIgnoreNullValue(true));
+        reviewRepository.save(curReview);
+        return curReview;
+
     }
 
     @Override
