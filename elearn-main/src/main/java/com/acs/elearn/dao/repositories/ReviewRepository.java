@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, String> {
     List<Review> findReviewsByCommodity(Commodity commodity);
+    void deleteById(String reviewId);
+
+    Review findReviewByReviewId(String reviewId);
 }

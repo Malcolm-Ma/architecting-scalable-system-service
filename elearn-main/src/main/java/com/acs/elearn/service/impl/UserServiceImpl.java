@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     public String deleteUser( String userId) throws Exception {
         User curUser = userRepository.findUserByUserId(userId);
         if (curUser == null) {
-            throw new Exception("User is not existed");
+            throw new Exception("User doesn't existed");
         } else {
             userRepository.deleteById(userId);
             return "Delete successfully";
