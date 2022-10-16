@@ -15,7 +15,7 @@ public interface UserService {
 
     String updateUserInfo(User user) throws Exception;
 
-    String addUserInfo(User user) throws Exception;
+    User addUserInfo(User user) throws Exception;
 
     String deleteUser(String userId) throws Exception;
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.Role;
+import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
@@ -18,9 +19,13 @@ public class UserServiceImpl implements UserService {
     final UserRepository userRepository;
     final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    final CartServiceImpl cartService;
+
+
+    public UserServiceImpl(CartServiceImpl cartService,UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.cartService = cartService;
     }
 
     @Override
@@ -30,18 +35,19 @@ public class UserServiceImpl implements UserService {
 
     // add user into database
     @Override
-    public String addUserInfo(User user) throws Exception {
+    public User addUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
-        Role curRole;
-        if(user.getUserRole() != null) {
-            curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
-        } else {
-            curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
-        }
         if (curUser == null) {
+            Role curRole;
+            if(user.getUserRole() != null) {
+                curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+            } else {
+                curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
+            }
             user.setUserRole(curRole);
-            userRepository.save(user);
-            return "Add successfully";
+            User res = userRepository.save(user);
+            ShoppingCart test = cartService.addCart(res.getUserId());
+            return user;
         } else {
             throw new Exception("Add failed, user already existed.");
         }
