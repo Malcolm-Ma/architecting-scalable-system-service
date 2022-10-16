@@ -1,5 +1,6 @@
 package com.acs.elearn.web.controllers;
 
+import com.acs.elearn.common.domain.MinioProperties;
 import com.sun.istack.NotNull;
 import io.minio.*;
 import io.minio.errors.*;
@@ -7,13 +8,16 @@ import io.minio.messages.Bucket;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/minio")
@@ -21,11 +25,44 @@ public class TestMinioController {
     @Autowired
     private MinioClient minioClient;
 
+    @Resource
+    private MinioProperties minioProperties;
 
     @GetMapping(path = "/get")
     @ResponseBody
     String getUserInfo(@NotNull @RequestParam String userId) {
         return "success";
+    }
+
+    /**
+     * Demo for Uploading video
+     *
+     * @param file form-data file
+     * @return URL
+     */
+    @PostMapping("/upload/new")
+    String upload(@RequestParam(value = "file") MultipartFile file) {
+        try {
+            String fileName = file.getOriginalFilename();
+            assert fileName != null;
+            String uploadName = "video/" + UUID.randomUUID().toString().replaceAll("-", "")
+                    + fileName.substring(fileName.lastIndexOf("."));
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            // TODO the bucket should be set as a config
+                            .bucket("elearn")
+                            .object(uploadName)
+                            // TODO Need to check the meaning of the 3rd param (partSize), current set as -1
+                            .stream(file.getInputStream(), file.getSize(), -1)
+                            .contentType(file.getContentType())
+                            .build()
+            );
+            return minioProperties.getEndpoint() + "/elearn/" + uploadName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Upload Failed";
+//            throw new RuntimeException(e);
+        }
     }
 
 
@@ -56,7 +93,7 @@ public class TestMinioController {
     }
 
     //返回桶列表
-    @RequestMapping("/test2")
+    @GetMapping("/test2")
     public String  test2(){
 
         try {
