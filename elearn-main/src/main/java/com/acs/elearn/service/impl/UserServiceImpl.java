@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.Role;
+import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
@@ -18,9 +19,13 @@ public class UserServiceImpl implements UserService {
     final UserRepository userRepository;
     final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+    final CartServiceImpl cartService;
+
+
+    public UserServiceImpl(CartServiceImpl cartService, UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.cartService = cartService;
     }
 
     @Override
@@ -28,42 +33,41 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByUserId(userId);
     }
 
-    // add user into database
     @Override
-    public String addUserInfo(User user) throws Exception {
-        User curUser = userRepository.findUserByUserId(user.getUserId());
+    public User addUserInfo(User user) throws Exception {
+        User curUser = userRepository.findUserByUserUsername(user.getUserUsername());
+        if (curUser != null) {
+            throw new Exception("Add failed, username already existed.");
+        }
         Role curRole;
-        if(user.getUserRole() != null) {
+        if (user.getUserRole() != null) {
             curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
         } else {
             curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
         }
-        if (curUser == null) {
-            user.setUserRole(curRole);
-            userRepository.save(user);
-            return "Add successfully";
-        } else {
-            throw new Exception("Add failed, user already existed.");
-        }
+        user.setUserRole(curRole);
+        User res = userRepository.save(user);
+        ShoppingCart test = cartService.addCart(res.getUserId());
+        return user;
+
     }
 
     // update user's information
     @Override
-    public String updateUserInfo(User user) throws Exception {
+    public User updateUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
             throw new Exception("User is not exist.");
         }
         BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
-        userRepository.save(curUser);
-        return "Add successfully";
+        return userRepository.save(curUser);
     }
 
     @Override
-    public String deleteUser( String userId) throws Exception {
+    public String deleteUser(String userId) throws Exception {
         User curUser = userRepository.findUserByUserId(userId);
         if (curUser == null) {
-            throw new Exception("User is not existed");
+            throw new Exception("User doesn't existed");
         } else {
             userRepository.deleteById(userId);
             return "Delete successfully";
@@ -78,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Commodity> getMerchantCommodity(String userId) {
-        User curMerchant =userRepository.findUserByUserId(userId);
+        User curMerchant = userRepository.findUserByUserId(userId);
         return curMerchant.getPublishedCommodities();
     }
 

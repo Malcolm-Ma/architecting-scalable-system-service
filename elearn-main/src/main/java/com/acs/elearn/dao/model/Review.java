@@ -10,10 +10,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "commodity_review_record")
+@Table(name = "review")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
-public class CommodityReviewRecord implements Serializable {
+public class Review implements Serializable {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
     @GeneratedValue(generator="idGenerator")
@@ -29,14 +29,12 @@ public class CommodityReviewRecord implements Serializable {
     private User user;
 
     @CreatedDate
-    @Column(name = "commodity_review_create_time", nullable = false, updatable = false)
-    private LocalDateTime commodityReviewCreateTime;
+    @Column(name = "review_create_time", nullable = false, updatable = false)
+    private LocalDateTime reviewCreateTime;
 
-    @Column(name = "commodity_review_comment", columnDefinition = "TEXT")
-    private String commodityReviewComment;
+    @Column(name = "review_comment", columnDefinition = "TEXT")
+    private String reviewComment;
 
-    @Column(name = "commodity_review_decision", nullable = false)
-    private boolean commodityReviewDecision;
 
     @Column(name = "review_star", nullable = false)
     private Double reviewStar;

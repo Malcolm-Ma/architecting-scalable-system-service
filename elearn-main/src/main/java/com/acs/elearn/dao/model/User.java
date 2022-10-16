@@ -45,7 +45,7 @@ public class User {
     private List<CourseUserProgress> courseProgresses;
 
     @OneToMany(mappedBy = "user")
-    private List<CommodityReviewRecord> commodityReviewRecordList;
+    private List<Review> reviewList;
 
     @OneToMany(mappedBy = "publishedBy")
     private List<Commodity> publishedCommodities;
@@ -58,15 +58,14 @@ public class User {
     )
     private List<Tag> tagList;
 
-    @OneToOne
-    @JoinColumn(name = "cart_id")
+    @OneToOne(mappedBy = "user")
     private ShoppingCart userShoppingCart;
 
     @Column(name = "user_username", nullable = false)
     private String userUsername;
 
     @Column(name = "user_age")
-    private int userAge = 12;
+    private Integer userAge = 12;
 
     @Column(name = "user_firstname")
     private String userFirstname;

@@ -32,6 +32,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public ShoppingCart addCart(String userId) throws Exception {
+        try {
+            User user = userRepository.findUserByUserId(userId);
+            if (shoppingCartRepository.findShoppingCartByUser(user) != null) {
+                throw new Exception("cart already exist.");
+            }
+            ShoppingCart newCart = new ShoppingCart();
+            newCart.setUser(user);
+            shoppingCartRepository.save(newCart);
+            return newCart;
+        } catch(Exception e) {throw e;}
+    }
+
+
+    @Override
     public String addCommodityToCart(String commodityId, String userId) throws Exception {
         User newUser = userRepository.findUserByUserId(userId);
         ShoppingCart newCart = newUser.getUserShoppingCart();
@@ -39,15 +54,14 @@ public class CartServiceImpl implements CartService {
         List<Commodity> newCommodity = (newCart.getCartCommodity());
         if (newCommodity.contains(chosenCommodity)) {
             throw new Exception("Commodity is already in Cart");
-        } else {
-            newCommodity.add(chosenCommodity);
         }
+        newCommodity.add(chosenCommodity);
         shoppingCartRepository.save(newCart);
         return "successfully added Commodity";
     }
 
     @Override
-    public String deleteCommodityFromCart(String commodityId, String cartId) throws Exception{
+    public String deleteCommodityFromCart(String commodityId, String cartId) throws Exception {
         ShoppingCart newCart = shoppingCartRepository.findShoppingCartByCartId(cartId);
         Commodity chosenCommodity = commodityRepository.findByCommodityId(commodityId);
         List<Commodity> newCommodity = newCart.getCartCommodity();

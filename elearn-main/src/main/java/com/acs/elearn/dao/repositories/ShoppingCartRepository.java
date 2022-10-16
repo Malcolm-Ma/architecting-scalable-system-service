@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.repositories;
 
 import com.acs.elearn.dao.model.ShoppingCart;
+import com.acs.elearn.dao.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +12,6 @@ public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Stri
     @Override
     List<ShoppingCart> findAllById(Iterable<String> strings);
     ShoppingCart findShoppingCartByCartId(String CartId);
+
+    ShoppingCart findShoppingCartByUser(User user);
 }
