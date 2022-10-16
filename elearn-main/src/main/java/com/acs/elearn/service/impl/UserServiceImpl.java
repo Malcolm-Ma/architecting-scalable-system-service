@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     final CartServiceImpl cartService;
 
 
-    public UserServiceImpl(CartServiceImpl cartService,UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(CartServiceImpl cartService, UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.cartService = cartService;
@@ -36,21 +36,21 @@ public class UserServiceImpl implements UserService {
     // add user into database
     @Override
     public User addUserInfo(User user) throws Exception {
-        User curUser = userRepository.findUserByUserId(user.getUserId());
-        if (curUser == null) {
-            Role curRole;
-            if(user.getUserRole() != null) {
-                curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
-            } else {
-                curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
-            }
-            user.setUserRole(curRole);
-            User res = userRepository.save(user);
-            ShoppingCart test = cartService.addCart(res.getUserId());
-            return user;
-        } else {
-            throw new Exception("Add failed, user already existed.");
+        User curUser = userRepository.findUserByUserUsername(user.getUserUsername());
+        if (curUser != null) {
+            throw new Exception("Add failed, username already existed.");
         }
+        Role curRole;
+        if (user.getUserRole() != null) {
+            curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+        } else {
+            curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
+        }
+        user.setUserRole(curRole);
+        User res = userRepository.save(user);
+        ShoppingCart test = cartService.addCart(res.getUserId());
+        return user;
+
     }
 
     // update user's information
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser( String userId) throws Exception {
+    public String deleteUser(String userId) throws Exception {
         User curUser = userRepository.findUserByUserId(userId);
         if (curUser == null) {
             throw new Exception("User doesn't existed");
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Commodity> getMerchantCommodity(String userId) {
-        User curMerchant =userRepository.findUserByUserId(userId);
+        User curMerchant = userRepository.findUserByUserId(userId);
         return curMerchant.getPublishedCommodities();
     }
 
