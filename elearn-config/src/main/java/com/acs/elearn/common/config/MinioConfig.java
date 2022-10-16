@@ -15,7 +15,6 @@ public class MinioConfig {
     @Resource
     private MinioProperties minioProperties;
 
-
     /**
      * 初始化 MinIO 客户端
      */
