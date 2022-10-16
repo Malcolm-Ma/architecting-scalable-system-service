@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByUserId(userId);
     }
 
-    // add user into database
     @Override
     public User addUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserUsername(user.getUserUsername());
