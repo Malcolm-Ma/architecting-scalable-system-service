@@ -44,11 +44,11 @@ public class UserController {
 
     @PostMapping(path = "/update")
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> updateUserInfo(@NotNull @RequestBody UpdateUserInfoRequest requestBody) {
+    ResponseEntity<ResponseModel<User>> updateUserInfo(@NotNull @RequestBody UpdateUserInfoRequest requestBody) {
         try {
             User user = new User();
             BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
-            String res = userService.updateUserInfo(user);
+            User res = userService.updateUserInfo(user);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);

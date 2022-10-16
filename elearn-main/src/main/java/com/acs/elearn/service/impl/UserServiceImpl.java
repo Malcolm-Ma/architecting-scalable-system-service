@@ -55,14 +55,13 @@ public class UserServiceImpl implements UserService {
 
     // update user's information
     @Override
-    public String updateUserInfo(User user) throws Exception {
+    public User updateUserInfo(User user) throws Exception {
         User curUser = userRepository.findUserByUserId(user.getUserId());
         if (curUser == null) {
             throw new Exception("User is not exist.");
         }
         BeanUtil.copyProperties(user, curUser, CopyOptions.create().setIgnoreNullValue(true));
-        userRepository.save(curUser);
-        return "Add successfully";
+        return userRepository.save(curUser);
     }
 
     @Override
