@@ -28,4 +28,6 @@ public class AddUserInfoRequest {
     private String userContact;
     private String userIntroduction;
 
+    private String userAvatar;
+
 }

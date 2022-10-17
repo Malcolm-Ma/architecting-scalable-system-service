@@ -77,4 +77,7 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_update_time")
     private Date commodityUpdateTime;
 
+    @Column(name = "commodity_cover", nullable = false)
+    private String commodityCover;
+
 }

@@ -59,9 +59,7 @@ public class UserController {
     @ResponseBody
     ResponseEntity<ResponseModel<User>> addUserInfo(@NotNull @RequestBody AddUserInfoRequest requestBody) {
         try {
-            User user = new User();
-            BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
-            User res = userService.addUserInfo(user);
+            User res = userService.addUserInfo(requestBody);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
