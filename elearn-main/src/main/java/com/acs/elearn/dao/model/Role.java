@@ -1,5 +1,7 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +10,9 @@ import java.util.List;
 @Entity
 @Table(name = "role")
 @Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "role_id")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

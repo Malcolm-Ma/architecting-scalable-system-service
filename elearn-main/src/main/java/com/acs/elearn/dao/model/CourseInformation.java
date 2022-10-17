@@ -1,5 +1,8 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,6 +18,9 @@ import java.util.List;
 @Table(name = "course_information")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "course_id")
 public class CourseInformation implements Serializable {
 
     @Id
@@ -28,9 +34,11 @@ public class CourseInformation implements Serializable {
     private Commodity commodity;
 
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private List<Quiz> quizList;
 
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private List<CourseUserProgress> courseProgresses;
 
     @Column(name = "course_name", length = 64)

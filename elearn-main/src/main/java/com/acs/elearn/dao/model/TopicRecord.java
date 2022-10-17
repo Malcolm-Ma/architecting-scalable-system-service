@@ -1,5 +1,8 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +15,9 @@ import java.util.List;
 @Table(name = "topic_record")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "topic_id")
 public class TopicRecord {
 
     @Id
@@ -20,6 +26,7 @@ public class TopicRecord {
     private String topicId;
 
     @OneToMany(mappedBy = "topic")
+    @JsonIgnore
     private List<ReplyRecord> replyRecordList;
 
     @Column(name = "topic_content", length = 64)

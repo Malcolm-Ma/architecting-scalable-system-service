@@ -1,5 +1,7 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,12 +14,15 @@ import java.time.LocalDateTime;
 @Table(name = "quiz")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "quiz_id")
 public class Quiz {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
     @GeneratedValue(generator="idGenerator")
     @Column(name = "quiz_id", nullable = false, length = 32)
-    private String QuizId;
+    private String quizId;
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)

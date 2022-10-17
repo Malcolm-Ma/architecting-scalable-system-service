@@ -1,5 +1,7 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +15,9 @@ import java.time.LocalDateTime;
 @Table(name = "review")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "review_id")
 public class Review implements Serializable {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID

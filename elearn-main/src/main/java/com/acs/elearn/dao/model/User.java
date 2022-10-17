@@ -1,5 +1,6 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +15,9 @@ import java.util.List;
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "user_id")
 public class User {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -33,21 +37,27 @@ public class User {
     private Role userRole;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserActionTracing> userActionTracingList;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<ReplyRecord> replyRecordList;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Transaction> transactionList;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<CourseUserProgress> courseProgresses;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "publishedBy")
+    @JsonIgnore
     private List<Commodity> publishedCommodities;
 
     @ManyToMany
@@ -74,7 +84,6 @@ public class User {
     private String userLastname;
 
     @CreatedDate
-//    @Column(name = "user_created_time", nullable = false, updatable = false)
     @Column(name = "user_created_time",  updatable = false)
     private LocalDateTime userCreatedTime;
 
