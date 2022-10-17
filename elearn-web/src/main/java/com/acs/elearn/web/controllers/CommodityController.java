@@ -24,33 +24,44 @@ public class CommodityController {
 
     @ApiOperation("Search commodity by keywords")
     @PostMapping("/search_commodity")
-    public ResponseEntity<ResponseModel<List<Commodity>>> searchCommodity(@Validated @RequestBody CommoditySearchRequest request) {
+    @ResponseBody
+    ResponseEntity<ResponseModel<List<Commodity>>> searchCommodity(@Validated @RequestBody CommoditySearchRequest request) {
         List<Commodity> res = commodityService.searchCommodity(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @GetMapping(path = "/show_commodity_in_home_page", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Commodity> showCommodityInHomePage(@RequestParam Integer limit) {
-        return commodityService.showCommodityInHomePage(limit);
+    @ResponseBody
+    ResponseEntity<ResponseModel<List<Commodity>>> showCommodityInHomePage(@RequestParam Integer limit) {
+        List<Commodity> res = commodityService.showCommodityInHomePage(limit);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
-    @GetMapping(path = "/create_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createCommodity(CommodityCreateRequest request) {
-        return commodityService.createCommodity(request);
+    @PostMapping(path = "/create_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    ResponseEntity<ResponseModel<String>> createCommodity(CommodityCreateRequest request) {
+        String res = commodityService.createCommodity(request);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
-    @GetMapping(path = "/update_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String updateCommodity(Commodity commodity) {
-        return commodityService.updateCommodity(commodity);
+    @PostMapping(path = "/update_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<ResponseModel<String>> updateCommodity(Commodity commodity) {
+        String res = commodityService.updateCommodity(commodity);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
-    @GetMapping(path = "/delete_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteCommodity(Commodity commodity) {
-        return commodityService.deleteCommodity(commodity);
+    @PostMapping(path = "/delete_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    ResponseEntity<ResponseModel<String>> deleteCommodity(Commodity commodity) {
+        String res = commodityService.deleteCommodity(commodity);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @GetMapping(path = "/get_commodity_info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Commodity getCommodityInfo(String commodityID) {
-        return commodityService.getCommodityInfo(commodityID);
+    @ResponseBody
+     ResponseEntity<ResponseModel<Commodity>> getCommodityInfo(String commodityID) {
+        Commodity res = commodityService.getCommodityInfo(commodityID);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 }

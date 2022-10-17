@@ -1,9 +1,21 @@
 package com.acs.elearn.web.controllers;
 
+import com.acs.elearn.common.response.ResponseHandler;
+import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.service.MinioVideoService;
+import io.minio.errors.*;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
+import java.io.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping(path = "/minio/video")
@@ -17,48 +29,21 @@ public class MinioVideoController {
      * @return URL
      */
     @PostMapping("/upload")
-    String uploadVideo(@RequestParam(value = "file") MultipartFile file) {
-        return minioService.uploadVideo(file);
+    @ResponseBody
+    ResponseEntity<ResponseModel<String>> uploadVideo(@NotNull @RequestParam(value = "file") MultipartFile file) {
+        String res = minioService.uploadVideo(file);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @RequestMapping("/show")
-    String showVideo(@RequestParam String videoName) {
-        return minioService.showVideo(videoName);
+    @ResponseBody
+    void showVideo(HttpServletResponse response,@NotNull @RequestParam String videoName) {
+        minioService.showVideo(response,videoName);
     }
 
-//
-//    @RequestMapping("/remove")
-//    public void remove(@RequestParam String bucketName, @RequestParam String filedName){
-//        try {
-//
-//            List<Bucket> buckets = minioClient.listBuckets();
-//            for (Bucket bucket : buckets) {
-//                if (bucket.name().equals("elearn")){
-//                    continue;
-//                }
-//                minioClient.removeBucket( RemoveBucketArgs.builder().bucket(bucket.name()).build());
-//
-//                System.out.println("delete the bucket:"+bucket.name()+" is success!! ");
-//
-//            }
-//        } catch (ErrorResponseException e) {
-//            e.printStackTrace();
-//        } catch (InsufficientDataException e) {
-//            e.printStackTrace();
-//        } catch (InternalException e) {
-//            e.printStackTrace();
-//        } catch (InvalidKeyException e) {
-//            e.printStackTrace();
-//        } catch (InvalidResponseException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        } catch (ServerException e) {
-//            e.printStackTrace();
-//        } catch (XmlParserException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @RequestMapping("/remove")
+    @ResponseBody
+    void remove(@NotNull @RequestParam String videoName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        minioService.removeVideo(videoName);
+    }
 }

@@ -5,14 +5,14 @@ import com.acs.elearn.service.MinioVideoService;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
-import org.apache.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -36,7 +36,7 @@ public class MinioVideoServiceImpl implements MinioVideoService {
                     PutObjectArgs.builder()
                             .bucket(minioProperties.getBucketName())
                             .object(uploadName)
-                            // TODO Need to check the meaning of the 3rd param (partSize), current set as -1
+                            // partSize: -1，the partition size is 5MB by default
                             .stream(file.getInputStream(), file.getSize(), -1)
                             .contentType(file.getContentType())
                             .build()
@@ -49,51 +49,49 @@ public class MinioVideoServiceImpl implements MinioVideoService {
     }
 
     @Override
-    public String showVideo(String videoName){
+    public void showVideo(HttpServletResponse response,String videoName){
         try {
-            // 调用statObject()来判断对象是否存在。
-            // 如果不存在, statObject()抛出异常,
-            // 否则则代表对象存在。
+            videoName = "video/" + videoName;
             StatObjectResponse statObjectResponse = minioClient.statObject(
                     StatObjectArgs.builder().bucket(minioProperties.getBucketName()).object(videoName).build());
-
-            // 获取"myobject"的输入流。
-            // get object given the bucket and object name
             InputStream stream = minioClient.getObject(
                     GetObjectArgs.builder()
                             .bucket(minioProperties.getBucketName())
                             .object(videoName)
-                            .build());
-
-            //流转换
-//            IOUtils.copy(stream,response.getOutputStream());
-//
-//            //设置返回类型
-//            response.addHeader("Content-Type", "audio/mpeg;charset=utf-8");
-            //这里注释掉  要不然会报错
-//            response.flushBuffer();
-
-//            // 关闭流，此处为示例，流关闭最好放在finally块。
+                            .build()
+            );
+            byte[] buffer=null;
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = stream.read(b)) != -1)
+            {
+                bos.write(b, 0, n);
+            }
+            stream.close();
+            bos.close();
+            buffer = bos.toByteArray();
+            OutputStream sos = null;
+            try {
+                response.setHeader("Content-Type", "video/mp4");
+                sos = response.getOutputStream();
+                sos.write(buffer);
+                sos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             stream.close();
         } catch (Exception e) {
             System.out.println("Error occurred: " + e);
-        }finally {
-
         }
-        return "success";
     }
 
     @Override
-    public String removeVideo(String videoName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    public void removeVideo(String videoName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         List<Bucket> buckets = minioClient.listBuckets();
-        for (Bucket bucket : buckets) {
-            if (bucket.name().equals(minioProperties.getBucketName())){
-                continue;
-            }
-            minioClient.removeObject(RemoveObjectArgs.builder().bucket(minioProperties.getBucketName()).object(videoName).build());
-            minioClient.removeBucket( RemoveBucketArgs.builder().bucket(bucket.name()).build());
-            return "delete the bucket:"+bucket.name()+" is success!! " ;
-        }
-        return "fail to delete" ;
+        videoName = "video/" + videoName;
+        StatObjectResponse statObjectResponse = minioClient.statObject(
+                StatObjectArgs.builder().bucket(minioProperties.getBucketName()).object(videoName).build());
+        minioClient.removeObject(RemoveObjectArgs.builder().bucket(minioProperties.getBucketName()).object(videoName).build());
     }
 }
