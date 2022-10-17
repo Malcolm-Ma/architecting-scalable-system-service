@@ -1,6 +1,8 @@
 package com.acs.elearn.dao.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,9 +34,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "commodity_id")
     )
     private List<Commodity> purchasedCommodities;
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role userRole;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_id_hobby",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_hobby")
+    )
+    private List<Tag> tagList;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
@@ -57,16 +64,7 @@ public class User {
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "publishedBy")
-    @JsonIgnore
     private List<Commodity> publishedCommodities;
-
-    @ManyToMany
-    @JoinTable(
-            name = "user_id_hobby",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_hobby")
-    )
-    private List<Tag> tagList;
 
     @OneToOne(mappedBy = "user")
     private ShoppingCart userShoppingCart;
@@ -101,6 +99,9 @@ public class User {
 
     @Column(name = "user_contact")
     private String userContact;
+
+    @Column(name = "keycloak_id")
+    private String keycloakId;
 
     @Lob
     @Column(name = "user_introduction",columnDefinition="TEXT")

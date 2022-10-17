@@ -1,7 +1,6 @@
 package com.acs.elearn.vo;
 
 
-import com.acs.elearn.dao.model.Role;
 import com.acs.elearn.dao.model.Tag;
 import lombok.Data;
 
