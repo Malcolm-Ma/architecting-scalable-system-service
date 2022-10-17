@@ -9,6 +9,7 @@ import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
+import com.acs.elearn.vo.AddUserInfoRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,14 +35,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUserInfo(User user) throws Exception {
+    public User addUserInfo(AddUserInfoRequest requestBody) throws Exception {
+        User user = new User();
+        BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
         User curUser = userRepository.findUserByUserUsername(user.getUserUsername());
         if (curUser != null) {
             throw new Exception("Add failed, username already existed.");
         }
         Role curRole;
-        if (user.getUserRole() != null) {
-            curRole = roleRepository.findRoleByRoleId(user.getUserRole().getRoleId());
+        if (requestBody.getUserRoleId() != null) {
+            curRole = roleRepository.findRoleByRoleId(Long.valueOf(requestBody.getUserRoleId()));
         } else {
             curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
         }
