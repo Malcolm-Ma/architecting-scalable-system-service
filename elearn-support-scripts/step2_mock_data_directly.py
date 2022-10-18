@@ -74,7 +74,7 @@ def read_db(sqlcom):
 
 if __name__ == '__main__':
     # read merchant id
-    sqlcom = 'select user_id from user'  # read merchant id
+    sqlcom = 'select top 6 user_id from user'  # read merchant id
     merchant_id = read_db(sqlcom)
     # read buyer id
     sqlcom = 'select user_id from user'  # read merchant id
