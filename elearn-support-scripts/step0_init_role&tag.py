@@ -27,8 +27,8 @@ def init_tag():
     return df
 
 
-# def write_db(df, db_name):
-#     df.to_sql(name=db_name, con=con, if_exists='append', index=False)
+def write_db(df, db_name):
+    df.to_sql(name=db_name, con=con, if_exists='append', index=False)
 
 
 
