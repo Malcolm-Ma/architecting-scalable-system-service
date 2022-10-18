@@ -4,7 +4,6 @@ from step2_mock_data_directly import run_step2
 from db_engine import connect_db
 
 if __name__ == '__main__':
-    connect_db()
-    # run_step0()
-    # run_step1()
-    # run_step2()
+    run_step0()
+    run_step1()
+    run_step2()
