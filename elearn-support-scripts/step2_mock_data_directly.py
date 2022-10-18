@@ -74,10 +74,10 @@ def read_db(sqlcom):
 
 if __name__ == '__main__':
     # read merchant id
-    sqlcom = 'select user_id from user where role_id = 2'  # read merchant id
+    sqlcom = 'select user_id from user'  # read merchant id
     merchant_id = read_db(sqlcom)
     # read buyer id
-    sqlcom = 'select user_id from user where role_id = 1'  # read merchant id
+    sqlcom = 'select user_id from user'  # read merchant id
     buyer_id = read_db(sqlcom)
     # read commodity id
     sqlcom = 'select commodity_id from commodity'  # read merchant id

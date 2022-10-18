@@ -8,13 +8,13 @@ engine = create_engine("mysql+pymysql://uogyy5pqikn9er6i:"
 con = engine.connect()
 
 
-def init_role():
-    data = []
-    clmn = ['role_id', 'display_name', 'role_client', 'role_name']
-    data.append([1, 'Buyer', 1, 'buyer'])
-    data.append([2, 'Merchant', 1, 'merchant'])
-    df = pd.DataFrame(data, columns=clmn)
-    return df
+# def init_role():
+#     data = []
+#     clmn = ['role_id', 'display_name', 'role_client', 'role_name']
+#     data.append([1, 'Buyer', 1, 'buyer'])
+#     data.append([2, 'Merchant', 1, 'merchant'])
+#     df = pd.DataFrame(data, columns=clmn)
+#     return df
 
 def init_tag():
     fake = Faker('en')
@@ -27,15 +27,15 @@ def init_tag():
     return df
 
 
-def write_db(df, db_name):
-    df.to_sql(name=db_name, con=con, if_exists='append', index=False)
+# def write_db(df, db_name):
+#     df.to_sql(name=db_name, con=con, if_exists='append', index=False)
 
 
 
 if __name__ == '__main__':
     # initialize role
-    role = init_role()
-    write_db(role, 'role')
+#     role = init_role()
+#     write_db(role, 'role')
     # initialize tag
     tag = init_tag()
     write_db(tag,'tag')
