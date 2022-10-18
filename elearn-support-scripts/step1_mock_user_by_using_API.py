@@ -4,7 +4,7 @@ from faker import Faker
 import random
 
 
-def mock_user_data(user_nums, user_add_url, user_type):
+def mock_user_data(user_nums, user_add_url):
     all_data = []
     for i in range(user_nums):
         fake = Faker('en')
@@ -22,8 +22,7 @@ def mock_user_data(user_nums, user_add_url, user_type):
         data = {"user_age": user_age, "user_contact": user_contact, "user_email": user_email,
                 "user_email_verified": user_email_verified, "user_enabled": user_enabled,
                 "user_firstname": user_firstname, "user_introduction": user_introduction,
-                "user_lastname": user_lastname, "user_role_id": user_type,
-                "user_username": user_username, "user_avatar": user_avatar}
+                "user_lastname": user_lastname, "user_username": user_username, "user_avatar": user_avatar}
         all_data.append(data)
         # data_json = json.dumps(data,ensure_ascii=False)
         # x = requests.post(user_add_url, json=data_json)
@@ -34,8 +33,8 @@ def mock_user_data(user_nums, user_add_url, user_type):
 
 
 def run_step1():
-    mock_user_data(100, 'http://localhost:8090/user/add', 2)
-    mock_user_data(100, 'http://localhost:8090/user/add', 1)
+    mock_user_data(100, 'http://localhost:8090/user/add')
+    mock_user_data(100, 'http://localhost:8090/user/add')
 
 
 if __name__ == '__main__':

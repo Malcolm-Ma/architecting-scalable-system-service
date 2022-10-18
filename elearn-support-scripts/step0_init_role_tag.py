@@ -6,13 +6,13 @@ from db_engine import connect_db
 con = connect_db()
 
 
-def init_role():
-    data = []
-    clmn = ['role_id', 'display_name', 'role_client', 'role_name']
-    data.append([1, 'Buyer', 1, 'buyer'])
-    data.append([2, 'Merchant', 1, 'merchant'])
-    df = pd.DataFrame(data, columns=clmn)
-    return df
+# def init_role():
+#     data = []
+#     clmn = ['role_id', 'display_name', 'role_client', 'role_name']
+#     data.append([1, 'Buyer', 1, 'buyer'])
+#     data.append([2, 'Merchant', 1, 'merchant'])
+#     df = pd.DataFrame(data, columns=clmn)
+#     return df
 
 
 def init_tag():
@@ -32,8 +32,8 @@ def write_db(df, db_name):
 
 def run_step0():
     # initialize role
-    role = init_role()
-    write_db(role, 'role')
+#     role = init_role()
+#     write_db(role, 'role')
     # initialize tag
     tag = init_tag()
     write_db(tag, 'tag')
