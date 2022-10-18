@@ -3,20 +3,19 @@ from faker import Faker
 import pandas as pd
 import random
 import datetime
-from sqlalchemy import create_engine
+from db_engine import connect_db
 
-engine = create_engine("mysql+pymysql://uogyy5pqikn9er6i:"
-                       "K7g1mGLwObOHsX6AiBt@bheh1wym7xihu29rxgvj-mysql.services.clever-cloud.com:20982"
-                       "/bheh1wym7xihu29rxgvj?charset=utf8mb4")
-con = engine.connect()
+# init db connection
+con = connect_db()
 
+# init faker instance
 fake = Faker('en')
 
-def mock_commodity_data(lines_num,user_id):
 
+def mock_commodity_data(lines_num, user_id):
     clmn = ['commodity_id', 'commodity_create_time', 'commodity_discount', 'commodity_introduction',
             'commodity_name', 'commodity_price', 'commodity_sold_cnt', 'commodity_star',
-            'commodity_status', 'commodity_update_time', 'commodity_cover','published_by']
+            'commodity_status', 'commodity_update_time', 'commodity_cover', 'published_by']
     data = []
     for i in range(lines_num):
         # mock process
@@ -37,30 +36,31 @@ def mock_commodity_data(lines_num,user_id):
         # put in data
         data_element = [commodity_id, create_time, commodity_discount, commodity_introduction, commodity_name,
                         commodity_price, commodity_sold_cnt, commodity_star, commodity_status, commodity_update_time,
-                        commodity_cover,published_by]
+                        commodity_cover, published_by]
         data.append(data_element)
     commodity_df = pd.DataFrame(data, columns=clmn)
     print(commodity_df)
     return commodity_df
 
-def mock_review(buyer_id,commodity):
-    clmn = ['review_id', 'review_comment','review_create_time','review_star','commodity_id','user_id']
+
+def mock_review(buyer_id, commodity):
+    clmn = ['review_id', 'review_comment', 'review_create_time', 'review_star', 'commodity_id', 'user_id']
     data = []
     for i in range(5000):
-        review_id= fake.uuid4()[0:32]
-        review_comment = fake.paragraph(nb_sentences=5,variable_nb_sentences=True, ext_word_list=None)
+        review_id = fake.uuid4()[0:32]
+        review_comment = fake.paragraph(nb_sentences=5, variable_nb_sentences=True, ext_word_list=None)
         review_create_time = fake.date_time_between(start_date='-1y')
-        review_star = random.randrange(0,5,1)
-        commodity_id = commodity[random.randrange(0,len(commodity)-1,1)]
-        user_id = buyer_id[random.randrange(0,len(buyer_id)-1,1)]
-        data_element = [review_id,review_comment,review_create_time,review_star,commodity_id,user_id]
+        review_star = random.randrange(0, 5, 1)
+        commodity_id = commodity[random.randrange(0, len(commodity) - 1, 1)]
+        user_id = buyer_id[random.randrange(0, len(buyer_id) - 1, 1)]
+        data_element = [review_id, review_comment, review_create_time, review_star, commodity_id, user_id]
         data.append(data_element)
     df = pd.DataFrame(data, columns=clmn)
     return df
 
+
 def write_db(df, db_name):
     df.to_sql(name=db_name, con=con, if_exists='append', index=False)
-
 
 
 def read_db(sqlcom):
@@ -72,7 +72,7 @@ def read_db(sqlcom):
     return user_id
 
 
-if __name__ == '__main__':
+def run_step2():
     # read merchant id
     sqlcom = 'select user_id from user where role_id = 2'  # read merchant id
     merchant_id = read_db(sqlcom)
@@ -89,8 +89,11 @@ if __name__ == '__main__':
     #     commodity = mock_commodity_data(len(merchant_id),merchant_id)
     #     write_db(commodity, 'commodity')
     # step 2.2 - mock review
-    review = mock_review(buyer_id,commodity_id)
-    write_db(review,'review')
+    review = mock_review(buyer_id, commodity_id)
+    write_db(review, 'review')
 
     con.close()
 
+
+if __name__ == '__main__':
+    run_step2()

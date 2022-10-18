@@ -4,7 +4,7 @@ from faker import Faker
 import random
 
 
-def mock_user_data(user_nums, user_add_url,user_type):
+def mock_user_data(user_nums, user_add_url, user_type):
     all_data = []
     for i in range(user_nums):
         fake = Faker('en')
@@ -33,7 +33,10 @@ def mock_user_data(user_nums, user_add_url,user_type):
         print(i)
 
 
-if __name__ == '__main__':
-    mock_user_data(100, 'http://localhost:8090/user/add',2)
-    mock_user_data(100, 'http://localhost:8090/user/add',1)
+def run_step1():
+    mock_user_data(100, 'http://localhost:8090/user/add', 2)
+    mock_user_data(100, 'http://localhost:8090/user/add', 1)
 
+
+if __name__ == '__main__':
+    run_step1()
