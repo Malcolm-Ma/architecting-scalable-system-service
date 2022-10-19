@@ -28,9 +28,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "commodity_id")
     )
     private List<Commodity> purchasedCommodities;
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role userRole;
 
     @OneToMany(mappedBy = "user")
     private List<UserActionTracing> userActionTracingList;
