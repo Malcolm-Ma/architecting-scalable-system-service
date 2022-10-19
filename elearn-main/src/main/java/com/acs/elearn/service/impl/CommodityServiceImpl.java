@@ -54,7 +54,7 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public String createCommodity(CommodityCreateRequest request){
+    public Commodity createCommodity(CommodityCreateRequest request){
         User publishBy = userServiceImpl.getUserInfo(request.getUserId());
         List<CourseInformation> courseList = new ArrayList<>();
         int courseNum = request.getCourseId().toArray().length;
@@ -71,10 +71,10 @@ public class CommodityServiceImpl implements CommodityService {
         commodity.setCommoditySoldCnt(0);
         commodity.setCommodityStatus(request.getCommodityStatus());
         commodityRepository.save(commodity);
-        return "save successfully";
+        return commodity;
     }
     @Override
-    public String updateCommodity(Commodity commodity) {
+    public String updateCommodity(Commodity commodity) throws Exception {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if (curCommodity != null) {
             BeanUtil.copyProperties(commodity, curCommodity, CopyOptions.create().setIgnoreNullValue(true));
@@ -82,17 +82,17 @@ public class CommodityServiceImpl implements CommodityService {
             return "Add successfully";
         }
         else {
-            return "Fail to add";
+            throw new Exception("commodity is not existing");
         }
     }
     @Override
-    public String deleteCommodity(Commodity commodity){
+    public String deleteCommodity(Commodity commodity) throws Exception {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if(curCommodity != null){
             commodityRepository.delete(curCommodity);
             return "Delete successfully";
         } else{
-            return "Fail to delete";
+            throw new Exception("commodity is not existing");
         }
     }
     @Override
