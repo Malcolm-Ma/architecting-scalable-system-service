@@ -45,8 +45,8 @@ public class Commodity implements Serializable {
     @JsonIgnore
     private List<Review> reviewList;
 
-    @ManyToMany(mappedBy = "commodityList")
-    private List<Transaction> transactionList;
+//    @ManyToMany(mappedBy = "commodityList")
+//    private List<Transaction> transactionList;
 
     @ManyToMany(mappedBy = "purchasedCommodities")
     private List<User> userList;

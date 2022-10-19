@@ -73,6 +73,7 @@ public class CommodityServiceImpl implements CommodityService {
         commodityRepository.save(commodity);
         return commodity;
     }
+    
     @Override
     public String updateCommodity(Commodity commodity) throws Exception {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());

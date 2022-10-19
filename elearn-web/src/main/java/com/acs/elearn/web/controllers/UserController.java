@@ -2,6 +2,7 @@ package com.acs.elearn.web.controllers;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.common.exception.UserNullException;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
@@ -9,6 +10,7 @@ import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.impl.UserServiceImpl;
 import com.acs.elearn.vo.AddUserInfoRequest;
+import com.acs.elearn.vo.GetAndUpdateUserInfoRequest;
 import com.acs.elearn.vo.UpdateUserInfoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +39,26 @@ public class UserController {
         try {
             User res = userService.getUserInfo(userId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-        } catch (Exception e) {
+        } catch (UserNullException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+        }
+    }
+
+    @PostMapping(path = "/get_update")
+    @ResponseBody
+    ResponseEntity<ResponseModel<User>> getAndUpdateUserInfo(@NotNull @RequestBody GetAndUpdateUserInfoRequest requestBody) {
+        try {
+            User getRes = userService.getUserInfoByKcId(requestBody.getKeycloakId());
+            requestBody.setUserId(getRes.getUserId());
+            User user = new User();
+            BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
+            User updateRes = userService.updateUserInfo(user);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, updateRes);
+        }
+        catch (UserNullException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+        }
+        catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }

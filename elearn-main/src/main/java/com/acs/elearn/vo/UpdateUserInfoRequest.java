@@ -1,7 +1,6 @@
 package com.acs.elearn.vo;
 
 
-import com.acs.elearn.dao.model.Role;
 import com.acs.elearn.dao.model.Tag;
 import lombok.Data;
 
@@ -12,8 +11,7 @@ import java.util.List;
 public class UpdateUserInfoRequest {
         @NotNull
         private String userId;
-        @NotNull
-        private String userRoleId;
+        private String keycloakId;
         private List<Tag> tagList;
         @NotNull
         private String userUsername;
@@ -28,6 +26,4 @@ public class UpdateUserInfoRequest {
         private String userEmail;
         private String userContact;
         private String userIntroduction;
-
-
 }
