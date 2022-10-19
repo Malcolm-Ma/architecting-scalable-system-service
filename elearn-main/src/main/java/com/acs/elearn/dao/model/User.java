@@ -93,4 +93,7 @@ public class User {
     @Lob
     @Column(name = "user_introduction",columnDefinition="TEXT")
     private String userIntroduction;
+
+    @Column(name = "keycloak_id")
+    private String keycloakId;
 }

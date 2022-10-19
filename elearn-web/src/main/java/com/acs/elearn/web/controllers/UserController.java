@@ -2,6 +2,7 @@ package com.acs.elearn.web.controllers;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.common.exception.UserNullException;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
@@ -37,8 +38,19 @@ public class UserController {
         try {
             User res = userService.getUserInfo(userId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
+        } catch (UserNullException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+        }
+    }
+
+    @GetMapping(path = "/getByKcId")
+    @ResponseBody
+    ResponseEntity<ResponseModel<User>> getUserInfoByKcId(@NotNull @RequestParam String kcId) {
+        try {
+            User res = userService.getUserInfoByKcId(kcId);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+        } catch (UserNullException e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
         }
     }
 

@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface UserService {
 
-    User getUserInfo(String userId);
+    User getUserInfo(String userId) throws Exception;
+    User getUserInfoByKcId(String kcId) throws Exception;
     List<Commodity> getUserPurchasedCommodity(String userId);
 
     List<Commodity> getMerchantCommodity(String userId);
