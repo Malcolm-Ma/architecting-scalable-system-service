@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public User getUserInfo(String userId) throws UserNullException {
         User user = userRepository.findUserByUserId(userId);
         if(user == null) {
-            throw new UserNullException();
+            throw new UserNullException("User doesn't exist.");
         }
         return user;
     }
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public User getUserInfoByKcId(String kcId) throws UserNullException {
         User user = userRepository.findUserByKeycloakId(kcId);
         if(user == null) {
-            throw new UserNullException();
+            throw new UserNullException("User doesn't exist.");
         }
         return user;
     }
