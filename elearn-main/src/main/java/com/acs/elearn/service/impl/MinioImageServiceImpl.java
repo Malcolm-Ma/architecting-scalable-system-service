@@ -65,11 +65,16 @@ public class MinioImageServiceImpl implements MinioImageService {
 
     @Override
     public void deleteUserImage(String userId) {
-
+        User curUser = userRepository.findUserByUserId(userId);
+        curUser.setUserAvatar(null);
+        userRepository.save(curUser);
     }
 
     @Override
     public void deleteCommodityImage(String commodityId) {
+        Commodity curCommodity = commodityRepository.findByCommodityId(commodityId);
+        curCommodity.setCommodityCover(null);
+        commodityRepository.save(curCommodity);
 
     }
 }

@@ -22,7 +22,7 @@ public class MinioImageController {
 
     @PostMapping("/update")
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> updateImage(@RequestBody UploadImageRequest requestBody) {
+    ResponseEntity<ResponseModel<String>> updateImage(@ModelAttribute UploadImageRequest requestBody) {
         try {
             String res = minioImageService.updateImage(requestBody.getImageType(), requestBody.getId(), requestBody.getFile());
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
@@ -30,6 +30,20 @@ public class MinioImageController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
 
+    }
+
+    @PostMapping("/delete_u")
+    @ResponseBody
+    ResponseEntity<ResponseModel<Void>> deleteUserImage(@RequestParam  String userId) {
+        minioImageService.deleteUserImage(userId);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, null);
+    }
+
+    @PostMapping("/delete_c")
+    @ResponseBody
+    ResponseEntity<ResponseModel<Void>> deleteCommodityImage(@RequestParam  String userId) {
+        minioImageService.deleteCommodityImage(userId);
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, null);
     }
 
 
