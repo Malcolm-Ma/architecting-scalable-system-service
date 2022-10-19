@@ -1,8 +1,5 @@
 package com.acs.elearn.dao.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,9 +14,6 @@ import java.util.List;
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "user_id")
 public class User {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -35,6 +29,24 @@ public class User {
     )
     private List<Commodity> purchasedCommodities;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserActionTracing> userActionTracingList;
+
+    @OneToMany(mappedBy = "user")
+    private List<ReplyRecord> replyRecordList;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactionList;
+
+    @OneToMany(mappedBy = "user")
+    private List<CourseUserProgress> courseProgresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviewList;
+
+    @OneToMany(mappedBy = "publishedBy")
+    private List<Commodity> publishedCommodities;
+
     @ManyToMany
     @JoinTable(
             name = "user_id_hobby",
@@ -42,29 +54,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "user_hobby")
     )
     private List<Tag> tagList;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<UserActionTracing> userActionTracingList;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<ReplyRecord> replyRecordList;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Transaction> transactionList;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<CourseUserProgress> courseProgresses;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<Review> reviewList;
-
-    @OneToMany(mappedBy = "publishedBy")
-    private List<Commodity> publishedCommodities;
 
     @OneToOne(mappedBy = "user")
     private ShoppingCart userShoppingCart;
@@ -82,6 +71,7 @@ public class User {
     private String userLastname;
 
     @CreatedDate
+//    @Column(name = "user_created_time", nullable = false, updatable = false)
     @Column(name = "user_created_time",  updatable = false)
     private LocalDateTime userCreatedTime;
 
@@ -99,9 +89,6 @@ public class User {
 
     @Column(name = "user_contact")
     private String userContact;
-
-    @Column(name = "keycloak_id")
-    private String keycloakId;
 
     @Lob
     @Column(name = "user_introduction",columnDefinition="TEXT")
