@@ -2,6 +2,7 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.common.exception.UserNullException;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.dao.model.User;
@@ -25,8 +26,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserInfo(String userId) {
-        return userRepository.findUserByUserId(userId);
+    public User getUserInfo(String userId) throws UserNullException {
+        User user = userRepository.findUserByUserId(userId);
+        if(user == null) {
+            throw new UserNullException();
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserInfoByKcId(String kcId) throws UserNullException {
+        User user = userRepository.findUserByKeycloakId(kcId);
+        if(user == null) {
+            throw new UserNullException();
+        }
+        return user;
     }
 
     @Override
