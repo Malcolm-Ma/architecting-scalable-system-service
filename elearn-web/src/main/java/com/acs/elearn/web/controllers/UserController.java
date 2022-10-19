@@ -10,6 +10,7 @@ import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.impl.UserServiceImpl;
 import com.acs.elearn.vo.AddUserInfoRequest;
+import com.acs.elearn.vo.GetAndUpdateUserInfoRequest;
 import com.acs.elearn.vo.UpdateUserInfoRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,22 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/getByKcId")
+    @PostMapping(path = "/get_update")
     @ResponseBody
-    ResponseEntity<ResponseModel<User>> getUserInfoByKcId(@NotNull @RequestParam String kcId) {
+    ResponseEntity<ResponseModel<User>> getAndUpdateUserInfo(@NotNull @RequestBody GetAndUpdateUserInfoRequest requestBody) {
         try {
-            User res = userService.getUserInfoByKcId(kcId);
-            return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
-        } catch (UserNullException e) {
+            User getRes = userService.getUserInfoByKcId(requestBody.getKeycloakId());
+            requestBody.setUserId(getRes.getUserId());
+            User user = new User();
+            BeanUtil.copyProperties(requestBody, user, CopyOptions.create().setIgnoreNullValue(true));
+            User updateRes = userService.updateUserInfo(user);
+            return ResponseHandler.generateResponse("success", HttpStatus.OK, updateRes);
+        }
+        catch (UserNullException e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+        }
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 

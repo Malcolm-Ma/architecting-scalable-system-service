@@ -11,8 +11,7 @@ import java.util.List;
 public class UpdateUserInfoRequest {
         @NotNull
         private String userId;
-        @NotNull
-        private String userRoleId;
+        private String keycloakId;
         private List<Tag> tagList;
         @NotNull
         private String userUsername;
@@ -27,6 +26,4 @@ public class UpdateUserInfoRequest {
         private String userEmail;
         private String userContact;
         private String userIntroduction;
-
-
 }
