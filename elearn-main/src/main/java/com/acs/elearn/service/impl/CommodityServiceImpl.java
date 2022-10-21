@@ -55,23 +55,29 @@ public class CommodityServiceImpl implements CommodityService {
 
     @Override
     public Commodity createCommodity(CommodityCreateRequest request){
-        User publishBy = userServiceImpl.getUserInfo(request.getUserId());
-        List<CourseInformation> courseList = new ArrayList<>();
-        int courseNum = request.getCourseId().toArray().length;
-        for(int i=0; i<courseNum; i++){
-            courseList.add( courseServiceImpl.getCourseInfo( request.getCourseId().get(i) ) );
+        try {
+            User publishBy = userServiceImpl.getUserInfo(request.getUserId());
+            List<CourseInformation> courseList = new ArrayList<>();
+            int courseNum = request.getCourseId().toArray().length;
+            for(int i=0; i<courseNum; i++){
+                courseList.add( courseServiceImpl.getCourseInfo( request.getCourseId().get(i) ) );
+            }
+            Commodity commodity = new Commodity();
+            commodity.setPublishedBy(publishBy);
+            commodity.setCourseList(courseList);
+            commodity.setCommodityName(request.getCommodityName());
+            commodity.setCommodityIntroduction(request.getCommodityIntroduction());
+            commodity.setCommodityPrice(request.getCommodityPrice());
+            commodity.setCommodityDiscount(request.getCommodityDiscount());
+            commodity.setCommoditySoldCnt(0);
+            commodity.setCommodityStatus(request.getCommodityStatus());
+            commodityRepository.save(commodity);
+            return commodity;
         }
-        Commodity commodity = new Commodity();
-        commodity.setPublishedBy(publishBy);
-        commodity.setCourseList(courseList);
-        commodity.setCommodityName(request.getCommodityName());
-        commodity.setCommodityIntroduction(request.getCommodityIntroduction());
-        commodity.setCommodityPrice(request.getCommodityPrice());
-        commodity.setCommodityDiscount(request.getCommodityDiscount());
-        commodity.setCommoditySoldCnt(0);
-        commodity.setCommodityStatus(request.getCommodityStatus());
-        commodityRepository.save(commodity);
-        return commodity;
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
     
     @Override
