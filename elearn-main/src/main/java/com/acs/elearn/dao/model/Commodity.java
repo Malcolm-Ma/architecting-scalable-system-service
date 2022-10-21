@@ -34,15 +34,12 @@ public class Commodity implements Serializable {
     private User publishedBy;
 
     @OneToMany(mappedBy = "commodity")
-    @JsonIgnore
     private List<UserActionTracing> userActionTracingList;
 
     @OneToMany(mappedBy = "commodity")
-    @JsonIgnore
     private List<CourseInformation> courseList;
 
     @OneToMany(mappedBy = "commodity")
-    @JsonIgnore
     private List<Review> reviewList;
 
 //    @ManyToMany(mappedBy = "commodityList")
