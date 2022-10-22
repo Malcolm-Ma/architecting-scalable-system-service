@@ -1,5 +1,6 @@
 package com.acs.elearn.dao.es.model;
 
+import com.acs.elearn.dao.model.CourseInformation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Es Commodity Model
@@ -28,6 +30,8 @@ public class EsCommodity implements Serializable {
 
     @Id
     private String commodityId;
+
+    private List<String> courseIdList;
 
     @Field(type = FieldType.Keyword)
     private String commodityName;

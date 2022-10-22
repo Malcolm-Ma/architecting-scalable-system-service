@@ -14,8 +14,13 @@
     <dependencies>
         <dependency>
             <groupId>com.acs.elearn</groupId>
+            <artifactId>elearn-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.acs.elearn</groupId>
             <artifactId>elearn-main</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>

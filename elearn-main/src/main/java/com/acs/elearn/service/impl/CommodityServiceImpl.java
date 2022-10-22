@@ -23,7 +23,11 @@ public class CommodityServiceImpl implements CommodityService {
     CommodityRepository commodityRepository;
     UserServiceImpl userServiceImpl;
     CourseServiceImpl courseServiceImpl;
-
+    EsCommodityServiceImpl esCommodityServiceImpl;
+    @Override
+    public int importAll(){
+        return esCommodityServiceImpl.importAll();
+    }
     @Override
     public List<Commodity> searchCommodity(CommoditySearchRequest request){
         if (request.getPrice() == null && request.getStar() == null) {
@@ -54,8 +58,8 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public Commodity createCommodity(CommodityCreateRequest request){
-        try {
+    public String createCommodity(CommodityCreateRequest request){
+        try{
             User publishBy = userServiceImpl.getUserInfo(request.getUserId());
             List<CourseInformation> courseList = new ArrayList<>();
             int courseNum = request.getCourseId().toArray().length;
@@ -72,20 +76,24 @@ public class CommodityServiceImpl implements CommodityService {
             commodity.setCommoditySoldCnt(0);
             commodity.setCommodityStatus(request.getCommodityStatus());
             commodityRepository.save(commodity);
-            return commodity;
+            if(!esCommodityServiceImpl.createEsCommodity(commodity)) {
+                commodityRepository.delete(commodity);
+                return "Fail to create";
+            }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return "Create successfully";
     }
-    
+
     @Override
     public String updateCommodity(Commodity commodity) throws Exception {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if (curCommodity != null) {
             BeanUtil.copyProperties(commodity, curCommodity, CopyOptions.create().setIgnoreNullValue(true));
             commodityRepository.save(curCommodity);
+            esCommodityServiceImpl.updateEsCommodity(commodity);
             return "Add successfully";
         }
         else {
@@ -97,6 +105,10 @@ public class CommodityServiceImpl implements CommodityService {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if(curCommodity != null){
             commodityRepository.delete(curCommodity);
+            if(!esCommodityServiceImpl.deleteEsCommodity(commodity)) {
+                commodityRepository.save(curCommodity);
+                return "Fail to delete";
+            }
             return "Delete successfully";
         } else{
             throw new Exception("commodity is not existing");

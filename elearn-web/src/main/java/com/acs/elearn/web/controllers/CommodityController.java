@@ -22,6 +22,14 @@ public class CommodityController {
     @Autowired
     CommodityService commodityService;
 
+    @ApiOperation("Sync data with mysql")
+    @GetMapping("/data/sync")
+    @ResponseBody
+    public ResponseEntity<ResponseModel<Integer>> syncData() {
+        Integer res = commodityService.importAll();
+        return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
+    }
+
     @ApiOperation("Search commodity by keywords")
     @PostMapping("/search_commodity")
     @ResponseBody
@@ -39,8 +47,8 @@ public class CommodityController {
 
     @PostMapping(path = "/create_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<ResponseModel<Commodity>> createCommodity(CommodityCreateRequest request) {
-        Commodity res = commodityService.createCommodity(request);
+    ResponseEntity<ResponseModel<String>> createCommodity(CommodityCreateRequest request) {
+        String res = commodityService.createCommodity(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
