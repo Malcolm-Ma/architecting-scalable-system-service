@@ -81,6 +81,7 @@ public class CommodityServiceImpl implements CommodityService {
         }
         return "Create successfully";
     }
+
     @Override
     public String updateCommodity(Commodity commodity) throws Exception {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());

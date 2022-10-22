@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,6 +31,7 @@ public class UserActionTracing {
 
     @ManyToOne
     @JoinColumn(name = "commodity_id")
+    @JsonIgnore
     private Commodity commodity;
 
     @CreatedDate

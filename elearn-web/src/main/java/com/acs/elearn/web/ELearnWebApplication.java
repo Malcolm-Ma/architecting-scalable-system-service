@@ -1,18 +1,13 @@
-package com.acs.elearn.search;
+package com.acs.elearn.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * ELearn Search Application
- *
- * @author Mingze Ma
- */
 @SpringBootApplication(scanBasePackages = {"com.acs.elearn"})
-public class ELearnSearchApplication {
+public class ELearnWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ELearnSearchApplication.class, args);
+        SpringApplication.run(ELearnWebApplication.class, args);
     }
 
 }

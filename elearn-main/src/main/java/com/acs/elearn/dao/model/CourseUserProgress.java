@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.acs.elearn.dao.compositekeys.CourseProgressKey;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,6 +20,7 @@ public class CourseUserProgress {
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne

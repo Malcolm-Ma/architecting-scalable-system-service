@@ -31,6 +31,7 @@ public class CourseInformation implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "commodity_id")
+    @JsonIgnore
     private Commodity commodity;
 
     @OneToMany(mappedBy = "course")

@@ -2,11 +2,10 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.common.exception.UserNullException;
 import com.acs.elearn.dao.model.Commodity;
-import com.acs.elearn.dao.model.Role;
 import com.acs.elearn.dao.model.ShoppingCart;
 import com.acs.elearn.dao.model.User;
-import com.acs.elearn.dao.repositories.RoleRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.UserService;
 import com.acs.elearn.vo.AddUserInfoRequest;
@@ -18,20 +17,30 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     final UserRepository userRepository;
-    final RoleRepository roleRepository;
-
     final CartServiceImpl cartService;
 
 
-    public UserServiceImpl(CartServiceImpl cartService, UserRepository userRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(CartServiceImpl cartService, UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.cartService = cartService;
     }
 
     @Override
-    public User getUserInfo(String userId) {
-        return userRepository.findUserByUserId(userId);
+    public User getUserInfo(String userId) throws UserNullException {
+        User user = userRepository.findUserByUserId(userId);
+        if(user == null) {
+            throw new UserNullException("User doesn't exist.");
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserInfoByKcId(String kcId) throws UserNullException {
+        User user = userRepository.findUserByKeycloakId(kcId);
+        if(user == null) {
+            throw new UserNullException("User doesn't exist.");
+        }
+        return user;
     }
 
     @Override
@@ -42,17 +51,9 @@ public class UserServiceImpl implements UserService {
         if (curUser != null) {
             throw new Exception("Add failed, username already existed.");
         }
-        Role curRole;
-        if (requestBody.getUserRoleId() != null) {
-            curRole = roleRepository.findRoleByRoleId(Long.valueOf(requestBody.getUserRoleId()));
-        } else {
-            curRole = roleRepository.findRoleByRoleId(Long.valueOf("1"));
-        }
-        user.setUserRole(curRole);
         User res = userRepository.save(user);
         ShoppingCart test = cartService.addCart(res.getUserId());
         return user;
-
     }
 
     // update user's information

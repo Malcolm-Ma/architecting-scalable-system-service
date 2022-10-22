@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -27,6 +28,7 @@ public class Review implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "commodity_id")
+    @JsonIgnore
     private Commodity commodity;
 
     @ManyToOne
@@ -39,7 +41,6 @@ public class Review implements Serializable {
 
     @Column(name = "review_comment", columnDefinition = "TEXT")
     private String reviewComment;
-
 
     @Column(name = "review_star", nullable = false)
     private Double reviewStar;
