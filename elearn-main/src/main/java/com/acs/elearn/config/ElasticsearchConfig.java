@@ -15,10 +15,12 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.acs.elearn.dao.es.repository")
 @Configuration
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
-    @Value("${elasticsearch.host}")
+//    @Value("${elasticsearch.host}")
+    @Value("34.143.250.114")
     private String host;
 
-    @Value("${elasticsearch.port}")
+//    @Value("${elasticsearch.port}")
+    @Value("9200")
     private int port;
 
     @Value("${elasticsearch.connTimeout}")
@@ -36,7 +38,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
                 .connectedTo(host + ":" + port)
-                .usingSsl()
+//                .usingSsl()
                 .withConnectTimeout(connTimeout)
                 .withSocketTimeout(socketTimeout)
                 .build();

@@ -13,4 +13,6 @@ public interface EsCommodityRepository extends ElasticsearchRepository<EsCommodi
     Page<EsCommodity> findByCommodityNameOrCommodityIntroduction(String commodityName, String commodityIntroduction,
                                                                  Pageable pageable);
 
+    EsCommodity findByCommodityId(String esCommodityId);
+
 }

@@ -35,13 +35,13 @@ public class MinioVideoController {
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
-    @RequestMapping("/show")
+    @GetMapping("/show")
     @ResponseBody
     void showVideo(HttpServletResponse response,@NotNull @RequestParam String videoName) {
         minioService.showVideo(response,videoName);
     }
 
-    @RequestMapping("/remove")
+    @PostMapping("/remove")
     @ResponseBody
     void remove(@NotNull @RequestParam String videoName) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         minioService.removeVideo(videoName);

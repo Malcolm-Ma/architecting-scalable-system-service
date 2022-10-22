@@ -3,6 +3,7 @@ package com.acs.elearn.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.acs.elearn.dao.model.Commodity;
+import com.acs.elearn.dao.model.CourseInformation;
 import com.acs.elearn.dao.repositories.CommodityRepository;
 import com.acs.elearn.dao.es.model.EsCommodity;
 import com.acs.elearn.dao.es.repository.EsCommodityRepository;
@@ -61,6 +62,60 @@ public class EsCommodityServiceImpl implements EsCommodityService {
 
     private void deleteAll() {
         esCommodityRepository.deleteAll();
+    }
+
+    @Override
+    public boolean createEsCommodity(Commodity commodity){
+        List<String> courseIdList = new ArrayList<>();
+        List<CourseInformation> courseList = commodity.getCourseList();
+        int courseNum = courseList.size();
+        for(int i=0; i<courseNum; i++){
+            courseIdList.add(courseList.get(i).getCourseId());
+        }
+        EsCommodity esCommodity = new EsCommodity();
+        esCommodity.setCommodityId(commodity.getCommodityId());
+        esCommodity.setCourseIdList(courseIdList);
+        esCommodity.setCommodityName(commodity.getCommodityName());
+        esCommodity.setCommodityIntroduction(commodity.getCommodityIntroduction());
+        esCommodity.setCommodityStar(commodity.getCommodityStar());
+        esCommodity.setCommodityPrice(commodity.getCommodityPrice());
+        esCommodity.setCommodityDiscount(commodity.getCommodityDiscount());
+        esCommodity.setCommoditySoldCnt(commodity.getCommoditySoldCnt());
+        esCommodity.setCommodityStatus(commodity.getCommodityStatus());
+        esCommodityRepository.save(esCommodity);
+        if(esCommodityRepository.findById(commodity.getCommodityId()) == null)
+            return false;
+        return true;
+    }
+
+    @Override
+    public void updateEsCommodity(Commodity commodity) throws Exception {
+        EsCommodity curEsCommodity = esCommodityRepository.findByCommodityId(commodity.getCommodityId());
+        if (curEsCommodity != null) {
+            curEsCommodity.setCommodityName(commodity.getCommodityName());
+            curEsCommodity.setCommodityIntroduction(commodity.getCommodityIntroduction());
+            curEsCommodity.setCommodityStar(commodity.getCommodityStar());
+            curEsCommodity.setCommodityPrice(commodity.getCommodityPrice());
+            curEsCommodity.setCommodityDiscount(commodity.getCommodityDiscount());
+            curEsCommodity.setCommoditySoldCnt(commodity.getCommoditySoldCnt());
+            curEsCommodity.setCommodityStatus(commodity.getCommodityStatus());
+        }
+        else {
+            throw new Exception("esCommodity is not existing");
+        }
+    }
+
+    @Override
+    public boolean deleteEsCommodity(Commodity commodity) throws Exception {
+        EsCommodity esCurCommodity = esCommodityRepository.findByCommodityId(commodity.getCommodityId());
+        if(esCurCommodity != null){
+            esCommodityRepository.delete(esCurCommodity);
+            if(esCommodityRepository.findByCommodityId(commodity.getCommodityId()) != null)
+                return false;
+            return true;
+        } else{
+            throw new Exception("commodity is not existing");
+        }
     }
 
     @Override
