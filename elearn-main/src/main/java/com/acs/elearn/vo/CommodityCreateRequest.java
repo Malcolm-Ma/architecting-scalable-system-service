@@ -10,7 +10,11 @@ public class CommodityCreateRequest {
     @NotNull
     private String userId;
 
+    @NotNull
     private List<String> courseId;
+
+    @NotNull
+    private String commodityCover;
 
     private String commodityName;
 

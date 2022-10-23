@@ -58,7 +58,7 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_introduction", nullable = false, columnDefinition="TEXT")
     private String commodityIntroduction;
 
-    @Column(name = "commodity_star", nullable = false)
+    @Column(name = "commodity_star")
     private Double commodityStar;
 
     @Column(name = "commodity_price", nullable = false)

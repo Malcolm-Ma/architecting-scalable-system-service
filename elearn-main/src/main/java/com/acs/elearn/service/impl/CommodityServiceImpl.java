@@ -87,6 +87,7 @@ public class CommodityServiceImpl implements CommodityService {
             commodity.setPublishedBy(publishBy);
             commodity.setCourseList(courseList);
             commodity.setCommodityName(request.getCommodityName());
+            commodity.setCommodityCover(request.getCommodityCover());
             commodity.setCommodityIntroduction(request.getCommodityIntroduction());
             commodity.setCommodityPrice(request.getCommodityPrice());
             commodity.setCommodityDiscount(request.getCommodityDiscount());
