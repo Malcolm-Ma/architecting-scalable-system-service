@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 
 @RestController
-@RequestMapping(path = "/cart")
+@RequestMapping(path = "/api/cart")
 public class CartController {
     final CartService cartService;
 

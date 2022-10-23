@@ -18,7 +18,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
-@RequestMapping(path = "/minio/video")
+@RequestMapping(path = "/api/minio/video")
 public class MinioVideoController {
 
     final MinioVideoService minioService;

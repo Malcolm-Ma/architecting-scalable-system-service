@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/review")
+@RequestMapping(path = "/api/review")
 public class ReviewController {
     final ReviewService reviewService;
 

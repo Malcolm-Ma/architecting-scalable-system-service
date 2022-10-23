@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/minio/image")
+@RequestMapping(path="/api/minio/image")
 public class MinioImageController {
     final MinioImageService minioImageService;
 

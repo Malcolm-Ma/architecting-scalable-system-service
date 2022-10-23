@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/course")
+@RequestMapping(path = "/api/course")
 public class CourseController {
     final CourseService courseService;
 

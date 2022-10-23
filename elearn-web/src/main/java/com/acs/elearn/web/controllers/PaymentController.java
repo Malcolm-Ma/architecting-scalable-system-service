@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "pay")
+@RequestMapping(path = "/api/pay")
 public class PaymentController {
 
     final PaymentService paymentService;

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/commodity")
+@RequestMapping(path = "/api/commodity")
 public class CommodityController {
     final CommodityService commodityService;
 
