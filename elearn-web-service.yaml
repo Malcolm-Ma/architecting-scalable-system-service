@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app: elearn-web
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 8090
