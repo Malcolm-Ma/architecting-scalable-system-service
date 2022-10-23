@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "Search Controller")
-@RequestMapping("/api/search")
+@RequestMapping("/search")
 public class EsController {
 
     @Autowired
