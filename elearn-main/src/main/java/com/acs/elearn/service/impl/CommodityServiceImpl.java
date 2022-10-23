@@ -52,9 +52,10 @@ public class CommodityServiceImpl implements CommodityService {
     }
     @Override
     public List<Commodity> showCommodityInHomePage(Integer limit){ // show top 10 sales
-        return commodityRepository.findAll(
-                Sort.by(Sort.Direction.DESC, "commoditySoldCnt")
-        ).subList(0,limit);
+        List<Commodity> all = commodityRepository.findAll(
+                Sort.by(Sort.Direction.DESC, "commoditySoldCnt"));
+
+        return all.subList(0, limit > all.size() ? all.size() : limit);
     }
 
     @Override
