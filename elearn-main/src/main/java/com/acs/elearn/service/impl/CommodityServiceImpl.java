@@ -2,6 +2,9 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.service.CourseService;
+import com.acs.elearn.service.EsCommodityService;
+import com.acs.elearn.service.UserService;
 import com.acs.elearn.vo.CommodityCreateRequest;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.CourseInformation;
@@ -21,12 +24,15 @@ import java.util.List;
 public class CommodityServiceImpl implements CommodityService {
     @Autowired
     CommodityRepository commodityRepository;
-    UserServiceImpl userServiceImpl;
-    CourseServiceImpl courseServiceImpl;
-    EsCommodityServiceImpl esCommodityServiceImpl;
+    @Autowired
+    UserService userService;
+    @Autowired
+    CourseService courseService;
+    @Autowired
+    EsCommodityService esCommodityService;
     @Override
     public int importAll(){
-        return esCommodityServiceImpl.importAll();
+        return esCommodityService.importAll();
     }
     @Override
     public List<Commodity> searchCommodity(CommoditySearchRequest request){
@@ -58,13 +64,13 @@ public class CommodityServiceImpl implements CommodityService {
     }
 
     @Override
-    public String createCommodity(CommodityCreateRequest request){
+    public String createCommodity(CommodityCreateRequest request) throws Exception {
         try{
-            User publishBy = userServiceImpl.getUserInfo(request.getUserId());
+            User publishBy = userService.getUserInfo(request.getUserId());
             List<CourseInformation> courseList = new ArrayList<>();
             int courseNum = request.getCourseId().toArray().length;
             for(int i=0; i<courseNum; i++){
-                courseList.add( courseServiceImpl.getCourseInfo( request.getCourseId().get(i) ) );
+                courseList.add( courseService.getCourseInfo( request.getCourseId().get(i) ) );
             }
             Commodity commodity = new Commodity();
             commodity.setPublishedBy(publishBy);
@@ -76,13 +82,13 @@ public class CommodityServiceImpl implements CommodityService {
             commodity.setCommoditySoldCnt(0);
             commodity.setCommodityStatus(request.getCommodityStatus());
             commodityRepository.save(commodity);
-            if(!esCommodityServiceImpl.createEsCommodity(commodity)) {
+            if(!esCommodityService.createEsCommodity(commodity)) {
                 commodityRepository.delete(commodity);
                 return "Fail to create";
             }
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new Exception(e.getMessage());
         }
         return "Create successfully";
     }
@@ -93,7 +99,7 @@ public class CommodityServiceImpl implements CommodityService {
         if (curCommodity != null) {
             BeanUtil.copyProperties(commodity, curCommodity, CopyOptions.create().setIgnoreNullValue(true));
             commodityRepository.save(curCommodity);
-            esCommodityServiceImpl.updateEsCommodity(commodity);
+            esCommodityService.updateEsCommodity(commodity);
             return "Add successfully";
         }
         else {
@@ -105,7 +111,7 @@ public class CommodityServiceImpl implements CommodityService {
         Commodity curCommodity = commodityRepository.findByCommodityId(commodity.getCommodityId());
         if(curCommodity != null){
             commodityRepository.delete(curCommodity);
-            if(!esCommodityServiceImpl.deleteEsCommodity(commodity)) {
+            if(!esCommodityService.deleteEsCommodity(commodity)) {
                 commodityRepository.save(curCommodity);
                 return "Fail to delete";
             }

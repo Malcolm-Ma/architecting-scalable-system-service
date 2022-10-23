@@ -10,7 +10,7 @@ public interface CommodityService {
     int importAll();
     List<Commodity> searchCommodity(CommoditySearchRequest request);
     List<Commodity> showCommodityInHomePage(Integer limit);
-    String createCommodity(CommodityCreateRequest request); // add new commodity
+    String createCommodity(CommodityCreateRequest request) throws Exception; // add new commodity
     String updateCommodity(Commodity commodity) throws Exception; // update commodity information
     String deleteCommodity(Commodity commodity) throws Exception;
     Commodity getCommodityInfo(String commodityID);
