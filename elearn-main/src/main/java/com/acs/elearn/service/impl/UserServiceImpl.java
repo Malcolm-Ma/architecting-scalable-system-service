@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
     final UserRepository userRepository;
     final CartServiceImpl cartService;
 
-
     public UserServiceImpl(CartServiceImpl cartService, UserRepository userRepository) {
         this.userRepository = userRepository;
         this.cartService = cartService;

@@ -6,7 +6,7 @@ import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Review;
 import com.acs.elearn.dao.model.User;
-import com.acs.elearn.service.impl.ReviewServiceImpl;
+import com.acs.elearn.service.ReviewService;
 import com.acs.elearn.vo.AddReviewRequest;
 import com.acs.elearn.vo.UpdateReviewRequest;
 import com.acs.elearn.vo.UpdateUserInfoRequest;
@@ -20,9 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/review")
 public class ReviewController {
-    final ReviewServiceImpl reviewService;
+    final ReviewService reviewService;
 
-    public ReviewController(ReviewServiceImpl reviewService) {
+    public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
     }
 

@@ -13,9 +13,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CourseServiceImpl implements CourseService {
-    @Autowired
-    CourseInformationRepository courseInformationRepository;
-    CommodityRepository commodityRepository;
+    final CourseInformationRepository courseInformationRepository;
+    final CommodityRepository commodityRepository;
+
+    public CourseServiceImpl(
+            CourseInformationRepository courseInformationRepository,
+            CommodityRepository commodityRepository
+    ) {
+        this.courseInformationRepository = courseInformationRepository;
+        this.commodityRepository = commodityRepository;
+    }
+
     @Override
     public CourseInformation createCourse(CourseCreateRequest request){
         Commodity commodity = commodityRepository.findByCommodityId(request.getCommodityId());

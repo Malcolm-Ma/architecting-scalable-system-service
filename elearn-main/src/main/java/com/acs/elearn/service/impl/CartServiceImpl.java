@@ -7,6 +7,7 @@ import com.acs.elearn.dao.repositories.CommodityRepository;
 import com.acs.elearn.dao.repositories.ShoppingCartRepository;
 import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class CartServiceImpl implements CartService {
     final UserRepository userRepository;
     final CommodityRepository commodityRepository;
 
+    @Autowired
     public CartServiceImpl(ShoppingCartRepository shoppingCartRepository, UserRepository userRepository, CommodityRepository commodityRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
         this.userRepository = userRepository;

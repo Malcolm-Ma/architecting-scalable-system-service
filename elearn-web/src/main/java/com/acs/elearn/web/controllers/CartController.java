@@ -3,7 +3,7 @@ package com.acs.elearn.web.controllers;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.ShoppingCart;
-import com.acs.elearn.service.impl.CartServiceImpl;
+import com.acs.elearn.service.CartService;
 import com.acs.elearn.vo.CommodityIdUserIdRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
 @RestController
 @RequestMapping(path = "/cart")
 public class CartController {
-    final CartServiceImpl cartService;
+    final CartService cartService;
 
-    public CartController(CartServiceImpl cartService) {
+    public CartController(CartService cartService) {
         this.cartService = cartService;
     }
 

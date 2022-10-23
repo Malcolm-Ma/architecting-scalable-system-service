@@ -16,7 +16,6 @@ public class PaymentServiceImpl implements PaymentService {
     final TransactionRepository transactionRepository;
     final CommodityRepository commodityRepository;
     final UserRepository userRepository;
-
     final ShoppingCartRepository shoppingCartRepository;
 
     public PaymentServiceImpl(TransactionRepository transactionRepository, CommodityRepository commodityRepository, UserRepository userRepository, ShoppingCartRepository shoppingCartRepository) {

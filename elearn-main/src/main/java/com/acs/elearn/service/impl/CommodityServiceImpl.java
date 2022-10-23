@@ -22,14 +22,24 @@ import java.util.List;
 
 @Service
 public class CommodityServiceImpl implements CommodityService {
+    final CommodityRepository commodityRepository;
+    final UserService userService;
+    final CourseService courseService;
+    final EsCommodityService esCommodityService;
+
     @Autowired
-    CommodityRepository commodityRepository;
-    @Autowired
-    UserService userService;
-    @Autowired
-    CourseService courseService;
-    @Autowired
-    EsCommodityService esCommodityService;
+    public CommodityServiceImpl(
+            CommodityRepository commodityRepository,
+            UserService userService,
+            CourseService courseService,
+            EsCommodityService esCommodityService
+    ) {
+        this.commodityRepository = commodityRepository;
+        this.userService = userService;
+        this.courseService = courseService;
+        this.esCommodityService = esCommodityService;
+    }
+
     @Override
     public int importAll(){
         return esCommodityService.importAll();

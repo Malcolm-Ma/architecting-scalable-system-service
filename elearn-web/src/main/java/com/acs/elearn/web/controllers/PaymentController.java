@@ -4,7 +4,7 @@ package com.acs.elearn.web.controllers;
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Transaction;
-import com.acs.elearn.dao.model.User;
+import com.acs.elearn.service.PaymentService;
 import com.acs.elearn.service.impl.PaymentServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping(path = "pay")
 public class PaymentController {
 
-    final PaymentServiceImpl paymentService;
+    final PaymentService paymentService;
 
     public PaymentController(PaymentServiceImpl paymentService) {
         this.paymentService = paymentService;

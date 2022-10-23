@@ -28,11 +28,17 @@ import java.util.List;
 @Service
 public class EsCommodityServiceImpl implements EsCommodityService {
 
-    @Autowired
-    CommodityRepository commodityRepository;
+    final CommodityRepository commodityRepository;
 
-    @Autowired
-    EsCommodityRepository esCommodityRepository;
+    final EsCommodityRepository esCommodityRepository;
+
+    public EsCommodityServiceImpl(
+            CommodityRepository commodityRepository,
+            EsCommodityRepository esCommodityRepository
+    ) {
+        this.commodityRepository = commodityRepository;
+        this.esCommodityRepository = esCommodityRepository;
+    }
 
     @Override
     public int importAll() {

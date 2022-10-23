@@ -2,6 +2,7 @@ package com.acs.elearn.web.controllers;
 
 import com.acs.elearn.common.response.ResponseHandler;
 import com.acs.elearn.common.response.model.ResponseModel;
+import com.acs.elearn.service.MinioImageService;
 import com.acs.elearn.service.impl.MinioImageServiceImpl;
 import com.acs.elearn.vo.UploadImageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path="/minio/image")
 public class MinioImageController {
+    final MinioImageService minioImageService;
 
-
-    final MinioImageServiceImpl minioImageService;
-
-    public MinioImageController(MinioImageServiceImpl minioImageService) {
+    public MinioImageController(MinioImageService minioImageService) {
         this.minioImageService = minioImageService;
     }
 

@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/course")
 public class CourseController {
-    @Autowired
-    CourseService courseService;
+    final CourseService courseService;
 
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
     @PostMapping(path = "/create_course", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     ResponseEntity<ResponseModel<CourseInformation>> createCommodity(CourseCreateRequest request) {

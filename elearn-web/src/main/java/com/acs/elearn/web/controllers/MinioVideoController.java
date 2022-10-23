@@ -21,8 +21,11 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping(path = "/minio/video")
 public class MinioVideoController {
 
-    @Autowired
-    MinioVideoService minioService;
+    final MinioVideoService minioService;
+
+    public MinioVideoController(MinioVideoService minioService) {
+        this.minioService = minioService;
+    }
 
     /**
      * @param file form-data file

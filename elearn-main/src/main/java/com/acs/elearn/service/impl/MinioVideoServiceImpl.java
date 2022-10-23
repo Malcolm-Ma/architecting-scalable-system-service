@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Service
 public class MinioVideoServiceImpl implements MinioVideoService {
-    @Autowired
+    @Resource
     private MinioClient minioClient;
     @Resource
     private MinioProperties minioProperties;

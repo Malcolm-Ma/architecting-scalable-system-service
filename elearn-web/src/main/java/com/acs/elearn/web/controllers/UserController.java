@@ -8,10 +8,12 @@ import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Commodity;
 import com.acs.elearn.dao.model.User;
 import com.acs.elearn.dao.repositories.UserRepository;
+import com.acs.elearn.service.UserService;
 import com.acs.elearn.service.impl.UserServiceImpl;
 import com.acs.elearn.vo.AddUserInfoRequest;
 import com.acs.elearn.vo.GetAndUpdateUserInfoRequest;
 import com.acs.elearn.vo.UpdateUserInfoRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +26,12 @@ import java.util.List;
 public class UserController {
 
     final
-    UserServiceImpl userService;
-    final UserRepository userRepository;
+    UserService userService;
+    final
+    UserRepository userRepository;
 
-    public UserController(UserServiceImpl userService, UserRepository userRepository) {
+    @Autowired
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
     }
@@ -41,6 +45,8 @@ public class UserController {
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (UserNullException e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, null);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
 

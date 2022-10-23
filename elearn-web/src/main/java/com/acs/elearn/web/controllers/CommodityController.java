@@ -14,13 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/commodity")
 public class CommodityController {
-    @Autowired
-    CommodityService commodityService;
+    final CommodityService commodityService;
+
+    public CommodityController(CommodityService commodityService) {
+        this.commodityService = commodityService;
+    }
 
     @ApiOperation("Sync data with mysql")
     @GetMapping("/data/sync")
