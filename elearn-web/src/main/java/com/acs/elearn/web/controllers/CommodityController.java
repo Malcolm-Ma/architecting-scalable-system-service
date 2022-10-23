@@ -47,7 +47,7 @@ public class CommodityController {
 
     @PostMapping(path = "/create_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> createCommodity(CommodityCreateRequest request) {
+    ResponseEntity<ResponseModel<String>> createCommodity(CommodityCreateRequest request) throws Exception {
         String res = commodityService.createCommodity(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
