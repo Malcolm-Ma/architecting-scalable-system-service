@@ -5,7 +5,8 @@ metadata:
 spec:
   selector:
     app: elearn-web
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 80
       targetPort: 8090
+      protocol: TCP
