@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elearn-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elearn-web
+  template:
+    metadata:
+      labels:
+        app: elearn-web
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/PROJECT_ID/IMAGE:TAG
+          imagePullPolicy: Always

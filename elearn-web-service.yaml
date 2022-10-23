@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elearn-web
+spec:
+  selector:
+    app: elearn-web
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8090
