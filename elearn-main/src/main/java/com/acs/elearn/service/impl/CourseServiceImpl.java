@@ -30,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
         CourseInformation courseInformation = new CourseInformation();
         courseInformation.setCommodity(commodity);
         courseInformation.setCourseName(request.getCourseName());
-        courseInformation.setCourseResource(request.getCourseName());
+        courseInformation.setCourseResource(request.getCourseResource());
         courseInformation.setCourseSequence(request.getCourseSequence());
         courseInformationRepository.save(courseInformation);
         return courseInformation;

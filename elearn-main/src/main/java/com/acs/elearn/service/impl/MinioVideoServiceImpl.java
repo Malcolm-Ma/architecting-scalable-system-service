@@ -41,7 +41,7 @@ public class MinioVideoServiceImpl implements MinioVideoService {
                             .contentType(file.getContentType())
                             .build()
             );
-            return minioProperties.getEndpoint() + "/"+minioProperties.getBucketName()+"/" + uploadName;
+            return uploadName;
         } catch (Exception e) {
             e.printStackTrace();
             return "Upload Failed";
