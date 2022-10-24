@@ -13,7 +13,6 @@ env:
   WEB_IMAGE: elearn-web-image
   SEARCH_DEPLOYMENT_NAME: elearn-search
   SEARCH_IMAGE: elearn-search-image
-  TAG: 1.0.0
 
 jobs:
   setup-build-publish-deploy:
@@ -51,20 +50,20 @@ jobs:
           gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
       - name: Build Docker Image
         run: |-
-          docker build --tag "gcr.io/$PROJECT_ID/$WEB_IMAGE:$TAG" elearn-web/
-          docker build --tag "gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$TAG" elearn-search/
+          docker build --tag "gcr.io/$PROJECT_ID/$WEB_IMAGE:$GITHUB_SHA" elearn-web/
+          docker build --tag "gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$GITHUB_SHA" elearn-search/
       - name: Publish Docker Image to GCR
         run: |-
-          docker push "gcr.io/$PROJECT_ID/$WEB_IMAGE:$TAG"
-          docker push "gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$TAG"
+          docker push "gcr.io/$PROJECT_ID/$WEB_IMAGE:$GITHUB_SHA"
+          docker push "gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$GITHUB_SHA"
       - name: Set up Kustomize
         run: |-
           curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ./kustomize
       - name: Deploy Image to GKE cluster
         run: |-
-          ./kustomize edit set image gcr.io/PROJECT_ID/WEB_IMAGE:TAG=gcr.io/$PROJECT_ID/$WEB_IMAGE:$TAG
-          ./kustomize edit set image gcr.io/PROJECT_ID/SEARCH_IMAGE:TAG=gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$TAG
+          ./kustomize edit set image gcr.io/PROJECT_ID/WEB_IMAGE:TAG=gcr.io/$PROJECT_ID/$WEB_IMAGE:$GITHUB_SHA
+          ./kustomize edit set image gcr.io/PROJECT_ID/SEARCH_IMAGE:TAG=gcr.io/$PROJECT_ID/$SEARCH_IMAGE:$GITHUB_SHA
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$WEB_DEPLOYMENT_NAME
           kubectl rollout status deployment/$SEARCH_DEPLOYMENT_NAME
