@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
@@ -10,9 +11,6 @@ import java.math.BigInteger;
 @Entity
 @Table(name = "commodity_ranking")
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "commodity_rank")
 public class CommodityRanking {
 
     @Id
@@ -33,6 +31,7 @@ public class CommodityRanking {
 
     @OneToOne
     @JoinColumn( name = "commodity_id")
+    @JsonIgnoreProperties({"commodity_ranking"})
     private Commodity commodity;
 
 }

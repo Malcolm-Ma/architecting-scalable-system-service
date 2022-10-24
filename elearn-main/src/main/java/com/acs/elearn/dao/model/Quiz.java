@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,9 +15,6 @@ import java.time.LocalDateTime;
 @Table(name = "quiz")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "quiz_id")
 public class Quiz {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -26,10 +24,12 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnoreProperties({"quiz_list"})
     private CourseInformation course;
 
     @ManyToOne
     @JoinColumn(name = "quiz_type_code", nullable = false)
+    @JsonIgnoreProperties({"quiz_list"})
     private QuizType quiz_type;
 
     @Column(name = "quiz_question_resource", nullable = false)

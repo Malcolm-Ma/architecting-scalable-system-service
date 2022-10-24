@@ -1,5 +1,6 @@
 package com.acs.elearn.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -27,25 +28,8 @@ public class User {
             joinColumns = @JoinColumn(name = "buyer_id"),
             inverseJoinColumns = @JoinColumn(name = "commodity_id")
     )
+    @JsonIgnoreProperties({"user_list"})
     private List<Commodity> purchasedCommodities;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserActionTracing> userActionTracingList;
-
-    @OneToMany(mappedBy = "user")
-    private List<ReplyRecord> replyRecordList;
-
-    @OneToMany(mappedBy = "user")
-    private List<Transaction> transactionList;
-
-    @OneToMany(mappedBy = "user")
-    private List<CourseUserProgress> courseProgresses;
-
-    @OneToMany(mappedBy = "user")
-    private List<Review> reviewList;
-
-    @OneToMany(mappedBy = "publishedBy")
-    private List<Commodity> publishedCommodities;
 
     @ManyToMany
     @JoinTable(
@@ -55,7 +39,32 @@ public class User {
     )
     private List<Tag> tagList;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<UserActionTracing> userActionTracingList;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<ReplyRecord> replyRecordList;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Transaction> transactionList;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<CourseUserProgress> courseProgresses;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
+    private List<Review> reviewList;
+
+    @OneToMany(mappedBy = "publishedBy")
+    @JsonIgnoreProperties({"published_by"})
+    private List<Commodity> publishedCommodities;
+
     @OneToOne(mappedBy = "user")
+    @JsonIgnoreProperties({"user"})
     private ShoppingCart userShoppingCart;
 
     @Column(name = "user_username", nullable = false)
@@ -71,7 +80,6 @@ public class User {
     private String userLastname;
 
     @CreatedDate
-//    @Column(name = "user_created_time", nullable = false, updatable = false)
     @Column(name = "user_created_time",  updatable = false)
     private LocalDateTime userCreatedTime;
 

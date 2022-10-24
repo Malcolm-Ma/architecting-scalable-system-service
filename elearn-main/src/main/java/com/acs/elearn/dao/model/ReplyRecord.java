@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,9 +15,6 @@ import java.time.LocalDateTime;
 @Table(name = "reply_record")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "reply_id")
 public class ReplyRecord {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -26,10 +24,12 @@ public class ReplyRecord {
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
+    @JsonIgnoreProperties({"reply_record_list"})
     private TopicRecord topic;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"reply_record_list"})
     private User user;
 
     @Column(name = "reply_content", nullable = false, columnDefinition="TEXT")

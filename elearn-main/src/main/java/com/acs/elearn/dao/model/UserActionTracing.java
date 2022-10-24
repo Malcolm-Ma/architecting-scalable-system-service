@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,9 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "user_action_tracing")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "event_id")
 public class UserActionTracing {
 
     @Id
@@ -27,11 +25,12 @@ public class UserActionTracing {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"user_action_tracing_list"})
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "commodity_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"user_action_tracing_list"})
     private Commodity commodity;
 
     @CreatedDate

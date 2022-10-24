@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,9 +17,6 @@ import java.time.LocalDateTime;
 @Table(name = "review")
 @EntityListeners(AuditingEntityListener.class) // date
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "review_id")
 public class Review implements Serializable {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -28,11 +26,12 @@ public class Review implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "commodity_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"review_list"})
     private Commodity commodity;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"review_list"})
     private User user;
 
     @CreatedDate

@@ -1,6 +1,7 @@
 package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -15,9 +16,6 @@ import java.util.List;
 @Table(name = "transaction")
 @Data
 @EntityListeners(AuditingEntityListener.class) // date
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "transaction_id")
 public class Transaction {
     @Id
     @GenericGenerator(name="idGenerator", strategy="uuid") //generate 32length UUID
@@ -27,6 +25,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnoreProperties({"transaction_list"})
     private User user;
 
     @ManyToMany
@@ -35,6 +34,7 @@ public class Transaction {
             joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "commodity_id")
     )
+    @JsonIgnoreProperties({"transaction_list"})
     private List<Commodity> commodityList;
 
     @Column(name = "commodity_real_price", nullable = false, updatable = false)

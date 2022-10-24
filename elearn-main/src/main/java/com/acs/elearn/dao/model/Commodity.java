@@ -2,6 +2,7 @@ package com.acs.elearn.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -18,9 +19,6 @@ import java.util.List;
 @Table(name = "commodity")
 @Data
 @EntityListeners(AuditingEntityListener.class)
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "commodity_id")
 public class Commodity implements Serializable {
 
     @Id
@@ -29,26 +27,37 @@ public class Commodity implements Serializable {
     @Column(name = "commodity_id", nullable = false)
     private String commodityId;
 
+    @OneToOne(mappedBy = "commodity")
+    @JsonIgnoreProperties({"commodity"})
+    private CommodityRanking commodityRanking;
+
     @ManyToOne
     @JoinColumn(name = "published_by", referencedColumnName = "user_id")
+    @JsonIgnoreProperties({"published_commodities"})
     private User publishedBy;
 
     @OneToMany(mappedBy = "commodity")
+    @JsonIgnoreProperties({"commodity"})
     private List<UserActionTracing> userActionTracingList;
 
     @OneToMany(mappedBy = "commodity")
+    @JsonIgnoreProperties({"commodity"})
     private List<CourseInformation> courseList;
 
     @OneToMany(mappedBy = "commodity")
+    @JsonIgnoreProperties({"commodity"})
     private List<Review> reviewList;
 
-//    @ManyToMany(mappedBy = "commodityList")
-//    private List<Transaction> transactionList;
+    @ManyToMany(mappedBy = "commodityList")
+    @JsonIgnoreProperties({"commodity_list"})
+    private List<Transaction> transactionList;
 
     @ManyToMany(mappedBy = "purchasedCommodities")
+    @JsonIgnoreProperties({"purchased_commodities"})
     private List<User> userList;
 
     @ManyToMany(mappedBy = "cartCommodity")
+    @JsonIgnoreProperties({"cart_commodity"})
     private List<ShoppingCart> shoppingCartList;
 
     @Column(name = "commodity_name", nullable = false,length = 128)

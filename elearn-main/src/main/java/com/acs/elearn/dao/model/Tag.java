@@ -9,9 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tag")
 @Data
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "tag_id")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
