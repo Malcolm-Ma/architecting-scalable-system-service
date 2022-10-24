@@ -58,21 +58,21 @@ public class CommodityController {
 
     @PostMapping(path = "/update_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ResponseModel<String>> updateCommodity(Commodity commodity) throws Exception {
+    public ResponseEntity<ResponseModel<String>> updateCommodity(@RequestBody Commodity commodity) throws Exception {
         String res = commodityService.updateCommodity(commodity);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @PostMapping(path = "/delete_commodity", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> deleteCommodity(Commodity commodity) throws Exception {
+    ResponseEntity<ResponseModel<String>> deleteCommodity(@RequestBody Commodity commodity) throws Exception {
         String res = commodityService.deleteCommodity(commodity);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @GetMapping(path = "/get_commodity_info", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-     ResponseEntity<ResponseModel<Commodity>> getCommodityInfo(String commodityID) {
+     ResponseEntity<ResponseModel<Commodity>> getCommodityInfo(@RequestParam String commodityID) {
         Commodity res = commodityService.getCommodityInfo(commodityID);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
