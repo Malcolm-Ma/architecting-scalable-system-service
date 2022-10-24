@@ -10,7 +10,7 @@ public interface CartService {
 
     String addCommodityToCart(String commodityId, String userId) throws Exception;
 
-    String deleteCommodityFromCart(String commodityId, String cartId) throws Exception;
+    String deleteCommodityFromCart(String commodityId, String userId) throws Exception;
 
 
 }

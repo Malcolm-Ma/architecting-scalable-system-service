@@ -63,8 +63,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public String deleteCommodityFromCart(String commodityId, String cartId) throws Exception {
-        ShoppingCart newCart = shoppingCartRepository.findShoppingCartByCartId(cartId);
+    public String deleteCommodityFromCart(String commodityId, String userId) throws Exception {
+        User newUser = userRepository.findUserByUserId(userId);
+        ShoppingCart newCart = newUser.getUserShoppingCart();
         Commodity chosenCommodity = commodityRepository.findByCommodityId(commodityId);
         List<Commodity> newCommodity = newCart.getCartCommodity();
         if (newCommodity.contains(chosenCommodity)) {

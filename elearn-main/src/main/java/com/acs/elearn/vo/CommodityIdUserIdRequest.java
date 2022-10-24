@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 public class CommodityIdUserIdRequest {
 
     @NotNull
-    private String CommodityId;
+    private String commodityId;
 
     @NotNull
-    private String UserId;
+    private String userId;
 }
