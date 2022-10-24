@@ -17,6 +17,6 @@ public class CheckController {
     @ResponseBody
     ResponseEntity<ResponseModel<String>> get() {
         // test
-        return ResponseHandler.generateResponse("Health Check Success", HttpStatus.OK, null);
+        return ResponseHandler.generateResponse("Health Check Success.Test", HttpStatus.OK, null);
     }
 }
