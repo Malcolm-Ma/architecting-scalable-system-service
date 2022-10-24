@@ -49,6 +49,9 @@ public class MinioImageServiceImpl implements MinioImageService {
         );
         // get url
         String url = minioProperties.getEndpoint() + "/"+minioProperties.getBucketName()+"/" + fileName;
+        if (id.equals("")) {
+            return url;
+        }
         // save into database
         if (imageType == UserTypeEnum.USER ) {
             User curUser = userRepository.findUserByUserId(id);
