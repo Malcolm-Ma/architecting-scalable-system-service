@@ -16,6 +16,7 @@ public class CheckController {
     @GetMapping(path = "/")
     @ResponseBody
     ResponseEntity<ResponseModel<String>> get() {
+        // test
         return ResponseHandler.generateResponse("Health Check Success", HttpStatus.OK, null);
     }
 }
