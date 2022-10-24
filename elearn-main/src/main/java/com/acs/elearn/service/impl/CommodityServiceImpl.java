@@ -2,6 +2,7 @@ package com.acs.elearn.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.acs.elearn.dao.repositories.UserRepository;
 import com.acs.elearn.service.CourseService;
 import com.acs.elearn.service.EsCommodityService;
 import com.acs.elearn.service.UserService;
@@ -26,15 +27,18 @@ public class CommodityServiceImpl implements CommodityService {
     final UserService userService;
     final CourseService courseService;
     final EsCommodityService esCommodityService;
+    final UserRepository userRepository;
 
     @Autowired
     public CommodityServiceImpl(
             CommodityRepository commodityRepository,
+            UserRepository userRepository,
             UserService userService,
             CourseService courseService,
             EsCommodityService esCommodityService
     ) {
         this.commodityRepository = commodityRepository;
+        this.userRepository = userRepository;
         this.userService = userService;
         this.courseService = courseService;
         this.esCommodityService = esCommodityService;
@@ -94,6 +98,10 @@ public class CommodityServiceImpl implements CommodityService {
             commodity.setCommoditySoldCnt(0);
             commodity.setCommodityStatus(request.getCommodityStatus());
             commodityRepository.save(commodity);
+            List<Commodity> currComList = publishBy.getPublishedCommodities();
+            currComList.add(commodity);
+            publishBy.setPublishedCommodities(currComList);
+            userRepository.save(publishBy);
             if(!esCommodityService.createEsCommodity(commodity)) {
                 commodityRepository.delete(commodity);
                 return "Fail to create";
