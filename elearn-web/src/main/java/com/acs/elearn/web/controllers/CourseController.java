@@ -23,26 +23,26 @@ public class CourseController {
     }
     @PostMapping(path = "/create_course", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<ResponseModel<CourseInformation>> createCommodity(CourseCreateRequest request) {
+    ResponseEntity<ResponseModel<CourseInformation>> createCommodity(@RequestBody CourseCreateRequest request) {
         CourseInformation res = courseService.createCourse(request);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @PostMapping(path = "/update_course", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<ResponseModel<String>> updateCommodity(CourseInformation course) throws Exception {
+    public ResponseEntity<ResponseModel<String>> updateCommodity(@RequestBody CourseInformation course) throws Exception {
         String res = courseService.updateCourse(course);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
 
     @PostMapping(path = "/delete_course", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<ResponseModel<String>> deleteCommodity(CourseInformation course) throws Exception {
+    ResponseEntity<ResponseModel<String>> deleteCommodity(@RequestBody CourseInformation course) throws Exception {
         String res = courseService.deleteCourse(course);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
     @GetMapping(path = "/get_course_info", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseModel<CourseInformation>> getCourseInfo(String courseId) {
+    public ResponseEntity<ResponseModel<CourseInformation>> getCourseInfo(@RequestParam String courseId) {
         CourseInformation res = courseService.getCourseInfo(courseId);
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
