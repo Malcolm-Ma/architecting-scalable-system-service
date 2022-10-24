@@ -48,7 +48,7 @@ public class MinioImageServiceImpl implements MinioImageService {
                         .build()
         );
         // get url
-        String url = minioProperties.getEndpoint() + "/"+minioProperties.getBucketName()+"/" + fileName;
+        String url = minioProperties.getEndpoint() + minioProperties.getBucketName()+"/" + fileName;
         if (id.equals("")) {
             return url;
         }
