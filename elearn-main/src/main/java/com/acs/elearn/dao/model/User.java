@@ -37,6 +37,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "user_hobby")
     )
+    @JsonIgnoreProperties({"user_list"})
     private List<Tag> tagList;
 
     @OneToMany(mappedBy = "user")

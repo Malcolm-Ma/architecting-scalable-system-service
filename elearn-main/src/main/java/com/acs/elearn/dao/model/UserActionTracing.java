@@ -25,7 +25,17 @@ public class UserActionTracing {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"user_action_tracing_list"})
+    @JsonIgnoreProperties({
+            "published_commodities",
+            "purchased_commodities",
+            "user_shopping_cart",
+            "user_action_tracing_list",
+            "reply_record_list",
+            "transaction_list",
+            "course_progresses",
+            "review_list",
+            "tag_list"
+    })
     private User user;
 
     @ManyToOne

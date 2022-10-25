@@ -33,7 +33,17 @@ public class Commodity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "published_by", referencedColumnName = "user_id")
-    @JsonIgnoreProperties({"published_commodities"})
+    @JsonIgnoreProperties({
+            "published_commodities",
+            "purchased_commodities",
+            "user_shopping_cart",
+            "user_action_tracing_list",
+            "reply_record_list",
+            "transaction_list",
+            "course_progresses",
+            "review_list",
+            "tag_list"
+    })
     private User publishedBy;
 
     @OneToMany(mappedBy = "commodity")
@@ -41,7 +51,11 @@ public class Commodity implements Serializable {
     private List<UserActionTracing> userActionTracingList;
 
     @OneToMany(mappedBy = "commodity")
-    @JsonIgnoreProperties({"commodity"})
+    @JsonIgnoreProperties({
+            "commodity",
+            "quiz_list",
+            "course_progresses"
+    })
     private List<CourseInformation> courseList;
 
     @OneToMany(mappedBy = "commodity")
