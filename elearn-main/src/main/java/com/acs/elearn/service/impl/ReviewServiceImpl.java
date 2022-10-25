@@ -43,6 +43,16 @@ public class ReviewServiceImpl implements ReviewService {
         curReview.setCommodity(curCommodity);
         curReview.setReviewComment(requestBody.getReviewComment());
         curReview.setReviewStar(requestBody.getReviewStar());
+
+        List<Review> reviewList = reviewRepository.findReviewsByCommodity(curCommodity);
+        Integer reviewCnt = reviewList.size();
+        Double allStar = 0.0;
+        for (Review review : reviewList) {
+            allStar += review.getReviewStar();
+        }
+        Double newStar = (allStar + requestBody.getReviewStar()) / (reviewCnt+1);
+        curCommodity.setCommodityStar(newStar);
+        commodityRepository.save(curCommodity);
         return reviewRepository.save(curReview);
     }
 
