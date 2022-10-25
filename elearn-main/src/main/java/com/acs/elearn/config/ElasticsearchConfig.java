@@ -36,7 +36,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
                 .connectedTo(host + ":" + port)
-//                .usingSsl()
+                //.usingSsl()
                 .withConnectTimeout(connTimeout)
                 .withSocketTimeout(socketTimeout)
                 .build();
