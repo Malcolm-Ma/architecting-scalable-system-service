@@ -6,6 +6,7 @@ import com.acs.elearn.common.response.model.ResponseModel;
 import com.acs.elearn.dao.model.Transaction;
 import com.acs.elearn.service.PaymentService;
 import com.acs.elearn.service.impl.PaymentServiceImpl;
+import com.acs.elearn.vo.PaymentCartIdRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,9 @@ public class PaymentController {
 
     @PostMapping(path = "/transaction")
     @ResponseBody
-    ResponseEntity<ResponseModel<Transaction>> createTransaction(@NotNull @RequestParam String cartId) {
+    ResponseEntity<ResponseModel<Transaction>> createTransaction(@NotNull @RequestBody PaymentCartIdRequest body) {
         try {
+            String cartId = body.getCartId();
             Transaction res = paymentService.createTransaction(cartId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
         } catch (Exception e) {
