@@ -38,7 +38,7 @@ public class EsController {
     @ApiOperation("Search commodity by keywords")
     @PostMapping("/commodity")
     @ResponseBody
-    public ResponseEntity<ResponseModel<Page<EsCommodity>>> searchCommodity(SearchCommodityRequest request) {
+    public ResponseEntity<ResponseModel<Page<EsCommodity>>> searchCommodity(@RequestBody SearchCommodityRequest request) {
         Page<EsCommodity> res = esCommodityService.searchByKeywords(request.getKeyword());
         return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
     }
