@@ -1,11 +1,17 @@
 from sqlalchemy import create_engine
 import sys
 
-db_remote_url = "uogyy5pqikn9er6i:K7g1mGLwObOHsX6AiBt@bheh1wym7xihu29rxgvj-mysql.services.clever-cloud.com:20982" \
-                "/bheh1wym7xihu29rxgvj?charset=utf8mb4"
+# db_remote_url = "uogyy5pqikn9er6i:K7g1mGLwObOHsX6AiBt@bheh1wym7xihu29rxgvj-mysql.services.clever-cloud.com:20982" \
+#                 "/bheh1wym7xihu29rxgvj?charset=utf8mb4"
+#
+# db_local_url = "root:root@localhost:3306/elearn"
+
+# jdbc:mysql://elearnusername:elearnpassword@34.126.102.68:3306/elearn-web
+
+db_remote_url = "elearnusername:elearnpassword@34.126.102.68:3306" \
+                "/elearn-web?charset=utf8mb4"
 
 db_local_url = "root:root@localhost:3306/elearn"
-
 
 def connect_db():
     db_url = db_remote_url
