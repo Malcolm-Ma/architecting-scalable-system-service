@@ -25,7 +25,7 @@ public class PaymentController {
 
     @PostMapping(path = "/transaction")
     @ResponseBody
-    ResponseEntity<ResponseModel<Transaction>> createTransaction(@NotNull @RequestBody String cartId) {
+    ResponseEntity<ResponseModel<Transaction>> createTransaction(@NotNull @RequestParam String cartId) {
         try {
             Transaction res = paymentService.createTransaction(cartId);
             return ResponseHandler.generateResponse("success", HttpStatus.OK, res);
