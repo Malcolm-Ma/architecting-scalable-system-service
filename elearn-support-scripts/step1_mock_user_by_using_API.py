@@ -2,6 +2,7 @@ import hashlib
 import requests
 from faker import Faker
 import random
+import datetime
 
 
 def mock_user_data(user_nums, user_add_url):
@@ -27,14 +28,16 @@ def mock_user_data(user_nums, user_add_url):
         # data_json = json.dumps(data,ensure_ascii=False)
         # x = requests.post(user_add_url, json=data_json)
     print("finish mock")
+    now_time = datetime.datetime.now()
+    print("Now time is {}".format(now_time))
     for i in range(user_nums):
         x = requests.post(user_add_url, json=all_data[i], stream=True)
-        print(i)
+        print("The time is {},and it take {}".format(i,datetime.datetime.now()-now_time))
 
 
 def run_step1():
-    mock_user_data(100, 'http://localhost:8090/user/add')
-    mock_user_data(100, 'http://localhost:8090/user/add')
+    mock_user_data(100, 'http://elearnteam3.com/api/user/add')
+    mock_user_data(100, 'http://elearnteam3.com/api/user/add')
 
 
 if __name__ == '__main__':
