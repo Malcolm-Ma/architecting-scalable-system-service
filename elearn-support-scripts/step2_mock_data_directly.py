@@ -176,6 +176,6 @@ def run_step2():
 
 
 if __name__ == '__main__':
-    run_step2()
-    # user_avatar(merchant_id)
-    # user_avatar(buyer_id)
+    # run_step2()
+    user_avatar(merchant_id)
+    user_avatar(buyer_id)
