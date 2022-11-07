@@ -16,3 +16,24 @@ spec:
         - name: app
           image: gcr.io/PROJECT_ID/WEB_IMAGE:TAG
           imagePullPolicy: Always
+          env:
+            - name: MYSQL_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: dbusername
+            - name: MYSQL_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: dbpassword
+            - name: MINIO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: minioaccesskey
+            - name: MINIO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secret
+                  key: miniosecretkey
