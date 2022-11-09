@@ -13,7 +13,7 @@
 
 ## Team members
 
-- @Malcolm-Ma
-- @Trekker-one
-- @mororolan
-- @SherryLiHj
+- [Mingze Ma](https://github.com/Malcolm-Ma)
+- [Yuzhe Huang](Trekker-one)
+- [Rui Lan](mororolan)
+- [Hongjie Li](SherryLiHj)
