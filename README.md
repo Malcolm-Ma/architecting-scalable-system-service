@@ -2,7 +2,7 @@
 
 **Back End Repository**
 
-*A **team project** for Module of **Architecting Scalable System** in National University of Singapore*
+*A **team project** for **Architecting Scalable System** Module in National University of Singapore*
 
 ## Code Structure
 
@@ -16,4 +16,4 @@
 - [Mingze Ma](https://github.com/Malcolm-Ma)
 - [Yuzhe Huang](https://github.com/Trekker-one)
 - [Rui Lan](https://github.com/mororolan)
-- [Hongjie Li](/SherryLiHj)
+- [Hongjie Li](https://github.com/SherryLiHj)
