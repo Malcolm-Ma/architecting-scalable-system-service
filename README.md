@@ -11,3 +11,9 @@
 - [elearn-config](elearn-config): Module for carrying generic configuration information
 - [elearn-search](elearn-search): Web service controller layer for ES Implementation (Currently deprecated)
 
+## Team members
+
+- @Malcolm-Ma
+- @Trekker-one
+- @mororolan
+- @SherryLiHj
