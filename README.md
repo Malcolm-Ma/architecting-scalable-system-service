@@ -14,6 +14,6 @@
 ## Team members
 
 - [Mingze Ma](https://github.com/Malcolm-Ma)
-- [Yuzhe Huang](Trekker-one)
-- [Rui Lan](mororolan)
-- [Hongjie Li](SherryLiHj)
+- [Yuzhe Huang](https://github.com/Trekker-one)
+- [Rui Lan](https://github.com/mororolan)
+- [Hongjie Li](/SherryLiHj)
